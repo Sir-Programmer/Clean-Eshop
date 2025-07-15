@@ -1,8 +1,9 @@
-﻿using Shop.Domain.UserAgg.Enums;
+﻿using Common.Domain;
+using Shop.Domain.UserAgg.Enums;
 
 namespace Shop.Domain.UserAgg;
 
-public class UserWallet
+public class UserWallet : BaseEntity
 {
     public UserWallet(int price, WalletType type, string description, bool isFinally, DateTime finallyDate)
     {
