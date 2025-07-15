@@ -12,6 +12,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shop.Query", "Shop\Shop.Que
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shop.Presentation.Facade", "Shop\Shop.Presentation.Facade\Shop.Presentation.Facade.csproj", "{514781FE-7208-4225-8715-55489E5D00C5}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{FC20EE0E-0C55-41D8-90A7-16CAE8838003}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common.Domain", "Common\Common.Domain\Common.Domain.csproj", "{B63517C0-59C1-404A-BCD6-00932391B26E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -23,6 +27,7 @@ Global
 		{23AEB2C0-6B9E-44B6-BD91-A9A66F9BBC24} = {1A29B038-AED8-4E48-83E3-F698D565A4F0}
 		{2C472A21-FE7A-4F1E-85B6-06C3A2DA5FEF} = {1A29B038-AED8-4E48-83E3-F698D565A4F0}
 		{514781FE-7208-4225-8715-55489E5D00C5} = {1A29B038-AED8-4E48-83E3-F698D565A4F0}
+		{B63517C0-59C1-404A-BCD6-00932391B26E} = {FC20EE0E-0C55-41D8-90A7-16CAE8838003}
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{AAED39BF-DD39-494B-BE7F-00066D49FF7C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -45,5 +50,9 @@ Global
 		{514781FE-7208-4225-8715-55489E5D00C5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{514781FE-7208-4225-8715-55489E5D00C5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{514781FE-7208-4225-8715-55489E5D00C5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B63517C0-59C1-404A-BCD6-00932391B26E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B63517C0-59C1-404A-BCD6-00932391B26E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B63517C0-59C1-404A-BCD6-00932391B26E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B63517C0-59C1-404A-BCD6-00932391B26E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
