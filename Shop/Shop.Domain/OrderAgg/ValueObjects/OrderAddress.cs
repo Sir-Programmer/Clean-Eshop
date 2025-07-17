@@ -1,4 +1,4 @@
-﻿using Common.Domain;
+﻿using Fluxera.ValueObject;
 
 namespace Shop.Domain.OrderAgg.ValueObjects;
 
@@ -10,7 +10,7 @@ public class OrderAddress(
     string postalAddress,
     string phoneNumber,
     string nationalId)
-    : ValueObject
+    : ValueObject<OrderAddress>
 {
     public string Province { get; private set; } = province;
     public string City { get; private set; } = city;
