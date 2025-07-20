@@ -2,7 +2,7 @@
 
 public enum Permission
 {
-    AdminPanel,
+    PanelAdmin,
     EditProfile,
     ChangePassword
 }
