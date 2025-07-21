@@ -1,8 +1,9 @@
-﻿using Common.Domain.Exceptions;
+﻿using Common.Domain;
+using Common.Domain.Exceptions;
 
 namespace Shop.Domain.SiteEntities.Slider;
 
-public class Slider
+public class Slider : BaseEntity
 {
     public Slider(string title, string url, string imageName)
     {
@@ -23,6 +24,11 @@ public class Slider
         Url = url;
         ImageName = imageName;
         IsActive = isActive;
+    }
+
+    public void SetImageName(string imageName)
+    {
+        ImageName = imageName;
     }
 
     public void Activate()
