@@ -1,9 +1,10 @@
-﻿using Common.Domain.Exceptions;
+﻿using Common.Domain;
+using Common.Domain.Exceptions;
 using Shop.Domain.SiteEntities.Banner.Enums;
 
 namespace Shop.Domain.SiteEntities.Banner;
 
-public class Banner
+public class Banner : BaseEntity
 {
     public Banner(string url, string imageName, BannerPosition bannerPosition)
     {
@@ -22,6 +23,11 @@ public class Banner
         Url = url;
         ImageName = imageName;
         BannerPosition = bannerPosition;
+    }
+    
+    public void SetImageName(string imageName)
+    {
+        ImageName = imageName;
     }
 
     private void Guard(string url, string imageName)
