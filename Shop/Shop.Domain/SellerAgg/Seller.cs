@@ -38,6 +38,7 @@ public class Seller : AggregateRoot
     {
         if (Inventories.Any(p => p.ProductId == inventory.ProductId))
             throw new InvalidDomainDataException("این محصول قبلا ثبت شده است");
+        inventory.SellerId = UserId;
         Inventories.Add(inventory);
     }
 
