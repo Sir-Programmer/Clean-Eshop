@@ -14,7 +14,16 @@ public class Seller : AggregateRoot
         ShopName = shopName;
         NationalId = nationalId;
         Status = SellerStatus.Pending;
+
+        Inventories = [];
     }
+    
+    public Guid UserId { get; private set; }
+    public string ShopName { get; private set; }
+    public string NationalId { get; private set; }
+    public List<SellerInventory> Inventories { get; private set; }
+    public SellerStatus Status { get; private set; }
+    public DateTime LastUpdate { get; private set; }
 
     public void ChangeStatus(SellerStatus status)
     {
@@ -66,13 +75,6 @@ public class Seller : AggregateRoot
         if (currentInventory == null) throw new InvalidDomainDataException("محصول مورد نظر یافت نشد");
         currentInventory.DeActivate();
     }
-
-    public Guid UserId { get; private set; }
-    public string ShopName { get; private set; }
-    public string NationalId { get; private set; }
-    public List<SellerInventory> Inventories { get; private set; }
-    public SellerStatus Status { get; private set; }
-    public DateTime LastUpdate { get; private set; }
 
     private void Guard(string shopName, string nationalId, ISellerDomainService sellerDomainService)
     {
