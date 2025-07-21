@@ -17,6 +17,10 @@ public class Product : AggregateRoot
         ImageName = imageName;
         SeoData = seoData;
         CategoryIds = categoryIds;
+
+        CategoryIds = [];
+        Images = [];
+        Specifications = [];
     }
 
     public string Title { get; private set; }
