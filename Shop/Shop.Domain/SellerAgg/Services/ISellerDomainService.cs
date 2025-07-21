@@ -2,5 +2,5 @@
 
 public interface ISellerDomainService
 {
-    bool IsNationalIdExistInDb(string nationalId);
+    bool IsNationalIdExist(string nationalId);
 }

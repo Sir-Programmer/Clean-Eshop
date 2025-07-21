@@ -9,8 +9,7 @@ public class Seller : AggregateRoot
 {
     public Seller(Guid userId, string shopName, string nationalId, ISellerDomainService sellerDomainService)
     {
-        Guard(shopName, nationalId);
-        if (sellerDomainService.IsNationalIdExistInDb(nationalId)) throw new InvalidDomainDataException("کد ملی قبلا ثبت شده است");
+        Guard(shopName, nationalId, sellerDomainService);
         UserId = userId;
         ShopName = shopName;
         NationalId = nationalId;
@@ -25,9 +24,7 @@ public class Seller : AggregateRoot
 
     public void Edit(string shopName, string nationalId, ISellerDomainService sellerDomainService)
     {
-        Guard(shopName, nationalId);
-        if (NationalId != nationalId)
-            if (sellerDomainService.IsNationalIdExistInDb(nationalId)) throw new InvalidDomainDataException("کد ملی قبلا ثبت شده است");
+        Guard(shopName, nationalId, sellerDomainService);
         ShopName = shopName;
         NationalId = nationalId;
         Status = SellerStatus.Pending;
@@ -77,11 +74,14 @@ public class Seller : AggregateRoot
     public SellerStatus Status { get; private set; }
     public DateTime LastUpdate { get; private set; }
 
-    private void Guard(string shopName, string nationalId)
+    private void Guard(string shopName, string nationalId, ISellerDomainService sellerDomainService)
     {
         NullOrEmptyDomainException.CheckString(shopName, nameof(shopName));
         NullOrEmptyDomainException.CheckString(nationalId, nameof(nationalId));
         if (!nationalId.IsValidIranianNationalId())
             throw new InvalidDomainDataException("کد ملی نامعتبر است");
+        
+        if (NationalId != nationalId)
+            if (sellerDomainService.IsNationalIdExist(nationalId)) throw new InvalidDomainDataException("کد ملی قبلا ثبت شده است");
     }
 }

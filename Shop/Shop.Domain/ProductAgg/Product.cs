@@ -1,5 +1,6 @@
 ﻿using Common.Domain;
 using Common.Domain.Exceptions;
+using Common.Domain.Utils;
 using Common.Domain.ValueObjects;
 using Shop.Domain.ProductAgg.Services;
 
@@ -11,7 +12,7 @@ public class Product : AggregateRoot
     {
         Guard(title, slug, description, imageName, productDomainService);
         Title = title;
-        Slug = slug;
+        Slug = slug.ToSlug();
         Description = description;
         ImageName = imageName;
         SeoData = seoData;
@@ -31,7 +32,7 @@ public class Product : AggregateRoot
     {
         Guard(title, slug, description, imageName, productDomainService);
         Title = title;
-        Slug = slug;
+        Slug = slug.ToSlug();
         Description = description;
         ImageName = imageName;
         SeoData = seoData;
@@ -74,8 +75,8 @@ public class Product : AggregateRoot
         NullOrEmptyDomainException.CheckString(description, nameof(description));
         NullOrEmptyDomainException.CheckString(imageName, nameof(imageName));
 
-        if (Slug != slug)
-            if (productDomainService.IsSlugExistInDb(slug))
+        if (Slug != slug.ToSlug())
+            if (productDomainService.IsSlugExist(slug.ToSlug()))
                 throw new SlugDuplicatedException();
     }
 }

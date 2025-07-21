@@ -2,5 +2,5 @@
 
 public interface IProductDomainService
 {
-    bool IsSlugExistInDb(string slug);
+    bool IsSlugExist(string slug);
 }
