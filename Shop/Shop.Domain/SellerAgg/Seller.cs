@@ -48,6 +48,13 @@ public class Seller : AggregateRoot
         currentInventory.Edit(count, price, isActive, discountPercentage);
     }
 
+    public void ApplyDiscountPercentageToInventory(Guid inventoryId, int discountPercentage)
+    {
+        var currentInventory = Inventories.FirstOrDefault(p => p.Id == inventoryId);
+        if (currentInventory == null) throw new InvalidDomainDataException("محصول مورد نظر یافت نشد");
+        currentInventory.ApplyDiscountPercentage(discountPercentage);
+    }
+
     public void ActiveInventory(Guid inventoryId)
     {
         var currentInventory = Inventories.FirstOrDefault(p => p.Id == inventoryId);

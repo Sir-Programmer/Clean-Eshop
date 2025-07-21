@@ -7,7 +7,8 @@ public class SellerInventory : BaseEntity
 {
     public SellerInventory(Guid productId, int count, int price, bool isActive, int? discountPercentage = null)
     {
-        Guard(count, price, discountPercentage);
+        Guard(count, price);
+        DiscountGuard(discountPercentage);
         ProductId = productId;
         Count = count;
         Price = price;
@@ -31,19 +32,30 @@ public class SellerInventory : BaseEntity
         IsActive = false;
     }
 
+    public void ApplyDiscountPercentage(int discountPercentage)
+    {
+        DiscountGuard(discountPercentage);
+        DiscountPercentage = discountPercentage;
+    }
+
     public void Edit(int count, int price, bool isActive, int? discountPercentage)
     {
-        Guard(count, price, discountPercentage);
+        Guard(count, price);
+        DiscountGuard(discountPercentage);
         Count = count;
         Price = price;
         IsActive = isActive;
         DiscountPercentage = discountPercentage;
     }
-
-    private void Guard(int count, int price, int? discountPercentage = null)
+    
+    private void DiscountGuard(int? discountPercentage)
+    {
+        if (discountPercentage is > 70) throw new InvalidDomainDataException("تخفیف نمیتواند بیشتر از 70 درصد باشد");
+    }
+    
+    private void Guard(int count, int price)
     {
         if (count < 0) throw new InvalidDomainDataException("تعداد نمیتواند کمتر از 10 باشد");
         if (price < 10000) throw new InvalidDomainDataException("مبلغ نمیتواند کمتر از 10,000 تومان باشد");
-        if (discountPercentage is > 70) throw new InvalidDomainDataException("تخفیف نمیتواند بیشتر از 70 درصد باشد");
     }
 }
