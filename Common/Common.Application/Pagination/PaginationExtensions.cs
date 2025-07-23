@@ -2,7 +2,7 @@
 
 public static class PaginationExtensions
 {
-    public static PaginatedResult<T> ToPaginatedResultAsync<T>(
+    public static PaginatedResult<T> ToPaginatedResult<T>(
         this IQueryable<T> query,
         int currentPage,
         int pageSize,
