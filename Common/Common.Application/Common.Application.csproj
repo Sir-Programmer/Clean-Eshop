@@ -11,7 +11,6 @@
       <PackageReference Include="HtmlSanitizer" Version="9.1.887-beta" />
       <PackageReference Include="MediatR" Version="12.5.0" />
       <PackageReference Include="Microsoft.AspNetCore.Http" Version="2.3.0" />
-      <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.3.0" />
       <PackageReference Include="SixLabors.ImageSharp" Version="3.1.10" />
     </ItemGroup>
 
