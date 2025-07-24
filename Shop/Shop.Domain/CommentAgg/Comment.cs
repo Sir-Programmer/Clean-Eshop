@@ -6,7 +6,7 @@ namespace Shop.Domain.CommentAgg;
 
 public class Comment : AggregateRoot
 {
-    public Comment(Guid userId, string text, Guid productId, CommentStatus status, DateTime lastUpdate)
+    public Comment(Guid userId, string text, Guid productId)
     {
         Guard(text);
         UserId = userId;
