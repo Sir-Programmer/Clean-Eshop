@@ -7,7 +7,6 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <Folder Include="Categories\AddChild\" />
       <Folder Include="Comments\" />
       <Folder Include="Orders\" />
       <Folder Include="Products\" />
