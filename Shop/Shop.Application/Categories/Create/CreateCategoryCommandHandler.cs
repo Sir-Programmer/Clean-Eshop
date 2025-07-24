@@ -1,12 +1,17 @@
 using Common.Application;
 using Common.Application.OperationResults;
+using Shop.Domain.CategoryAgg;
+using Shop.Domain.CategoryAgg.Repository;
+using Shop.Domain.CategoryAgg.Services;
 
 namespace Shop.Application.Categories.Create;
 
-public class CreateCategoryCommandHandler : IBaseCommandHandler<CreateCategoryCommand, OperationResult>
+public class CreateCategoryCommandHandler(ICategoryRepository categoryRepository, ICategoryDomainService categoryDomainService) : IBaseCommandHandler<CreateCategoryCommand>
 {
-    public Task<OperationResult<OperationResult>> Handle(CreateCategoryCommand request, CancellationToken cancellationToken)
+    public async Task<OperationResult> Handle(CreateCategoryCommand request, CancellationToken cancellationToken)
     {
-        throw new NotImplementedException();
+        var category = new Category(request.Title, request.Slug, request.SeoData, categoryDomainService);
+        await categoryRepository.AddAsync(category);
+        return OperationResult.Success();
     }
 }
