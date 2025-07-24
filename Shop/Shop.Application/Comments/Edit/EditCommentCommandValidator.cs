@@ -1,11 +1,11 @@
 using Common.Application.Validation;
 using FluentValidation;
 
-namespace Shop.Application.Comments.Create;
+namespace Shop.Application.Comments.Edit;
 
-public class CreateCommentCommandValidator : AbstractValidator<CreateCommentCommand>
+public class EditCommentCommandValidator : AbstractValidator<EditCommentCommand>
 {
-    public CreateCommentCommandValidator()
+    public EditCommentCommandValidator()
     {
         RuleFor(command => command.Text)
             .NotEmpty().WithMessage(ValidationMessages.Required("متن نظر"))
