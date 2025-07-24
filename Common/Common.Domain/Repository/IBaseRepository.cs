@@ -4,8 +4,8 @@ namespace Common.Domain.Repository;
 
 public interface IBaseRepository<T> where T : BaseEntity
 {
-    Task<T?> GetByIdAsync(long id);
-    Task<T?> GetByIdTrackingAsync(long id);
+    Task<T?> GetByIdAsync(Guid id);
+    Task<T?> GetByIdTrackingAsync(Guid id);
 
     Task<List<T>> GetAllAsync();
 
