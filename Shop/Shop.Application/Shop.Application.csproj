@@ -6,4 +6,20 @@
         <Nullable>enable</Nullable>
     </PropertyGroup>
 
+    <ItemGroup>
+      <Folder Include="Categories\AddChild\" />
+      <Folder Include="Categories\Edit\" />
+      <Folder Include="Comments\" />
+      <Folder Include="Orders\" />
+      <Folder Include="Products\" />
+      <Folder Include="Roles\" />
+      <Folder Include="Sellers\" />
+      <Folder Include="SiteEntities\" />
+      <Folder Include="Users\" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\..\Common\Common.Application\Common.Application.csproj" />
+    </ItemGroup>
+
 </Project>
