@@ -54,15 +54,15 @@ public class Order : AggregateRoot
         }
     }
 
-    public void AddItem(OrderItem item)
+    public void AddItem(Guid inventoryId, int count, int price)
     {
         ChangeOrderGuard();
         
-        var orderItem = Items.FirstOrDefault(x => x.Id == item.OrderId);
+        var orderItem = Items.FirstOrDefault(x => x.Id == Id);
         if (orderItem != null) 
             orderItem.IncrementCount(1);
         else 
-            Items.Add(item);
+            Items.Add(new OrderItem(inventoryId, count, price));
     }
 
     public void RemoveItem(Guid itemId)
