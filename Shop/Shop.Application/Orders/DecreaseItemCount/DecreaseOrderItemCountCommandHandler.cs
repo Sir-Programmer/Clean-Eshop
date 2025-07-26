@@ -12,6 +12,7 @@ public class DecreaseOrderItemCountCommandHandler(IOrderRepository orderReposito
         var order = await orderRepository.GetCurrentUserOrder(request.UserId);
         if (order == null) return OperationResult.NotFound();
         order.DecreaseItemCount(request.ItemId, request.Count);
+        await unitOfWork.SaveChangesAsync();
         return OperationResult.Success();
     }
 }
