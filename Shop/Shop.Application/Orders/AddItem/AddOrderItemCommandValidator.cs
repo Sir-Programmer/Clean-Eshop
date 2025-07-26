@@ -6,7 +6,7 @@ public class AddOrderItemCommandValidator : AbstractValidator<AddOrderItemComman
 {
     public AddOrderItemCommandValidator()
     {
-        RuleFor(o => o.Count)
+        RuleFor(command => command.Count)
             .GreaterThan(0).WithMessage("تعداد باید بیشتر از صفر باشد");
     }
 }

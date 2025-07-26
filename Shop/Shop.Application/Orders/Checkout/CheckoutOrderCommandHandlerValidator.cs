@@ -8,39 +8,39 @@ public class CheckoutOrderCommandHandlerValidator : AbstractValidator<CheckoutOr
 {
     public CheckoutOrderCommandHandlerValidator()
     {
-        RuleFor(f => f.FullName)
+        RuleFor(command => command.FullName)
             .NotNull()
             .NotEmpty()
             .WithMessage(ValidationMessages.Required("نام"));
 
-        RuleFor(f => f.City)
+        RuleFor(command => command.City)
             .NotNull()
             .NotEmpty()
             .WithMessage(ValidationMessages.Required("شهر"));
 
-        RuleFor(f => f.Province)
+        RuleFor(command => command.Province)
             .NotNull()
             .NotEmpty()
             .WithMessage(ValidationMessages.Required("استان"));
 
-        RuleFor(f => f.PostalAddress)
+        RuleFor(command => command.PostalAddress)
             .NotNull()
             .NotEmpty()
             .WithMessage(ValidationMessages.Required("ادرس کامل"));
 
-        RuleFor(f => f.PostalCode)
+        RuleFor(command => command.PostalCode)
             .NotNull()
             .NotEmpty()
             .WithMessage(ValidationMessages.Required("کد پستی"))
             .Length(10).WithMessage("کد پستی نامعبتر است");
 
-        RuleFor(f => f.PhoneNumber)
+        RuleFor(command => command.PhoneNumber)
             .NotNull()
             .NotEmpty()
             .WithMessage(ValidationMessages.Required("شماره موبایل"))
             .ValidPhoneNumber();
 
-        RuleFor(f => f.NationalId)
+        RuleFor(command => command.NationalId)
             .NotNull()
             .NotEmpty()
             .WithMessage(ValidationMessages.Required("کد ملی"))
