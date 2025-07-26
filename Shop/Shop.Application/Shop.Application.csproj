@@ -7,7 +7,6 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <Folder Include="Orders\Checkout\" />
       <Folder Include="Orders\DecreaseItemCount\" />
       <Folder Include="Orders\Finally\" />
       <Folder Include="Orders\IncreaseItemCount\" />
