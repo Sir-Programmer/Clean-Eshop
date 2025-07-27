@@ -6,7 +6,7 @@ using Shop.Domain.OrderAgg.Repository;
 
 namespace Shop.Application.Orders.SendOrder;
 
-public class SendOrderCommandHandler(IOrderRepository orderRepository, IUnitOfWork unitOfWork) : IBaseCommandHandler<SendOrderCommand>
+internal class SendOrderCommandHandler(IOrderRepository orderRepository, IUnitOfWork unitOfWork) : IBaseCommandHandler<SendOrderCommand>
 {
     public async Task<OperationResult> Handle(SendOrderCommand request, CancellationToken cancellationToken)
     {

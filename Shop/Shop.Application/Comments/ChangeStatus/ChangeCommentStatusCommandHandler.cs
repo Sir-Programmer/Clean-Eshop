@@ -5,7 +5,7 @@ using Shop.Domain.CommentAgg.Repository;
 
 namespace Shop.Application.Comments.ChangeStatus;
 
-public class ChangeCommentStatusCommandHandler(ICommentRepository commentRepository, IUnitOfWork unitOfWork) : IBaseCommandHandler<ChangeCommentStatusCommand>
+internal class ChangeCommentStatusCommandHandler(ICommentRepository commentRepository, IUnitOfWork unitOfWork) : IBaseCommandHandler<ChangeCommentStatusCommand>
 {
     public async Task<OperationResult> Handle(ChangeCommentStatusCommand request, CancellationToken cancellationToken)
     {

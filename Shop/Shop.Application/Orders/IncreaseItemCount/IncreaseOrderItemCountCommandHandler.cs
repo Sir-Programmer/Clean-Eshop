@@ -6,7 +6,7 @@ using Shop.Domain.SellerAgg.Repository;
 
 namespace Shop.Application.Orders.IncreaseItemCount;
 
-public class IncreaseOrderItemCountCommandHandler(IOrderRepository orderRepository, ISellerRepository sellerRepository, IUnitOfWork unitOfWork) : IBaseCommandHandler<IncreaseOrderItemCountCommand>
+internal class IncreaseOrderItemCountCommandHandler(IOrderRepository orderRepository, ISellerRepository sellerRepository, IUnitOfWork unitOfWork) : IBaseCommandHandler<IncreaseOrderItemCountCommand>
 {
     public async Task<OperationResult> Handle(IncreaseOrderItemCountCommand request, CancellationToken cancellationToken)
     {

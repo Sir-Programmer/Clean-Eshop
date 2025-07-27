@@ -7,7 +7,7 @@ using Shop.Domain.CategoryAgg.Services;
 
 namespace Shop.Application.Categories.Create;
 
-public class CreateCategoryCommandHandler(ICategoryRepository categoryRepository, ICategoryDomainService categoryDomainService, IUnitOfWork unitOfWork) : IBaseCommandHandler<CreateCategoryCommand>
+internal class CreateCategoryCommandHandler(ICategoryRepository categoryRepository, ICategoryDomainService categoryDomainService, IUnitOfWork unitOfWork) : IBaseCommandHandler<CreateCategoryCommand>
 {
     public async Task<OperationResult> Handle(CreateCategoryCommand request, CancellationToken cancellationToken)
     {

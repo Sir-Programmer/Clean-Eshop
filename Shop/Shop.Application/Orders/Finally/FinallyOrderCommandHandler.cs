@@ -5,7 +5,7 @@ using Shop.Domain.OrderAgg.Repository;
 
 namespace Shop.Application.Orders.Finally;
 
-public class FinallyOrderCommandHandler(IOrderRepository orderRepository, IUnitOfWork unitOfWork) : IBaseCommandHandler<FinallyOrderCommand>
+internal class FinallyOrderCommandHandler(IOrderRepository orderRepository, IUnitOfWork unitOfWork) : IBaseCommandHandler<FinallyOrderCommand>
 {
     public async Task<OperationResult> Handle(FinallyOrderCommand request, CancellationToken cancellationToken)
     {

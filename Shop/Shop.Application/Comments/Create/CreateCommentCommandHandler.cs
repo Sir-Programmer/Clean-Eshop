@@ -8,7 +8,7 @@ using Shop.Domain.UserAgg.Repository;
 
 namespace Shop.Application.Comments.Create;
 
-public class CreateCommentCommandHandler(ICommentRepository commentRepository, IProductRepository productRepository, IUserRepository userRepository, IUnitOfWork unitOfWork) : IBaseCommandHandler<CreateCommentCommand>
+internal class CreateCommentCommandHandler(ICommentRepository commentRepository, IProductRepository productRepository, IUserRepository userRepository, IUnitOfWork unitOfWork) : IBaseCommandHandler<CreateCommentCommand>
 {
     public async Task<OperationResult> Handle(CreateCommentCommand request, CancellationToken cancellationToken)
     {

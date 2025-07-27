@@ -5,7 +5,7 @@ using Shop.Domain.CategoryAgg.Repository;
 
 namespace Shop.Application.Categories.Remove;
 
-public class RemoveCategoryCommandHandler(ICategoryRepository categoryRepository, IUnitOfWork unitOfWork) : IBaseCommandHandler<RemoveCategoryCommand>
+internal class RemoveCategoryCommandHandler(ICategoryRepository categoryRepository, IUnitOfWork unitOfWork) : IBaseCommandHandler<RemoveCategoryCommand>
 {
     public async Task<OperationResult> Handle(RemoveCategoryCommand request, CancellationToken cancellationToken)
     {

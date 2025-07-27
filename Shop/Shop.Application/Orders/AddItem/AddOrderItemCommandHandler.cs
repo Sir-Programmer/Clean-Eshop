@@ -7,7 +7,7 @@ using Shop.Domain.SellerAgg.Repository;
 
 namespace Shop.Application.Orders.AddItem;
 
-public class AddOrderItemCommandHandler(IOrderRepository orderRepository, ISellerRepository sellerRepository, IUnitOfWork unitOfWork) : IBaseCommandHandler<AddOrderItemCommand>
+internal class AddOrderItemCommandHandler(IOrderRepository orderRepository, ISellerRepository sellerRepository, IUnitOfWork unitOfWork) : IBaseCommandHandler<AddOrderItemCommand>
 {
     public async Task<OperationResult> Handle(AddOrderItemCommand request, CancellationToken cancellationToken)
     {

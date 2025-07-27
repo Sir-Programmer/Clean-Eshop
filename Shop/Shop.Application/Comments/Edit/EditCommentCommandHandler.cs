@@ -5,7 +5,7 @@ using Shop.Domain.CommentAgg.Repository;
 
 namespace Shop.Application.Comments.Edit;
 
-public class EditCommentCommandHandler(ICommentRepository commentRepository, IUnitOfWork unitOfWork) : IBaseCommandHandler<EditCommentCommand>
+internal class EditCommentCommandHandler(ICommentRepository commentRepository, IUnitOfWork unitOfWork) : IBaseCommandHandler<EditCommentCommand>
 {
     public async Task<OperationResult> Handle(EditCommentCommand request, CancellationToken cancellationToken)
     {

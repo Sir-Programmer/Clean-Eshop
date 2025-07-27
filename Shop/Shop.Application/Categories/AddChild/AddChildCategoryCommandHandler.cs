@@ -6,7 +6,7 @@ using Shop.Domain.CategoryAgg.Services;
 
 namespace Shop.Application.Categories.AddChild;
 
-public class AddChildCategoryCommandHandler(ICategoryRepository categoryRepository, ICategoryDomainService categoryDomainService, IUnitOfWork unitOfWork) : IBaseCommandHandler<AddChildCategoryCommand>
+internal class AddChildCategoryCommandHandler(ICategoryRepository categoryRepository, ICategoryDomainService categoryDomainService, IUnitOfWork unitOfWork) : IBaseCommandHandler<AddChildCategoryCommand>
 {
     public async Task<OperationResult> Handle(AddChildCategoryCommand request, CancellationToken cancellationToken)
     {

@@ -7,7 +7,7 @@ using Shop.Domain.SiteEntities.ShippingMethod.Repository;
 
 namespace Shop.Application.Orders.Checkout;
 
-public class CheckoutOrderCommandHandler(IOrderRepository orderRepository, IShippingMethodRepository shippingMethodRepository, IUnitOfWork unitOfWork) : IBaseCommandHandler<CheckoutOrderCommand>
+internal class CheckoutOrderCommandHandler(IOrderRepository orderRepository, IShippingMethodRepository shippingMethodRepository, IUnitOfWork unitOfWork) : IBaseCommandHandler<CheckoutOrderCommand>
 {
     public async Task<OperationResult> Handle(CheckoutOrderCommand request, CancellationToken cancellationToken)
     {

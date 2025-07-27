@@ -5,7 +5,7 @@ using Shop.Domain.OrderAgg.Repository;
 
 namespace Shop.Application.Orders.DecreaseItemCount;
 
-public class DecreaseOrderItemCountCommandHandler(IOrderRepository orderRepository, IUnitOfWork unitOfWork) : IBaseCommandHandler<DecreaseOrderItemCountCommand>
+internal class DecreaseOrderItemCountCommandHandler(IOrderRepository orderRepository, IUnitOfWork unitOfWork) : IBaseCommandHandler<DecreaseOrderItemCountCommand>
 {
     public async Task<OperationResult> Handle(DecreaseOrderItemCountCommand request, CancellationToken cancellationToken)
     {

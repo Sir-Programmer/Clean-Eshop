@@ -6,7 +6,7 @@ using Shop.Domain.CategoryAgg.Services;
 
 namespace Shop.Application.Categories.Edit;
 
-public class EditCategoryCommandHandler(ICategoryRepository categoryRepository, ICategoryDomainService categoryDomainService, IUnitOfWork unitOfWork) : IBaseCommandHandler<EditCategoryCommand>
+internal class EditCategoryCommandHandler(ICategoryRepository categoryRepository, ICategoryDomainService categoryDomainService, IUnitOfWork unitOfWork) : IBaseCommandHandler<EditCategoryCommand>
 {
     public async Task<OperationResult> Handle(EditCategoryCommand request, CancellationToken cancellationToken)
     {

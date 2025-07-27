@@ -5,7 +5,7 @@ using Shop.Domain.OrderAgg.Repository;
 
 namespace Shop.Application.Orders.RemoveItem;
 
-public class RemoveOrderItemCommandHandler(IOrderRepository orderRepository, IUnitOfWork unitOfWork) : IBaseCommandHandler<RemoveOrderItemCommand>
+internal class RemoveOrderItemCommandHandler(IOrderRepository orderRepository, IUnitOfWork unitOfWork) : IBaseCommandHandler<RemoveOrderItemCommand>
 {
     public async Task<OperationResult> Handle(RemoveOrderItemCommand request, CancellationToken cancellationToken)
     {
