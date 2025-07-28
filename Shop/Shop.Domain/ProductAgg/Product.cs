@@ -10,7 +10,8 @@ public class Product : AggregateRoot
 {
     public Product(string title, string slug, string description, string imageName, SeoData seoData, List<Guid> categoryIds, IProductDomainService productDomainService)
     {
-        Guard(title, slug, description, imageName, productDomainService);
+        Guard(title, slug, description, productDomainService);
+        ImageNameGuard(imageName);
         Title = title;
         Slug = slug.ToSlug();
         Description = description;
@@ -32,13 +33,12 @@ public class Product : AggregateRoot
     public List<ProductImage> Images { get; private set; }
     public List<ProductSpecification> Specifications { get; private set; }
 
-    public void Edit(string title, string slug, string description, string imageName, SeoData seoData, List<Guid> categoryIds, IProductDomainService productDomainService)
+    public void Edit(string title, string slug, string description, SeoData seoData, List<Guid> categoryIds, IProductDomainService productDomainService)
     {
-        Guard(title, slug, description, imageName, productDomainService);
+        Guard(title, slug, description, productDomainService);
         Title = title;
         Slug = slug.ToSlug();
         Description = description;
-        ImageName = imageName;
         SeoData = seoData;
     }
 
@@ -72,12 +72,16 @@ public class Product : AggregateRoot
         Specifications = specifications;
     }
 
-    private void Guard(string title, string slug, string description, string imageName, IProductDomainService productDomainService)
+    private void ImageNameGuard(string imageName)
+    {
+        NullOrEmptyDomainException.CheckString(imageName, nameof(imageName));
+    }
+    private void Guard(string title, string slug, string description, IProductDomainService productDomainService)
     {
         NullOrEmptyDomainException.CheckString(title, nameof(title));
         NullOrEmptyDomainException.CheckString(slug, nameof(slug));
         NullOrEmptyDomainException.CheckString(description, nameof(description));
-        NullOrEmptyDomainException.CheckString(imageName, nameof(imageName));
+        
 
         if (Slug != slug.ToSlug())
             if (productDomainService.IsSlugExist(slug.ToSlug()))
