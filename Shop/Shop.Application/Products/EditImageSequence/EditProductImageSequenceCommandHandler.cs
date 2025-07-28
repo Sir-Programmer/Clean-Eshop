@@ -12,6 +12,7 @@ public class EditProductImageSequenceCommandHandler(IProductRepository productRe
         var product = await productRepository.GetByIdAsync(request.ProductId);
         if (product == null) return OperationResult.NotFound();
         product.SetImageSequence(request.ImageId, request.Sequence);
+        await unitOfWork.SaveChangesAsync();
         return OperationResult.Success();
     }
 }
