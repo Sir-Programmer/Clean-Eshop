@@ -29,7 +29,7 @@ public class UserAddress : BaseEntity
     public string NationalId { get; private set; }
     public bool IsActive { get; private set; }
 
-    public void Edit(string province, string city, string postalCode, string fullName, string postalAddress,
+    internal void Edit(string province, string city, string postalCode, string fullName, string postalAddress,
         string phoneNumber, string nationalId)
     {
         Guard(province, city, postalCode, fullName, postalAddress, phoneNumber, nationalId);
@@ -42,12 +42,12 @@ public class UserAddress : BaseEntity
         NationalId = nationalId;
     }
 
-    public void SetActive()
+    internal void SetActive()
     {
         IsActive = true;
     }
     
-    public void SetDeActive()
+    internal void SetDeActive()
     {
         IsActive = false;
     }

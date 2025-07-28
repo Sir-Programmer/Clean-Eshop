@@ -22,23 +22,23 @@ public class SellerInventory : BaseEntity
     public int? DiscountPercentage { get; private set; }
     public bool IsActive { get; private set; }
 
-    public void Activate()
+    internal void Activate()
     {
         IsActive = true;
     }
 
-    public void DeActivate()
+    internal void DeActivate()
     {
         IsActive = false;
     }
 
-    public void ApplyDiscountPercentage(int discountPercentage)
+    internal void ApplyDiscountPercentage(int discountPercentage)
     {
         DiscountGuard(discountPercentage);
         DiscountPercentage = discountPercentage;
     }
 
-    public void Edit(int count, int price, bool isActive, int? discountPercentage)
+    internal void Edit(int count, int price, bool isActive, int? discountPercentage)
     {
         Guard(count, price);
         DiscountGuard(discountPercentage);

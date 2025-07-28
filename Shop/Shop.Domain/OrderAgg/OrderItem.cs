@@ -17,12 +17,12 @@ public class OrderItem : BaseEntity
     public int Price { get; private set; }
     public int TotalPrice => Price * Count;
 
-    public void IncrementCount(int count)
+    internal void IncrementCount(int count)
     {
         Count += count;
     }
 
-    public void DecrementCount(int count)
+    internal void DecrementCount(int count)
     {
         if (count > 0) return;
         Count -= count;
