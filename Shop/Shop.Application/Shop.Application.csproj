@@ -7,7 +7,6 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <Folder Include="Products\SetImageSequence\" />
       <Folder Include="Roles\" />
       <Folder Include="Sellers\" />
       <Folder Include="SiteEntities\" />

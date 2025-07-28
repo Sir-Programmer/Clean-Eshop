@@ -15,6 +15,11 @@ public class ProductImage : BaseEntity
     public Guid ProductId { get; internal set; }
     public int Sequence { get; private set; }
 
+    internal void SetSequence(int sequence)
+    {
+        Sequence = sequence;
+    }
+
     private void Guard(string imageName)
     {
         NullOrEmptyDomainException.CheckString(imageName, nameof(imageName));

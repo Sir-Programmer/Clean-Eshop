@@ -61,6 +61,12 @@ public class Product : AggregateRoot
         if (currentImage != null) Images.Remove(currentImage);
     }
 
+    public void SetImageSequence(Guid imageId, int sequence)
+    {
+        var currentImage = Images.FirstOrDefault(i => i.Id == imageId);
+        currentImage?.SetSequence(sequence);
+    }
+
     public void RemoveAllImages()
     {
         Images.Clear();
