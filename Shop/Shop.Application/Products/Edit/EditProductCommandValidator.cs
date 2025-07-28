@@ -1,5 +1,6 @@
 
 using Common.Application.Validation;
+using Common.Application.Validation.FluentValidations;
 using FluentValidation;
 
 namespace Shop.Application.Products.Edit;
@@ -22,5 +23,8 @@ public class EditProductCommandValidator : AbstractValidator<EditProductCommand>
             .NotNull()
             .NotEmpty()
             .WithMessage(ValidationMessages.Required("توضیحات"));
+        
+        RuleFor(command => command.ImageFile)
+            .JustImageFile();
     }
 }
