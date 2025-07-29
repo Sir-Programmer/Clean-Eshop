@@ -14,6 +14,7 @@ public interface IBaseRepository<T> where T : BaseEntity
     Task<T?> FindOneAsync(Expression<Func<T, bool>> predicate);
 
     Task AddAsync(T entity);
+    void Add(T entity);
     Task AddRangeAsync(IEnumerable<T> entities);
 
     void Update(T entity);
@@ -22,6 +23,7 @@ public interface IBaseRepository<T> where T : BaseEntity
     Task RemoveAsync(T entity);
 
     Task<bool> ExistsAsync(Expression<Func<T, bool>> predicate);
+    bool Exists(Expression<Func<T, bool>> predicate);
     
     Task<(List<T> Items, int TotalCount)> GetPagedAsync(
         int pageNumber,
