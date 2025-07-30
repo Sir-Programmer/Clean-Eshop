@@ -7,7 +7,10 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <Folder Include="SiteEntities\" />
+      <Folder Include="SiteEntities\Banners\" />
+      <Folder Include="SiteEntities\ShippingMethods\" />
+      <Folder Include="SiteEntities\Sliders\Delete\" />
+      <Folder Include="SiteEntities\Sliders\Edit\" />
       <Folder Include="Users\" />
     </ItemGroup>
 
