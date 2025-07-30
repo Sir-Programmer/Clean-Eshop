@@ -17,7 +17,7 @@ public class AddSellerInventoryCommandHandler(ISellerRepository sellerRepository
         var product = await productRepository.GetByIdAsync(request.ProductId);
         if (product == null) return OperationResult.NotFound();
         
-        seller.AddInventory(new SellerInventory(request.ProductId, request.Count, request.Price, request.DiscountPercentage));
+        seller.AddInventory(request.ProductId, request.Count, request.Price, request.DiscountPercentage);
         await unitOfWork.SaveChangesAsync();
         return OperationResult.Success();
     }

@@ -43,12 +43,14 @@ public class Seller : AggregateRoot
         LastUpdate = DateTime.Now;
     }
 
-    public void AddInventory(SellerInventory inventory)
+    public void AddInventory(Guid productId, int count, int price, int? discountPercentage)
     {
-        if (Inventories.Any(p => p.ProductId == inventory.ProductId))
+        if (Inventories.Any(p => p.ProductId == productId))
             throw new InvalidDomainDataException("این محصول قبلا ثبت شده است");
-        inventory.SellerId = UserId;
-        Inventories.Add(inventory);
+        Inventories.Add(new SellerInventory(productId, count, price, discountPercentage)
+        {
+            SellerId = UserId
+        });
     }
 
     public void EditInventory(Guid inventoryId, int count, int price, bool isActive, int? discountPercentage)
