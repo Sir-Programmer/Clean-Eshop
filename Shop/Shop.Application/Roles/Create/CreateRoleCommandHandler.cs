@@ -2,7 +2,6 @@ using Common.Application;
 using Common.Application.OperationResults;
 using Common.Application.UnitOfWork;
 using Shop.Domain.RoleAgg;
-using Shop.Domain.RoleAgg.Enums;
 using Shop.Domain.RoleAgg.Repository;
 
 namespace Shop.Application.Roles.Create;

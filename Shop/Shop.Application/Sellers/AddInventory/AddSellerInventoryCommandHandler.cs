@@ -2,7 +2,6 @@
 using Common.Application.OperationResults;
 using Common.Application.UnitOfWork;
 using Shop.Domain.ProductAgg.Repository;
-using Shop.Domain.SellerAgg;
 using Shop.Domain.SellerAgg.Repository;
 
 namespace Shop.Application.Sellers.AddInventory;
