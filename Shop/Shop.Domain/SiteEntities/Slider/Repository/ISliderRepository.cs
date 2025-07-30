@@ -4,5 +4,5 @@ namespace Shop.Domain.SiteEntities.Slider.Repository;
 
 public interface ISliderRepository : IBaseRepository<Slider>
 {
-    
+    void Delete(Slider slider);
 }

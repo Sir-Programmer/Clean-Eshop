@@ -9,7 +9,6 @@
     <ItemGroup>
       <Folder Include="SiteEntities\Banners\" />
       <Folder Include="SiteEntities\ShippingMethods\" />
-      <Folder Include="SiteEntities\Sliders\Delete\" />
       <Folder Include="Users\" />
     </ItemGroup>
 
