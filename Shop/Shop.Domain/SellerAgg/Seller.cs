@@ -9,7 +9,9 @@ public class Seller : AggregateRoot
 {
     public Seller(Guid userId, string shopName, string nationalId, ISellerDomainService sellerDomainService)
     {
-        Guard(shopName, nationalId, sellerDomainService);
+        Guard(shopName, nationalId);
+        NationalIdExistGuard(nationalId, sellerDomainService);
+        UserIdExistGuard(userId, sellerDomainService);
         UserId = userId;
         ShopName = shopName;
         NationalId = nationalId;
@@ -33,7 +35,8 @@ public class Seller : AggregateRoot
 
     public void Edit(string shopName, string nationalId, ISellerDomainService sellerDomainService)
     {
-        Guard(shopName, nationalId, sellerDomainService);
+        Guard(shopName, nationalId);
+        NationalIdExistGuard(nationalId, sellerDomainService);
         ShopName = shopName;
         NationalId = nationalId;
         Status = SellerStatus.Pending;
@@ -76,14 +79,22 @@ public class Seller : AggregateRoot
         currentInventory.DeActivate();
     }
 
-    private void Guard(string shopName, string nationalId, ISellerDomainService sellerDomainService)
+    private void NationalIdExistGuard(string nationalId, ISellerDomainService sellerDomainService)
+    {
+        if (NationalId != nationalId)
+            if (sellerDomainService.IsNationalIdExist(nationalId)) throw new InvalidDomainDataException("کد ملی قبلا ثبت شده است");
+    }
+
+    private void UserIdExistGuard(Guid userId, ISellerDomainService sellerDomainService)
+    {
+        if (sellerDomainService.IsUserIdExist(userId)) throw new InvalidDomainDataException("حساب کاربری شما در حال حاضر فروشنده است");
+    }
+
+    private void Guard(string shopName, string nationalId)
     {
         NullOrEmptyDomainException.CheckString(shopName, nameof(shopName));
         NullOrEmptyDomainException.CheckString(nationalId, nameof(nationalId));
         if (!nationalId.IsValidIranianNationalId())
             throw new InvalidDomainDataException("کد ملی نامعتبر است");
-        
-        if (NationalId != nationalId)
-            if (sellerDomainService.IsNationalIdExist(nationalId)) throw new InvalidDomainDataException("کد ملی قبلا ثبت شده است");
     }
 }
