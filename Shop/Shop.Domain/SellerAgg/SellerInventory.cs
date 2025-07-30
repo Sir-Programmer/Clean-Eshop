@@ -5,7 +5,7 @@ namespace Shop.Domain.SellerAgg;
 
 public class SellerInventory : BaseEntity
 {
-    public SellerInventory(Guid productId, int count, int price, bool isActive, int? discountPercentage = null)
+    public SellerInventory(Guid productId, int count, int price, int? discountPercentage = null)
     {
         Guard(count, price);
         DiscountGuard(discountPercentage);
