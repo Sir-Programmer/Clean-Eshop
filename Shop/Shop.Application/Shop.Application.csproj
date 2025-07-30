@@ -7,7 +7,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <Folder Include="SiteEntities\Banners\" />
+      <Folder Include="SiteEntities\Banners\Delete\" />
       <Folder Include="SiteEntities\ShippingMethods\" />
       <Folder Include="Users\" />
     </ItemGroup>
