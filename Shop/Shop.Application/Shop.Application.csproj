@@ -7,7 +7,6 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <Folder Include="SiteEntities\ShippingMethods\Delete\" />
       <Folder Include="Users\" />
     </ItemGroup>
 
