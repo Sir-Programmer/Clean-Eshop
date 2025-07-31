@@ -8,7 +8,6 @@
 
     <ItemGroup>
       <Folder Include="SiteEntities\ShippingMethods\Delete\" />
-      <Folder Include="SiteEntities\ShippingMethods\Edit\" />
       <Folder Include="Users\" />
     </ItemGroup>
 
