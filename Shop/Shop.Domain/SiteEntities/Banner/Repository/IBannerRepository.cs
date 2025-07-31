@@ -4,5 +4,5 @@ namespace Shop.Domain.SiteEntities.Banner.Repository;
 
 public interface IBannerRepository : IBaseRepository<Banner>
 {
-    
+    void Delete(Banner banner);
 }
