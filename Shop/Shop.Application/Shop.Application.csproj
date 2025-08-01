@@ -12,7 +12,6 @@
       <Folder Include="Users\ChargeWallet\" />
       <Folder Include="Users\DeleteAddress\" />
       <Folder Include="Users\EditAddress\" />
-      <Folder Include="Users\Edit\" />
       <Folder Include="Users\Register\" />
       <Folder Include="Users\SetActiveAddress\" />
     </ItemGroup>
