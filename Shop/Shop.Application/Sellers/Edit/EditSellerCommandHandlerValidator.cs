@@ -9,13 +9,11 @@ public class EditSellerCommandHandlerValidator : AbstractValidator<EditSellerCom
     public EditSellerCommandHandlerValidator()
     {
         RuleFor(command => command.NationalId)
-            .NotNull()
             .NotEmpty()
             .WithMessage(ValidationMessages.Required("کد ملی"))
             .ValidNationalId();
         
         RuleFor(command => command.ShopName)
-            .NotNull()
             .NotEmpty()
             .WithMessage(ValidationMessages.Required("نام فروشگاه"));
     }

@@ -9,12 +9,10 @@ public class EditSliderCommandValidator : AbstractValidator<EditSliderCommand>
     public EditSliderCommandValidator()
     {
         RuleFor(command => command.Title)
-            .NotNull()
             .NotEmpty()
             .WithMessage(ValidationMessages.Required("عنوان"));
         
         RuleFor(command => command.Url)
-            .NotNull()
             .NotEmpty()
             .WithMessage(ValidationMessages.Required("لینک"));
 

@@ -8,7 +8,6 @@ public class CreateBannerCommandValidator : AbstractValidator<CreateBannerComman
     public CreateBannerCommandValidator()
     {
         RuleFor(command => command.Url)
-            .NotNull()
             .NotEmpty()
             .WithMessage(ValidationMessages.Required("لینک"));
     }

@@ -9,13 +9,11 @@ public class CreateUserCommandValidator : AbstractValidator<CreateUserCommand>
     public CreateUserCommandValidator()
     {
         RuleFor(command => command.Name)
-            .NotNull()
             .NotEmpty()
             .WithMessage(ValidationMessages.Required("نام"));
         
         
         RuleFor(command => command.Family)
-            .NotNull()
             .NotEmpty()
             .WithMessage(ValidationMessages.Required("نام خانوادگی"));
 

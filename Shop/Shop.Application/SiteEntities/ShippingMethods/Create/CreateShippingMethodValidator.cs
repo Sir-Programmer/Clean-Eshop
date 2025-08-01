@@ -8,7 +8,6 @@ public class CreateShippingMethodValidator : AbstractValidator<CreateShippingMet
     public CreateShippingMethodValidator()
     {
         RuleFor(command => command.Title)
-            .NotNull()
             .NotEmpty()
             .WithMessage(ValidationMessages.Required("عنوان"));
 

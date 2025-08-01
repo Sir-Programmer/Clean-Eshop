@@ -8,7 +8,6 @@ public class EditRoleCommandValidator : AbstractValidator<EditRoleCommand>
     public EditRoleCommandValidator()
     {
         RuleFor(command => command.Title)
-            .NotNull()
             .NotEmpty()
             .WithMessage(ValidationMessages.Required("عنوان"));
     }

@@ -9,13 +9,11 @@ public class CreateSellerCommandHandlerValidator : AbstractValidator<CreateSelle
     public CreateSellerCommandHandlerValidator()
     {
         RuleFor(command => command.NationalId)
-            .NotNull()
             .NotEmpty()
             .WithMessage(ValidationMessages.Required("کد ملی"))
             .ValidNationalId();
         
         RuleFor(command => command.ShopName)
-            .NotNull()
             .NotEmpty()
             .WithMessage(ValidationMessages.Required("نام فروشگاه"));
     }
