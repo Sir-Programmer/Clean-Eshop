@@ -5,13 +5,13 @@ namespace Shop.Domain.UserAgg;
 
 public class UserWallet : BaseEntity
 {
-    public UserWallet(int price, WalletType type, string description, bool isFinally, DateTime finallyDate)
+    public UserWallet(int price, WalletType type, string description, bool isFinally)
     {
         Price = price;
         Type = type;
         Description = description;
         IsFinally = isFinally;
-        FinallyDate = finallyDate;
+        FinallyDate = isFinally ? DateTime.Now : default;
     }
     
     public Guid UserId { get; internal set; }
