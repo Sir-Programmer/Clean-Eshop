@@ -10,7 +10,6 @@
       <Folder Include="Users\ChangePassword\" />
       <Folder Include="Users\ChargeWallet\" />
       <Folder Include="Users\Register\" />
-      <Folder Include="Users\SetActiveAddress\" />
     </ItemGroup>
 
     <ItemGroup>
