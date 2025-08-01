@@ -59,9 +59,9 @@ public class User : AggregateRoot
         Addresses.Add(address);
     }
 
-    public void EditAddress(UserAddress address)
+    public void EditAddress(Guid addressId,UserAddress address)
     {
-        var oldAddress = Addresses.FirstOrDefault(x => x.Id == address.Id);
+        var oldAddress = Addresses.FirstOrDefault(x => x.Id == addressId);
         if (oldAddress == null) throw new InvalidDomainDataException("آدرس یافت نشد");
         address.Edit(address.Province, address.City, address.PostalCode, address.FullName, address.PostalAddress, address.PhoneNumber, address.NationalId);
     }
