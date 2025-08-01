@@ -7,7 +7,6 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <Folder Include="Users\AddAddress\" />
       <Folder Include="Users\ChangePassword\" />
       <Folder Include="Users\ChargeWallet\" />
       <Folder Include="Users\DeleteAddress\" />

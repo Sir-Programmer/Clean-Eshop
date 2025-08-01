@@ -6,7 +6,7 @@ namespace Shop.Domain.UserAgg;
 public class UserAddress : BaseEntity
 {
     public UserAddress(string province, string city, string postalCode, string fullName, string postalAddress,
-        string phoneNumber, string nationalId, bool isActive)
+        string phoneNumber, string nationalId)
     {
         Guard(province, city, postalCode, fullName, postalAddress, phoneNumber, nationalId);
         Province = province;
@@ -16,7 +16,7 @@ public class UserAddress : BaseEntity
         PostalAddress = postalAddress;
         PhoneNumber = phoneNumber;
         NationalId = nationalId;
-        IsActive = isActive;
+        IsActive = false;
     }
 
     public Guid UserId { get; private set; }
