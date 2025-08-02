@@ -1,5 +1,4 @@
-﻿using Common.Domain.Repository;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Shop.Domain.OrderAgg;
 using Shop.Domain.OrderAgg.Enums;
 using Shop.Domain.OrderAgg.Repository;
