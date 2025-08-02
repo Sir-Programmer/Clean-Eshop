@@ -1,4 +1,4 @@
-﻿namespace Shop.Domain.SharedKernel.Enums;
+﻿namespace Shop.Domain._SharedKernel.Enums;
 
 public enum DiscountType
 {

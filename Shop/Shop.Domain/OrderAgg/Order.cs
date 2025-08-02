@@ -1,8 +1,8 @@
 ﻿using Common.Domain;
 using Common.Domain.Exceptions;
+using Shop.Domain._SharedKernel.Enums;
 using Shop.Domain.OrderAgg.Enums;
 using Shop.Domain.OrderAgg.ValueObjects;
-using Shop.Domain.SharedKernel.Enums;
 
 namespace Shop.Domain.OrderAgg;
 

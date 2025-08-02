@@ -1,5 +1,5 @@
 ﻿using Fluxera.ValueObject;
-using Shop.Domain.SharedKernel.Enums;
+using Shop.Domain._SharedKernel.Enums;
 
 namespace Shop.Domain.OrderAgg.ValueObjects;
 
