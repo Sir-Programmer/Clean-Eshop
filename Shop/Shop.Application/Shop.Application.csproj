@@ -8,7 +8,6 @@
 
     <ItemGroup>
       <Folder Include="Users\ChangePassword\" />
-      <Folder Include="Users\ChargeWallet\" />
     </ItemGroup>
 
     <ItemGroup>
