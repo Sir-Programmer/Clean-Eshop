@@ -20,17 +20,41 @@ public class OrderConfiguration : IEntityTypeConfiguration<Order>
 
         builder.OwnsOne(o => o.Address, option =>
         {
-            option.ToTable("Addresses", "order");
+            option.Property(a => a.Province)
+                .IsRequired()
+                .HasMaxLength(100);
+            
+            option.Property(a => a.City)
+                .IsRequired()
+                .HasMaxLength(100);
+            
+            option.Property(a => a.FullName)
+                .IsRequired()
+                .HasMaxLength(100);
+            
+            option.Property(a => a.NationalId)
+                .IsRequired()
+                .HasMaxLength(10);
+            
+            option.Property(a => a.PhoneNumber)
+                .IsRequired()
+                .HasMaxLength(11);
+            
+            option.Property(a => a.PostalCode)
+                .IsRequired()
+                .HasMaxLength(10);
+            
+            option.Property(a => a.PostalAddress)
+                .IsRequired()
+                .HasMaxLength(500);
         });
 
-        builder.OwnsOne(o => o.Discount, option =>
-        {
-            
-        });
+        builder.OwnsOne(o => o.Discount);
 
         builder.OwnsOne(o => o.ShippingMethod, option =>
         {
-            
+            option.Property(s => s.ShippingType)
+                .HasMaxLength(100);
         });
     }
 }
