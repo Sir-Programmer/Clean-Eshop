@@ -5,8 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Shop.Infrastructure._Utilities;
 
-public class BaseRepository<TEntity>(ShopContext context) : IBaseRepository<TEntity>
-    where TEntity : BaseEntity
+public class BaseRepository<TEntity>(ShopContext context) : IBaseRepository<TEntity> where TEntity : BaseEntity
 {
     protected readonly ShopContext Context = context;
     private readonly DbSet<TEntity> _dbSet = context.Set<TEntity>();
