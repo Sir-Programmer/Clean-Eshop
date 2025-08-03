@@ -10,34 +10,34 @@ public class BaseRepository<TEntity>(ShopContext context) : IBaseRepository<TEnt
     protected readonly ShopContext Context = context;
     private readonly DbSet<TEntity> _dbSet = context.Set<TEntity>();
 
-    public async Task<TEntity?> GetByIdAsync(Guid id)
+    public Task<TEntity?> GetByIdAsync(Guid id)
     {
-        return await _dbSet.AsNoTracking().FirstOrDefaultAsync(e => e.Id == id);
+        return _dbSet.FirstOrDefaultAsync(e => e.Id == id);
     }
 
-    public async Task<TEntity?> GetByIdTrackingAsync(Guid id)
+    public Task<TEntity?> GetByIdTrackingAsync(Guid id)
     {
-        return await _dbSet.AsTracking().FirstOrDefaultAsync(e => e.Id == id);
+        return _dbSet.AsTracking().FirstOrDefaultAsync(e => e.Id == id);
     }
 
-    public async Task<List<TEntity>> GetAllAsync()
+    public Task<List<TEntity>> GetAllAsync()
     {
-        return await _dbSet.AsNoTracking().ToListAsync();
+        return _dbSet.ToListAsync();
     }
 
-    public async Task<List<TEntity>> FindAsync(Expression<Func<TEntity, bool>> predicate)
+    public Task<List<TEntity>> FindAsync(Expression<Func<TEntity, bool>> predicate)
     {
-        return await _dbSet.AsNoTracking().Where(predicate).ToListAsync();
+        return _dbSet.Where(predicate).ToListAsync();
     }
 
-    public async Task<TEntity?> FindOneAsync(Expression<Func<TEntity, bool>> predicate)
+    public Task<TEntity?> FindOneAsync(Expression<Func<TEntity, bool>> predicate)
     {
-        return await _dbSet.AsNoTracking().FirstOrDefaultAsync(predicate);
+        return _dbSet.FirstOrDefaultAsync(predicate);
     }
 
-    public async Task AddAsync(TEntity entity)
+    public Task AddAsync(TEntity entity)
     {
-        await _dbSet.AddAsync(entity);
+        return _dbSet.AddAsync(entity).AsTask();
     }
 
     public void Add(TEntity entity)
@@ -45,9 +45,9 @@ public class BaseRepository<TEntity>(ShopContext context) : IBaseRepository<TEnt
         _dbSet.Add(entity);
     }
 
-    public async Task AddRangeAsync(IEnumerable<TEntity> entities)
+    public Task AddRangeAsync(IEnumerable<TEntity> entities)
     {
-        await _dbSet.AddRangeAsync(entities);
+        return _dbSet.AddRangeAsync(entities);
     }
 
     public void Update(TEntity entity)
@@ -60,14 +60,16 @@ public class BaseRepository<TEntity>(ShopContext context) : IBaseRepository<TEnt
         _dbSet.Remove(entity);
     }
 
-    public async Task RemoveAsync(TEntity entity)
+    public Task RemoveAsync(TEntity entity)
     {
-        await Task.Run(() => _dbSet.Remove(entity));
+        // همچنان به صورت sync اجرا می‌کنه، نیازی به Task.Run نیست
+        _dbSet.Remove(entity);
+        return Task.CompletedTask;
     }
 
-    public async Task<bool> ExistsAsync(Expression<Func<TEntity, bool>> predicate)
+    public Task<bool> ExistsAsync(Expression<Func<TEntity, bool>> predicate)
     {
-        return await _dbSet.AnyAsync(predicate);
+        return _dbSet.AnyAsync(predicate);
     }
 
     public bool Exists(Expression<Func<TEntity, bool>> predicate)
@@ -99,7 +101,6 @@ public class BaseRepository<TEntity>(ShopContext context) : IBaseRepository<TEnt
         var items = await query
             .Skip((pageNumber - 1) * pageSize)
             .Take(pageSize)
-            .AsNoTracking()
             .ToListAsync();
 
         return (items, totalCount);
