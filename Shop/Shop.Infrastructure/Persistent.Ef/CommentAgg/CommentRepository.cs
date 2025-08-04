@@ -7,10 +7,8 @@ namespace Shop.Infrastructure.Persistent.Ef.CommentAgg;
 
 public class CommentRepository(ShopContext context) : BaseRepository<Comment>(context), ICommentRepository
 {
-    public async Task DeleteComment(Guid commentId)
+    public void DeleteComment(Comment comment)
     {
-        var comment = await Context.Comments.FirstOrDefaultAsync(c => c.Id == commentId);
-        if (comment != null)
             Context.Remove(comment);
     }
 }
