@@ -5,10 +5,4 @@ using Shop.Infrastructure._Utilities;
 
 namespace Shop.Infrastructure.Persistent.Ef.CommentAgg;
 
-public class CommentRepository(ShopContext context) : BaseRepository<Comment>(context), ICommentRepository
-{
-    public void DeleteComment(Comment comment)
-    {
-            Context.Remove(comment);
-    }
-}
+public class CommentRepository(ShopContext context) : BaseRepository<Comment>(context), ICommentRepository;

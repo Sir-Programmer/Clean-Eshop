@@ -12,7 +12,7 @@ public class DeleteCommentCommandHandler(ICommentRepository commentRepository, I
         var comment = await commentRepository.GetByIdAsync(request.CommentId);
         if (comment == null)
             return OperationResult.NotFound();
-        commentRepository.DeleteComment(comment);
+        await commentRepository.RemoveAsync(comment);
         await unitOfWork.SaveChangesAsync();
         return OperationResult.Success();
     }
