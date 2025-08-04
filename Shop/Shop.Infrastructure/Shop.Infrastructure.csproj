@@ -19,7 +19,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Persistent.Ef\CommentAgg\" />
       <Folder Include="Persistent.Ef\ProductAgg\" />
       <Folder Include="Persistent.Ef\RoleAgg\" />
       <Folder Include="Persistent.Ef\SellerAgg\" />
