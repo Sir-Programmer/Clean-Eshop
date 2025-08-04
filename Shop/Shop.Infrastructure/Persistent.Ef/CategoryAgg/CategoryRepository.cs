@@ -13,20 +13,22 @@ public class CategoryRepository(ShopContext context) : BaseRepository<Category>(
             .Include(c => c.Childs)
             .ThenInclude(c => c.Childs)
             .FirstOrDefaultAsync(c => c.Id == categoryId);
-        
+
         if (category == null) return false;
-        
+
         var existProduct = await Context.Products
-            .Include(c => c.CategoryIds)
-            .AnyAsync(p => p.CategoryIds.Contains(categoryId));
-        
+            .AnyAsync(p =>
+                p.CategoryId == categoryId || 
+                p.SubCategoryId == categoryId || 
+                p.SecondSubCategoryId == categoryId);
+
         if (existProduct) return false;
 
         if (category.Childs.Any(c => c.Childs.Count != 0))
         {
-            Context.RemoveRange(category.Childs.SelectMany(s=>s.Childs));
+            Context.RemoveRange(category.Childs.SelectMany(s => s.Childs));
         }
-        
+
         Context.RemoveRange(category.Childs);
         Context.RemoveRange(category);
         return true;

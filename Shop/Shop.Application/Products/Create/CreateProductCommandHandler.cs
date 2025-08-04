@@ -18,16 +18,16 @@ internal class CreateProductCommandHandler(
     public async Task<OperationResult> Handle(CreateProductCommand request, CancellationToken cancellationToken)
     {
         var imageName = await fileService.SaveFileAndGenerateName(request.ImageFile, Directories.ProductImages);
-        
-        var product = new Product(request.Title, request.Slug, request.Description, imageName, request.SeoData,
-            request.CategoryIds, productDomainService);
-        
+
+        var product = new Product(request.Title, request.Slug, request.Description, imageName, request.CategoryId,
+            request.SubCategoryId, request.SecondSubCategoryId, request.SeoData, productDomainService);
+
         await productRepository.AddAsync(product);
-        
+
         var productSpecifications = request.Specifications
             .Select(spec => new ProductSpecification(spec.Key, spec.Value))
             .ToList();
-        
+
         product.SetSpecifications(productSpecifications);
         await unitOfWork.SaveChangesAsync();
         return OperationResult.Success();

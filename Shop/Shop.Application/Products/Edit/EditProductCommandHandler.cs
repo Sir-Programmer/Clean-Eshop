@@ -20,12 +20,13 @@ public class EditProductCommandHandler(
         var product = await productRepository.GetByIdTrackingAsync(request.ProductId);
         if (product == null) return OperationResult.NotFound();
         var oldImage = product.ImageName;
-        product.Edit(request.Title, request.Slug, request.Description, request.SeoData, request.CategoryIds, productDomainService);
-        
+        product.Edit(request.Title, request.Slug, request.Description, request.CategoryId, request.SubCategoryId,
+            request.SecondSubCategoryId, request.SeoData, productDomainService);
+
         var productSpecifications = request.Specifications
             .Select(spec => new ProductSpecification(spec.Key, spec.Value))
             .ToList();
-        
+
         product.SetSpecifications(productSpecifications);
 
         if (request.ImageFile != null)
