@@ -55,18 +55,6 @@ public class BaseRepository<TEntity>(ShopContext context) : IBaseRepository<TEnt
         _dbSet.Update(entity);
     }
 
-    public void Remove(TEntity entity)
-    {
-        _dbSet.Remove(entity);
-    }
-
-    public Task RemoveAsync(TEntity entity)
-    {
-        // همچنان به صورت sync اجرا می‌کنه، نیازی به Task.Run نیست
-        _dbSet.Remove(entity);
-        return Task.CompletedTask;
-    }
-
     public Task<bool> ExistsAsync(Expression<Func<TEntity, bool>> predicate)
     {
         return _dbSet.AnyAsync(predicate);

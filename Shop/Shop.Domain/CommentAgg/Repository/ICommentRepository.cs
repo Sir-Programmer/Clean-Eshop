@@ -2,4 +2,7 @@
 
 namespace Shop.Domain.CommentAgg.Repository;
 
-public interface ICommentRepository : IBaseRepository<Comment>;
+public interface ICommentRepository : IBaseRepository<Comment>
+{
+    void Delete(Comment comment);
+}
