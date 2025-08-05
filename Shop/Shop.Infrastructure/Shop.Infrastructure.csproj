@@ -18,8 +18,4 @@
       <ProjectReference Include="..\Shop.Application\Shop.Application.csproj" />
     </ItemGroup>
 
-    <ItemGroup>
-      <Folder Include="Persistent.Ef\UserAgg\" />
-    </ItemGroup>
-
 </Project>
