@@ -10,6 +10,7 @@ using Shop.Domain.SiteEntities.Banner.Repository;
 using Shop.Domain.SiteEntities.ShippingMethod.Repository;
 using Shop.Domain.SiteEntities.Slider.Repository;
 using Shop.Domain.UserAgg.Repository;
+using Shop.Infrastructure.Persistent.Dapper;
 using Shop.Infrastructure.Persistent.Ef;
 using Shop.Infrastructure.Persistent.Ef.CategoryAgg;
 using Shop.Infrastructure.Persistent.Ef.CommentAgg;
@@ -28,6 +29,7 @@ public class InfrastructureBootstrapper
 {
     public static void Initialize(IServiceCollection services, string connectionString)
     {
+        // Repositories
         services.AddScoped<ICategoryRepository, CategoryRepository>();
         services.AddScoped<ICommentRepository, CommentRepository>();
         services.AddScoped<IOrderRepository, OrderRepository>();
@@ -38,7 +40,10 @@ public class InfrastructureBootstrapper
         services.AddScoped<IShippingMethodRepository, ShippingMethodRepository>();
         services.AddScoped<ISliderRepository, SliderRepository>();
         services.AddScoped<IUserRepository, UserRepository>();
-
+        
+        // Register EF
         services.AddDbContext<ShopContext>(option => option.UseSqlServer(connectionString));
+        // Register Dapper
+        services.AddSingleton(new DapperContext(connectionString));
     }
 }
