@@ -19,7 +19,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Persistent.Ef\SiteEntities\" />
+      <Folder Include="Persistent.Ef\SiteEntities\Banners\" />
       <Folder Include="Persistent.Ef\UserAgg\" />
     </ItemGroup>
 
