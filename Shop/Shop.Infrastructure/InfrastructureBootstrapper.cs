@@ -10,6 +10,7 @@ using Shop.Domain.SiteEntities.Banner.Repository;
 using Shop.Domain.SiteEntities.ShippingMethod.Repository;
 using Shop.Domain.SiteEntities.Slider.Repository;
 using Shop.Domain.UserAgg.Repository;
+using Shop.Infrastructure.Persistent.Ef;
 using Shop.Infrastructure.Persistent.Ef.CategoryAgg;
 using Shop.Infrastructure.Persistent.Ef.CommentAgg;
 using Shop.Infrastructure.Persistent.Ef.OrderAgg;
