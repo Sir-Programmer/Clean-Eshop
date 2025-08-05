@@ -12,7 +12,6 @@ public record CreateProductCommand(
     IFormFile ImageFile,
     SeoData SeoData,
     Guid CategoryId,
-    Guid SubCategoryId,
-    Guid SecondSubCategoryId,
+    List<Guid> SubCategoriesIds,
     Dictionary<string, string> Specifications)
     : IBaseCommand;

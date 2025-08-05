@@ -27,6 +27,7 @@ public class EditProductCommandHandler(
             .ToList();
 
         product.SetSpecifications(productSpecifications);
+        product.SetSubCategories(request.SubCategoriesIds);
 
         if (request.ImageFile != null)
         {

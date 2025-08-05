@@ -11,8 +11,6 @@ public record EditProductCommand(
     string Description,
     IFormFile? ImageFile,
     Guid CategoryId,
-    Guid SubCategoryId,
-    Guid SecondSubCategoryId,
     SeoData SeoData,
-    List<Guid> CategoryIds,
+    List<Guid> SubCategoriesIds,
     Dictionary<string, string> Specifications): IBaseCommand;
