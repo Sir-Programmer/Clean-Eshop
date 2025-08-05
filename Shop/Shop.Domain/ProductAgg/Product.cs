@@ -8,7 +8,7 @@ namespace Shop.Domain.ProductAgg;
 
 public class Product : AggregateRoot
 {
-    public Product(string title, string slug, string description, string imageName, Guid categoryId, Guid subCategoryId, Guid secondSubCategoryId, SeoData seoData, IProductDomainService productDomainService)
+    public Product(string title, string slug, string description, string imageName, Guid mainCategoryId, SeoData seoData, IProductDomainService productDomainService)
     {
         Guard(title, slug, description, productDomainService);
         ImageNameGuard(imageName);
@@ -16,11 +16,10 @@ public class Product : AggregateRoot
         Slug = slug.ToSlug();
         Description = description;
         ImageName = imageName;
-        CategoryId = categoryId;
-        SubCategoryId = subCategoryId;
-        SecondSubCategoryId = secondSubCategoryId;
+        MainCategoryId = mainCategoryId;
         SeoData = seoData;
 
+        SubCategories = [];
         Images = [];
         Specifications = [];
     }
@@ -29,29 +28,34 @@ public class Product : AggregateRoot
     public string Slug { get; private set; }
     public string Description { get; private set; }
     public string ImageName { get; private set; }
-    
-    public Guid CategoryId { get; private set; }
-    public Guid SubCategoryId { get; private set; }
-    public Guid SecondSubCategoryId { get; private set; }
+    public Guid MainCategoryId { get; private set; }
     public SeoData SeoData { get; private set; }
+    public List<ProductCategoryItem> SubCategories { get; private set; }
     public List<ProductImage> Images { get; private set; }
     public List<ProductSpecification> Specifications { get; private set; }
 
-    public void Edit(string title, string slug, string description, Guid categoryId, Guid subCategoryId, Guid secondSubCategoryId, SeoData seoData, IProductDomainService productDomainService)
+    public void Edit(string title, string slug, string description, Guid categoryId, SeoData seoData, IProductDomainService productDomainService)
     {
         Guard(title, slug, description, productDomainService);
         Title = title;
         Slug = slug.ToSlug();
         Description = description;
-        CategoryId = categoryId;
-        SubCategoryId = subCategoryId;
-        SecondSubCategoryId = secondSubCategoryId;
+        MainCategoryId = categoryId;
         SeoData = seoData;
     }
 
     public void SetImageName(string imageName)
     {
         ImageName = imageName;
+    }
+
+    public void SetSubCategories(List<Guid> subCategoryIds)
+    {
+        var categories = subCategoryIds.Select(c => new ProductCategoryItem(c)
+        {
+            ProductId = Id
+        }).ToList();
+        SubCategories = categories;
     }
 
     public void AddImage(string imageName, int sequence)

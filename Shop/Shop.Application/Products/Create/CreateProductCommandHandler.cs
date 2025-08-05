@@ -19,8 +19,7 @@ internal class CreateProductCommandHandler(
     {
         var imageName = await fileService.SaveFileAndGenerateName(request.ImageFile, Directories.ProductImages);
 
-        var product = new Product(request.Title, request.Slug, request.Description, imageName, request.CategoryId,
-            request.SubCategoryId, request.SecondSubCategoryId, request.SeoData, productDomainService);
+        var product = new Product(request.Title, request.Slug, request.Description, imageName, request.CategoryId, request.SeoData, productDomainService);
 
         await productRepository.AddAsync(product);
 

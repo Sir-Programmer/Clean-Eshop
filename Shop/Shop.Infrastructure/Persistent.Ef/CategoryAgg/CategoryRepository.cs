@@ -17,10 +17,9 @@ public class CategoryRepository(ShopContext context) : BaseRepository<Category>(
         if (category == null) return false;
 
         var existProduct = await Context.Products
+            .Include(p => p.SubCategories)
             .AnyAsync(p =>
-                p.CategoryId == categoryId || 
-                p.SubCategoryId == categoryId || 
-                p.SecondSubCategoryId == categoryId);
+                p.MainCategoryId == categoryId || p.SubCategories.Any(s => s.CategoryId == categoryId));
 
         if (existProduct) return false;
 
