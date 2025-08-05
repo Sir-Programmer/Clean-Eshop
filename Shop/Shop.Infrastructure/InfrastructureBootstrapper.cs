@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Shop.Domain.CategoryAgg.Repository;
 using Shop.Domain.CommentAgg.Repository;
@@ -24,7 +25,7 @@ namespace Shop.Infrastructure;
 
 public class InfrastructureBootstrapper
 {
-    public static void Initialize(IServiceCollection services)
+    public static void Initialize(IServiceCollection services, string connectionString)
     {
         services.AddScoped<ICategoryRepository, CategoryRepository>();
         services.AddScoped<ICommentRepository, CommentRepository>();
@@ -36,5 +37,7 @@ public class InfrastructureBootstrapper
         services.AddScoped<IShippingMethodRepository, ShippingMethodRepository>();
         services.AddScoped<ISliderRepository, SliderRepository>();
         services.AddScoped<IUserRepository, UserRepository>();
+
+        services.AddDbContext<ShopContext>(option => option.UseSqlServer(connectionString));
     }
 }
