@@ -6,6 +6,6 @@ namespace Shop.Infrastructure.Persistent.Dapper;
 public class DapperContext(string connectionString)
 {
     public IDbConnection CreateConnection => new SqlConnection(connectionString);
-    
-    public string Inventories = "[seller].Inventories";
+
+    public const string Inventories = "[seller].Inventories";
 }
