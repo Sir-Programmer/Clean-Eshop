@@ -7,6 +7,7 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <PackageReference Include="Dapper" Version="2.1.66" />
       <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="9.0.7" />
       <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="9.0.7">
         <PrivateAssets>all</PrivateAssets>
@@ -16,11 +17,6 @@
 
     <ItemGroup>
       <ProjectReference Include="..\Shop.Application\Shop.Application.csproj" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <Folder Include="Persistent.Ef\SiteEntities\" />
-      <Folder Include="Persistent.Ef\UserAgg\" />
     </ItemGroup>
 
 </Project>

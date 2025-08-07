@@ -2,6 +2,7 @@
 using Common.Domain;
 using Common.Domain.Repository;
 using Microsoft.EntityFrameworkCore;
+using Shop.Infrastructure.Persistent.Ef;
 
 namespace Shop.Infrastructure._Utilities;
 

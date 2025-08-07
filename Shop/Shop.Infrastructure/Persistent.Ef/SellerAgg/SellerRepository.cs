@@ -1,14 +1,17 @@
-﻿using Shop.Domain.SellerAgg;
+﻿using Dapper;
+using Shop.Domain.SellerAgg;
 using Shop.Domain.SellerAgg.Repository;
 using Shop.Infrastructure._Utilities;
+using Shop.Infrastructure.Persistent.Dapper;
 
 namespace Shop.Infrastructure.Persistent.Ef.SellerAgg;
 
-public class SellerRepository(ShopContext context) : BaseRepository<Seller>(context), ISellerRepository
+public class SellerRepository(ShopContext context, DapperContext dapperContext) : BaseRepository<Seller>(context), ISellerRepository
 {
-    public Task<InventoryResult?> GetInventoryById(Guid inventoryId)
+    public async Task<InventoryResult?> GetInventoryById(Guid inventoryId)
     {
-        //TODO : Use DAPPER
-        throw new NotImplementedException();
+        using var connection = dapperContext.CreateConnection;
+        var sql = $"SELECT * FROM {DapperContext.Inventories} WHERE id = @inventoryId";
+        return await connection.QueryFirstOrDefaultAsync<InventoryResult>(sql, new { inventoryId });
     }
 }

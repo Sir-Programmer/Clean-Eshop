@@ -10,7 +10,7 @@ using Shop.Domain.SiteEntities.ShippingMethod;
 using Shop.Domain.SiteEntities.Slider;
 using Shop.Domain.UserAgg;
 
-namespace Shop.Infrastructure;
+namespace Shop.Infrastructure.Persistent.Ef;
 
 public class ShopContext(DbContextOptions<ShopContext> options) : DbContext(options)
 {
