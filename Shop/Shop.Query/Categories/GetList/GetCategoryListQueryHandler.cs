@@ -13,6 +13,7 @@ public class GetCategoryListQueryHandler(ShopContext context) : IQueryHandler<Ge
             .Where(c => c.ParentId == null)
             .Include(c => c.Childs)
             .ThenInclude(c => c.Childs)
+            .OrderByDescending(c => c.CreationTime)
             .ToListAsync(cancellationToken: cancellationToken);
         return categories.Map();
     }
