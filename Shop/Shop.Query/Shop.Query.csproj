@@ -7,7 +7,6 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <Folder Include="Comments\GetByFilter\" />
       <Folder Include="Comments\GetById\" />
       <Folder Include="Orders\" />
       <Folder Include="Products\" />
