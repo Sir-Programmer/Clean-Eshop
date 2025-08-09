@@ -1,4 +1,4 @@
-namespace Common.Query;
+namespace Common.Query.Filter;
 
 public class BaseFilter
 {

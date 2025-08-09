@@ -1,4 +1,5 @@
 using Common.Query;
+using Common.Query.Filter;
 using Microsoft.EntityFrameworkCore;
 using Shop.Domain.CommentAgg;
 using Shop.Infrastructure.Persistent.Ef;
@@ -29,9 +30,18 @@ public class GetCommentByFilterQueryHandler(ShopContext context)
             query = query.Where(c => c.CreationTime.Date >= @params.StartDate.Value.Date);
         if (@params.EndDate != null)
             query = query.Where(c => c.CreationTime.Date <= @params.EndDate.Value.Date);
+        
+        var pagedList = query
+            .Select(c => c.Map()).ToSafePagedList(@params.PageId, @params.Take).ToList();
 
-        var result =
-            query.ToPagedResult<Comment, CommentDto, CommentFilterParams, CommentFilterResult>(@params, c => c.Map());
+        var result = new CommentFilterResult
+        {
+            Data = pagedList,
+            FilterParams = @params
+        };
+
+        result.GeneratePaging(query.Count(), @params.Take, @params.PageId);
+
         return result;
     }
 }

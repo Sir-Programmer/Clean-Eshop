@@ -1,3 +1,5 @@
+using Common.Query.Filter;
+
 namespace Common.Query;
 
 public class QueryFilter<TResponse, TParam>(TParam filterParams) : IQuery<TResponse>
