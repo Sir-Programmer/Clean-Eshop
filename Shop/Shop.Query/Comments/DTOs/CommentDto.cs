@@ -1,8 +1,9 @@
+using Common.Query;
 using Shop.Domain.CommentAgg.Enums;
 
 namespace Shop.Query.Comments.DTOs;
 
-public class CommentDto
+public class CommentDto : BaseDto
 {
     public Guid UserId { get; set; }
     public string UserFullName { get; set; }
