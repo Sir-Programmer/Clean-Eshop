@@ -1,7 +1,6 @@
 using Common.Application;
 using Common.Domain.ValueObjects;
 using Microsoft.AspNetCore.Http;
-using Shop.Domain.ProductAgg;
 
 namespace Shop.Application.Products.Create;
 

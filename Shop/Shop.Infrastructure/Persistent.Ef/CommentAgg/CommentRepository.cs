@@ -1,4 +1,3 @@
-using Microsoft.EntityFrameworkCore;
 using Shop.Domain.CommentAgg;
 using Shop.Domain.CommentAgg.Repository;
 using Shop.Infrastructure._Utilities;
