@@ -1,4 +1,7 @@
 ﻿using Common.Application;
+using Common.Application.FileUtil.Implementation;
+using Common.Application.FileUtil.Interfaces;
+using Common.Application.UnitOfWork;
 using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
 using Shop.Application.Categories;
@@ -11,6 +14,7 @@ using Shop.Domain.ProductAgg.Services;
 using Shop.Domain.SellerAgg.Services;
 using Shop.Domain.UserAgg.Services;
 using Shop.Infrastructure;
+using Shop.Infrastructure._Utilities;
 using Shop.Query.Categories.GetById;
 
 namespace Shop.Config;
@@ -22,17 +26,25 @@ public static class ShopBootstrapper
         InfrastructureBootstrapper.Initialize(services, connectionString);
         CommonBootstrapper.Initialize(services);
         
+        // MediatR
         services.AddMediatR(option =>
         {
             option.RegisterServicesFromAssembly(typeof(CreateCategoryCommand).Assembly);
             option.RegisterServicesFromAssembly(typeof(GetCategoryByIdQuery).Assembly);
         });
         
+        // Fluent Validation
         services.AddValidatorsFromAssembly(typeof(CreateCategoryCommandValidator).Assembly);
-
+        
+        // UnitOfWork And Utilities
+        services.AddScoped<IUnitOfWork, UnitOfWork>();
+        services.AddScoped<IFileService, FileService>();
+        
+        //Domain Services
         services.AddScoped<ICategoryDomainService, CategoryDomainService>();
         services.AddScoped<IProductDomainService, ProductDomainService>();
         services.AddScoped<ISellerDomainService, SellerDomainService>();
         services.AddScoped<IUserDomainService, UserDomainService>();
+        
     }
 }
