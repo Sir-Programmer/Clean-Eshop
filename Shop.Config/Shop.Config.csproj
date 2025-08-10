@@ -10,4 +10,8 @@
       <ProjectReference Include="..\Shop\Shop.Presentation.Facade\Shop.Presentation.Facade.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="12.0.0" />
+    </ItemGroup>
+
 </Project>

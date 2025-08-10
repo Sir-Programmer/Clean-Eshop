@@ -1,4 +1,5 @@
 ﻿using Common.Application;
+using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
 using Shop.Application.Categories;
 using Shop.Application.Categories.Create;
@@ -26,6 +27,8 @@ public static class ShopBootstrapper
             option.RegisterServicesFromAssembly(typeof(CreateCategoryCommand).Assembly);
             option.RegisterServicesFromAssembly(typeof(GetCategoryByIdQuery).Assembly);
         });
+        
+        services.AddValidatorsFromAssembly(typeof(CreateCategoryCommandValidator).Assembly);
 
         services.AddScoped<ICategoryDomainService, CategoryDomainService>();
         services.AddScoped<IProductDomainService, ProductDomainService>();
