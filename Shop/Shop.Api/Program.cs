@@ -1,4 +1,3 @@
-using Common.Application;
 using Shop.Config;
 
 var builder = WebApplication.CreateBuilder(args);
