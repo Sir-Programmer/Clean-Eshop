@@ -10,8 +10,8 @@ public class SellerRepository(ShopContext context, DapperContext dapperContext) 
 {
     public async Task<InventoryResult?> GetInventoryById(Guid inventoryId)
     {
-        using var connection = dapperContext.CreateConnection;
-        var sql = $"SELECT * FROM {DapperContext.Inventories} WHERE id = @inventoryId";
+        using var connection = dapperContext.CreateConnection();
+        const string sql = $"SELECT * FROM {DapperContext.Inventories} WHERE id = @inventoryId";
         return await connection.QueryFirstOrDefaultAsync<InventoryResult>(sql, new { inventoryId });
     }
 }
