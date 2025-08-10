@@ -1,7 +1,7 @@
 using Common.Query.Filter;
 using Shop.Domain.CommentAgg.Enums;
 
-namespace Shop.Query.Comments.DTOs;
+namespace Shop.Query.Comments.DTOs.Filter;
 
 public class CommentFilterParams : BaseFilterParam
 {
