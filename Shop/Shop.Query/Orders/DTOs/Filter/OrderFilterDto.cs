@@ -1,7 +1,7 @@
 ﻿using Common.Query;
 using Shop.Domain.OrderAgg.Enums;
 
-namespace Shop.Query.Orders.DTOs;
+namespace Shop.Query.Orders.DTOs.Filter;
 
 public class OrderFilterDto : BaseDto
 {
