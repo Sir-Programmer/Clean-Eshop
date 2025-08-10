@@ -27,8 +27,8 @@ public class GetOrderByFilterQueryHandler(ShopContext context) : IQueryHandler<G
         {
             Data = data,
             FilterParams = @params
-        }; 
-        
+        };
+        result.GeneratePaging(query.Count(), @params.Take, @params.PageId);
         return result;
     }
 }

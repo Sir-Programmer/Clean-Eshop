@@ -27,7 +27,7 @@ public static class OrderMapper
         };
     }
 
-    public static async Task<List<OrderItemDto>> GetOrderItems(this Order order, DapperContext dapperContext)
+    public static async Task<List<OrderItemDto>> GetOrderItems(this OrderDto order, DapperContext dapperContext)
     {
         using var connection = dapperContext.CreateConnection();
         const string sql = $"""
