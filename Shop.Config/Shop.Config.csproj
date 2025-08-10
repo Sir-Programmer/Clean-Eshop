@@ -6,4 +6,8 @@
         <Nullable>enable</Nullable>
     </PropertyGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\Shop\Shop.Presentation.Facade\Shop.Presentation.Facade.csproj" />
+    </ItemGroup>
+
 </Project>
