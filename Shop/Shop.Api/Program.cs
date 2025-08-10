@@ -1,10 +1,17 @@
+using Common.Application;
+using Shop.Config;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-builder.Services.AddControllers();
+var services = builder.Services;
+services.AddControllers();
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
-builder.Services.AddOpenApi();
+services.AddOpenApi();
+
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? "";
+services.InitializeShopDependencies(connectionString);
 
 var app = builder.Build();
 

@@ -21,4 +21,8 @@
       </Content>
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\..\Shop.Config\Shop.Config.csproj" />
+    </ItemGroup>
+
 </Project>

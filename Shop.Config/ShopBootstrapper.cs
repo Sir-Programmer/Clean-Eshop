@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Common.Application;
+using Microsoft.Extensions.DependencyInjection;
 using Shop.Application.Categories;
 using Shop.Application.Categories.Create;
 using Shop.Application.Products;
@@ -15,9 +16,10 @@ namespace Shop.Config;
 
 public static class ShopBootstrapper
 {
-    public static void Initialize(this IServiceCollection services, string connectionString)
+    public static void InitializeShopDependencies(this IServiceCollection services, string connectionString)
     {
         InfrastructureBootstrapper.Initialize(services, connectionString);
+        CommonBootstrapper.Initialize(services);
         
         services.AddMediatR(option =>
         {
