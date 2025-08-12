@@ -4,6 +4,10 @@ namespace Shop.Domain.OrderAgg;
 
 public class OrderItem : BaseEntity
 {
+    private OrderItem()
+    {
+        
+    }
     public OrderItem(Guid inventoryId, int count, int price)
     {
         InventoryId = inventoryId;

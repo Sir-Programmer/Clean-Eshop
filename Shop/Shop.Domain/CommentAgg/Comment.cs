@@ -6,6 +6,10 @@ namespace Shop.Domain.CommentAgg;
 
 public class Comment : AggregateRoot
 {
+    private Comment()
+    {
+        
+    }
     public Comment(Guid userId, string text, Guid productId)
     {
         Guard(text);

@@ -5,6 +5,10 @@ namespace Shop.Domain.ProductAgg;
 
 public class ProductImage : BaseEntity
 {
+    private ProductImage()
+    {
+        
+    }
     public ProductImage(string imageName, int sequence)
     {
         Guard(imageName);

@@ -8,6 +8,10 @@ namespace Shop.Domain.OrderAgg;
 
 public class Order : AggregateRoot
 {
+    private Order()
+    {
+        
+    }
     public Order(Guid userId)
     {
         UserId = userId;

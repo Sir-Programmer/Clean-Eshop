@@ -5,6 +5,10 @@ namespace Shop.Domain.ProductAgg;
 
 public class ProductSpecification : BaseEntity
 {
+    private ProductSpecification()
+    {
+        
+    }
     public ProductSpecification(string key, string value)
     {
         Guard(key, value);

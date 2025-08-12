@@ -8,6 +8,10 @@ namespace Shop.Domain.ProductAgg;
 
 public class Product : AggregateRoot
 {
+    private Product()
+    {
+        
+    }
     public Product(string title, string slug, string description, string imageName, Guid mainCategoryId, SeoData seoData, IProductDomainService productDomainService)
     {
         Guard(title, slug, description, productDomainService);

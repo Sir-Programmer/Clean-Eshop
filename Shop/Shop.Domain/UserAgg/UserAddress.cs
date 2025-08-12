@@ -5,6 +5,10 @@ namespace Shop.Domain.UserAgg;
 
 public class UserAddress : BaseEntity
 {
+    private UserAddress()
+    {
+        
+    }
     public UserAddress(string province, string city, string postalCode, string fullName, string postalAddress,
         string phoneNumber, string nationalId)
     {

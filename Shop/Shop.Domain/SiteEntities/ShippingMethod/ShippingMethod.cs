@@ -5,6 +5,10 @@ namespace Shop.Domain.SiteEntities.ShippingMethod;
 
 public class ShippingMethod : BaseEntity
 {
+    private ShippingMethod()
+    {
+        
+    }
     public ShippingMethod(string title, int cost)
     {
         Guard(title, cost);

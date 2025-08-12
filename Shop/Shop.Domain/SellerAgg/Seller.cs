@@ -7,6 +7,10 @@ namespace Shop.Domain.SellerAgg;
 
 public class Seller : AggregateRoot
 {
+    private Seller()
+    {
+        
+    }
     public Seller(Guid userId, string shopName, string nationalId, ISellerDomainService sellerDomainService)
     {
         Guard(shopName, nationalId);

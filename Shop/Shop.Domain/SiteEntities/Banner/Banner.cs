@@ -6,6 +6,10 @@ namespace Shop.Domain.SiteEntities.Banner;
 
 public class Banner : BaseEntity
 {
+    private Banner()
+    {
+        
+    }
     public Banner(string url, string imageName, BannerPosition bannerPosition)
     {
         Guard(url, imageName);

@@ -5,6 +5,10 @@ namespace Shop.Domain.SiteEntities.Slider;
 
 public class Slider : BaseEntity
 {
+    private Slider()
+    {
+        
+    }
     public Slider(string title, string url, string imageName)
     {
         Guard(title, url, imageName);

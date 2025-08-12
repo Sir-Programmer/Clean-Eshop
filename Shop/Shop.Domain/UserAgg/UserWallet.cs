@@ -5,6 +5,10 @@ namespace Shop.Domain.UserAgg;
 
 public class UserWallet : BaseEntity
 {
+    private UserWallet()
+    {
+        
+    }
     public UserWallet(int price, WalletType type, string description, bool isFinally)
     {
         Price = price;
