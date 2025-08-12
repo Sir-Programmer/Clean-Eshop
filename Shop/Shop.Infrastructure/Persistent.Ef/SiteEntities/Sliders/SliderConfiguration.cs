@@ -8,8 +8,8 @@ public class SliderConfiguration : IEntityTypeConfiguration<Slider>
 {
     public void Configure(EntityTypeBuilder<Slider> builder)
     {
-        builder.ToTable("Sliders", "slider");
-        
+        builder.ToTable("Sliders");
+        builder.HasKey(s => s.Id);
         builder.Property(s => s.Title)
             .IsRequired()
             .HasMaxLength(200);

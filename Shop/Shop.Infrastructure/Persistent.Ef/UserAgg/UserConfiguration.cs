@@ -9,6 +9,7 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
     public void Configure(EntityTypeBuilder<User> builder)
     {
         builder.ToTable("Users", "user");
+        builder.HasKey(u => u.Id);
         builder.HasIndex(u => u.Email).IsUnique();
         builder.HasIndex(u => u.PhoneNumber).IsUnique();
 
@@ -35,6 +36,7 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
         builder.OwnsMany(u => u.Addresses, option =>
         {
             option.ToTable("Addresses", "user");
+            option.HasKey(a => a.Id);
             option.HasIndex(a => a.UserId);
             
             option.Property(a => a.Province)
@@ -69,12 +71,14 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
         builder.OwnsMany(u => u.Roles, option =>
         {
             option.ToTable("Roles", "user");
+            option.HasKey(r => r.Id);
             option.HasIndex(r => r.UserId);
         });
         
         builder.OwnsMany(u => u.Wallets, option =>
         {
             option.ToTable("Wallets", "user");
+            option.HasKey(w => w.Id);
             option.HasIndex(w => w.UserId);
 
             option.Property(w => w.Description)

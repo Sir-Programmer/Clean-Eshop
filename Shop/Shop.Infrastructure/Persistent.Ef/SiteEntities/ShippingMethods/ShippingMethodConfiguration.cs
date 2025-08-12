@@ -8,8 +8,8 @@ public class ShippingMethodConfiguration : IEntityTypeConfiguration<ShippingMeth
 {
     public void Configure(EntityTypeBuilder<ShippingMethod> builder)
     {
-        builder.ToTable("ShippingMethods", "shipping");
-
+        builder.ToTable("ShippingMethods");
+        builder.HasKey(s => s.Id);
         builder.Property(s => s.Title)
             .IsRequired()
             .HasMaxLength(200);

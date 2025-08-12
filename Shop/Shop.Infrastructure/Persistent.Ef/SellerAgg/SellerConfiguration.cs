@@ -9,6 +9,7 @@ public class SellerConfiguration : IEntityTypeConfiguration<Seller>
     public void Configure(EntityTypeBuilder<Seller> builder)
     {
         builder.ToTable("Sellers", "seller");
+        builder.HasKey(s => s.Id);
         builder.HasIndex(s => s.NationalId).IsUnique();
 
         builder.Property(s => s.NationalId)
@@ -22,7 +23,7 @@ public class SellerConfiguration : IEntityTypeConfiguration<Seller>
         builder.OwnsMany(s => s.Inventories, option =>
         {
             option.ToTable("Inventories", "seller");
-
+            option.HasKey(i => i.Id);
             option.HasIndex(i => i.ProductId);
             option.HasIndex(i => i.SellerId);
         });

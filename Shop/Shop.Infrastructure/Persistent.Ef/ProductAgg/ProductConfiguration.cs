@@ -9,6 +9,7 @@ public class ProductConfiguration : IEntityTypeConfiguration<Product>
     public void Configure(EntityTypeBuilder<Product> builder)
     {
         builder.ToTable("Products", "product");
+        builder.HasKey(p => p.Id);
         builder.HasIndex(p => p.Slug).IsUnique();
 
         builder.Property(p => p.Title)
@@ -51,11 +52,17 @@ public class ProductConfiguration : IEntityTypeConfiguration<Product>
                 .HasColumnName("Schema");
         });
 
+        builder.OwnsMany(p => p.SubCategories, option =>
+        {
+            option.ToTable("SubCategories", "product");
+            option.HasKey(c => c.Id);
+        });
+
         builder.OwnsMany(p => p.Images, option =>
         {
             option.ToTable("Images", "product");
-            
-            option.Property(b => b.ImageName)
+            option.HasKey(i => i.Id);
+            option.Property(i => i.ImageName)
                 .IsRequired()
                 .HasMaxLength(100);
         });
@@ -63,7 +70,7 @@ public class ProductConfiguration : IEntityTypeConfiguration<Product>
         builder.OwnsMany(p => p.Specifications, option =>
         {
             option.ToTable("Specifications", "product");
-
+            option.HasKey(p => p.Id);
             option.Property(s => s.Key)
                 .IsRequired()
                 .HasMaxLength(100);

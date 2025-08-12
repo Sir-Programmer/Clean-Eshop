@@ -9,11 +9,13 @@ public class OrderConfiguration : IEntityTypeConfiguration<Order>
     public void Configure(EntityTypeBuilder<Order> builder)
     {
         builder.ToTable("Orders", "order");
+        builder.HasKey(o => o.Id);
         builder.HasIndex(o => o.UserId);
 
         builder.OwnsMany(o => o.Items, option =>
         {
             option.ToTable("Items", "order");
+            option.HasKey(i => i.Id);
             option.HasIndex(i => i.InventoryId);
             option.HasIndex(i => i.OrderId);
         });

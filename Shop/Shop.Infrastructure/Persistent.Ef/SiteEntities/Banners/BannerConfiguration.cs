@@ -8,8 +8,8 @@ public class BannerConfiguration : IEntityTypeConfiguration<Banner>
 {
     public void Configure(EntityTypeBuilder<Banner> builder)
     {
-        builder.ToTable("Banners", "banner");
-
+        builder.ToTable("Banners");
+        builder.HasKey(b => b.Id);
         builder.Property(b => b.Url)
             .IsRequired()
             .HasMaxLength(300);

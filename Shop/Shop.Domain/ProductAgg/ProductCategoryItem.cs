@@ -4,6 +4,10 @@ namespace Shop.Domain.ProductAgg;
 
 public class ProductCategoryItem : BaseEntity
 {
+    private ProductCategoryItem()
+    {
+        
+    }
     public ProductCategoryItem(Guid categoryId)
     {
         CategoryId = categoryId;

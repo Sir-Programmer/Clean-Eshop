@@ -9,6 +9,7 @@ public class CommentConfiguration : IEntityTypeConfiguration<Comment>
     public void Configure(EntityTypeBuilder<Comment> builder)
     {
         builder.ToTable("Comments", "comment");
+        builder.HasKey(c => c.Id);
         builder.HasIndex(c => c.ProductId);
         builder.HasIndex(c => c.UserId);
         
