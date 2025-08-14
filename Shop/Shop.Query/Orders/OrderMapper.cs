@@ -16,6 +16,8 @@ public static class OrderMapper
             .FirstOrDefault();
         return new OrderDto()
         {
+            Id = order.Id,
+            CreationTime = order.CreationTime,
             UserId = order.UserId,
             UserFullName = userFullName ?? "",
             Status = order.Status,
@@ -56,6 +58,8 @@ public static class OrderMapper
         var userFullName = context.Users.Where(u => u.Id == order.UserId).Select(u => u.Name).FirstOrDefault();
         return new OrderFilterDto()
         {
+            Id = order.Id,
+            CreationTime = order.CreationTime,
             UserId = order.UserId,
             UserFullName = userFullName ?? "",
             Status = order.Status,
