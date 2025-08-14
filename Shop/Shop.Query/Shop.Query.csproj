@@ -7,7 +7,11 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <Folder Include="Products\" />
+      <Folder Include="Products\DTOs\" />
+      <Folder Include="Products\GetByFilter\" />
+      <Folder Include="Products\GetById\" />
+      <Folder Include="Products\GetBySlug\" />
+      <Folder Include="Products\GetForShop\" />
       <Folder Include="Roles\" />
       <Folder Include="Sellers\" />
       <Folder Include="SiteEntities\" />
