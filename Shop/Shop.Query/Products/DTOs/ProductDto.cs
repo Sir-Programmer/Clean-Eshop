@@ -9,7 +9,7 @@ public class ProductDto : BaseDto
     public string Slug { get; set; }
     public string Description { get; set; }
     public string ImageName { get; set; }
-    public Guid MainCategoryId { get; set; }
+    public ProductCategoryItemDto? MainCategory { get; set; }
     public SeoData SeoData { get; set; }
     public List<ProductCategoryItemDto> SubCategories { get; set; }
     public List<ProductImageDto> Images { get; set; }
