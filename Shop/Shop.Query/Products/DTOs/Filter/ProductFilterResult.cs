@@ -1,0 +1,8 @@
+﻿using Common.Query.Filter;
+
+namespace Shop.Query.Products.DTOs.Filter;
+
+public class ProductFilterResult : BaseFilter<ProductFilterDto, ProductFilterParams>
+{
+    
+}

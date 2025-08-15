@@ -7,7 +7,6 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <Folder Include="Products\DTOs\" />
       <Folder Include="Products\GetByFilter\" />
       <Folder Include="Products\GetById\" />
       <Folder Include="Products\GetBySlug\" />
