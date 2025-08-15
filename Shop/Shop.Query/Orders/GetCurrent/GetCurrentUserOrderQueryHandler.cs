@@ -23,7 +23,7 @@ public class GetCurrentUserOrderQueryHandler(ShopContext context, IOrderQuerySer
         var orderDto = order.Map(userFullName);
         
         if (orderDto == null) return null;
-        orderDto.Items = await orderQueryService.GetOrderItems(orderDto.Id);
+        orderDto.Items = await orderQueryService.GetOrderItemsAsync(orderDto.Id);
         
         return orderDto;
     }

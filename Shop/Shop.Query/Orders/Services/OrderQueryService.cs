@@ -1,12 +1,19 @@
 ﻿using Dapper;
+using Microsoft.EntityFrameworkCore;
 using Shop.Infrastructure.Persistent.Dapper;
+using Shop.Infrastructure.Persistent.Ef;
 using Shop.Query.Orders.DTOs;
 
 namespace Shop.Query.Orders.Services;
 
-public class OrderQueryService(DapperContext dapperContext) : IOrderQueryService
+public class OrderQueryService(DapperContext dapperContext, ShopContext context) : IOrderQueryService
 {
-    public async Task<List<OrderItemDto>> GetOrderItems(Guid orderId)
+    public async Task<string?> GetUserFullNameAsync(Guid userId)
+    {
+        var user = await context.Users.FirstOrDefaultAsync(x => x.Id == userId);
+        return user == null ? null : $"{user.Name} {user.Family}";
+    }
+    public async Task<List<OrderItemDto>> GetOrderItemsAsync(Guid orderId)
     {
         using var connection = dapperContext.CreateConnection();
         const string sql = $"""

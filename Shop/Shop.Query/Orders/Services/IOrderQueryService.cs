@@ -4,5 +4,6 @@ namespace Shop.Query.Orders.Services;
 
 public interface IOrderQueryService
 {
-    Task<List<OrderItemDto>> GetOrderItems(Guid orderId);
+    Task<List<OrderItemDto>> GetOrderItemsAsync(Guid orderId);
+    Task<string?> GetUserFullNameAsync(Guid userId);
 }
