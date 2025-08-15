@@ -15,10 +15,7 @@ public class GetOrderByIdQueryHandler(ShopContext context, IOrderQueryService or
         
         if (order == null) return null;
         
-        var userFullName = await context.Users
-            .Where(u => u.Id == order.UserId)
-            .Select(u => $"{u.Name} {u.Family}")
-            .FirstOrDefaultAsync(cancellationToken);
+        var userFullName = await orderQueryService.GetUserFullNameAsync(order.UserId);
         
         var orderDto = order.Map(userFullName);
         
