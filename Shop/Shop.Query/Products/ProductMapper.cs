@@ -1,13 +1,16 @@
 ﻿using Shop.Domain.ProductAgg;
 using Shop.Infrastructure.Persistent.Ef;
 using Shop.Query.Products.DTOs;
+using Shop.Query.Products.DTOs.Filter;
 
 namespace Shop.Query.Products;
 
 public static class ProductMapper
 {
-    public static ProductDto Map(this Product product, List<ProductCategoryItemDto> categories)
+    public static ProductDto? Map(this Product? product, List<ProductCategoryItemDto> categories)
     {
+        if (product == null) return null;
+        
         var mainCategory = categories.FirstOrDefault(c => c.Id == product.MainCategoryId);
 
         var subCategories = categories
@@ -47,6 +50,19 @@ public static class ProductMapper
                 Key = p.Key,
                 Value = p.Value,
             }).ToList()
+        };
+    }
+
+    public static ProductFilterDto? MapFilter(this Product? product)
+    {
+        if (product == null) return null;
+        return new ProductFilterDto()
+        {
+            Id = product.Id,
+            CreationTime = product.CreationTime,
+            Title = product.Title,
+            Slug = product.Slug,
+            ImageName = product.ImageName
         };
     }
 }
