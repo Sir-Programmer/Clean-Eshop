@@ -9,12 +9,11 @@ namespace Shop.Query.Orders;
 
 public static class OrderMapper
 {
-    public static OrderDto? Map(this Order? order, ShopContext context)
+    public static OrderDto? Map(this Order? order, string? userFullName)
     {
         if (order == null) return null;
-        var userFullName = context.Users.Where(u => u.Id == order.UserId).Select(u => $"{u.Name} {u.Family}")
-            .FirstOrDefault();
-        return new OrderDto()
+
+        return new OrderDto
         {
             Id = order.Id,
             CreationTime = order.CreationTime,
@@ -29,34 +28,11 @@ public static class OrderMapper
         };
     }
 
-    public static async Task<List<OrderItemDto>> GetOrderItems(this OrderDto order, DapperContext dapperContext)
-    {
-        using var connection = dapperContext.CreateConnection();
-        const string sql = $"""
-                                SELECT o.Id, 
-                                       p.Title AS ProductTitle, 
-                                       p.Slug AS ProductSlug, 
-                                       p.ImageName AS ProductImageName, 
-                                       s.ShopName, 
-                                       o.OrderId, 
-                                       o.InventoryId, 
-                                       o.Count, 
-                                       o.Price 
-                                FROM {DapperContext.OrderItems} o 
-                                INNER JOIN {DapperContext.Inventories} i ON i.Id = o.InventoryId
-                                INNER JOIN {DapperContext.Products} p ON p.Id = i.ProductId
-                                INNER JOIN {DapperContext.Sellers} s ON s.Id = i.SellerId
-                                WHERE o.OrderId = @orderId
-                            """;
-        var result = await connection.QueryAsync<OrderItemDto>(sql, new { orderId = order.Id });
-        return result.ToList();
-    }
-
-    public static OrderFilterDto? MapFilter(this Order? order, ShopContext context)
+    public static OrderFilterDto? MapFilter(this Order? order, string? userFullName)
     {
         if (order == null) return null;
-        var userFullName = context.Users.Where(u => u.Id == order.UserId).Select(u => u.Name).FirstOrDefault();
-        return new OrderFilterDto()
+
+        return new OrderFilterDto
         {
             Id = order.Id,
             CreationTime = order.CreationTime,
