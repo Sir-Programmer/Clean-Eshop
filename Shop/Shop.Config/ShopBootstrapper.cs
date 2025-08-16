@@ -17,6 +17,7 @@ using Shop.Infrastructure;
 using Shop.Infrastructure._Utilities;
 using Shop.Query.Categories.GetById;
 using Shop.Query.Orders.Services;
+using Shop.Query.Products.Services;
 
 namespace Shop.Config;
 
@@ -41,14 +42,15 @@ public static class ShopBootstrapper
         services.AddScoped<IUnitOfWork, UnitOfWork>();
         services.AddScoped<IFileService, FileService>();
         
-        //Domain Services
+        // Domain Services
         services.AddScoped<ICategoryDomainService, CategoryDomainService>();
         services.AddScoped<IProductDomainService, ProductDomainService>();
         services.AddScoped<ISellerDomainService, SellerDomainService>();
         services.AddScoped<IUserDomainService, UserDomainService>();
         
-        //Query
+        // Query
         services.AddScoped<IOrderQueryService, OrderQueryService>();
+        services.AddScoped<IProductQueryService, ProductQueryService>();
         
     }
 }

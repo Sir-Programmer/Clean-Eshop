@@ -1,4 +1,5 @@
-﻿using Shop.Domain.ProductAgg;
+﻿using Shop.Domain.CategoryAgg;
+using Shop.Domain.ProductAgg;
 using Shop.Infrastructure.Persistent.Ef;
 using Shop.Query.Products.DTOs;
 using Shop.Query.Products.DTOs.Filter;
@@ -63,6 +64,18 @@ public static class ProductMapper
             Title = product.Title,
             Slug = product.Slug,
             ImageName = product.ImageName
+        };
+    }
+
+    public static ProductCategoryItemDto? MapCategory(this Category? category)
+    {
+        if (category == null) return null;
+        return new ProductCategoryItemDto()
+        {
+            Id = category.Id,
+            SeoData = category.SeoData,
+            Title = category.Title,
+            Slug = category.Slug
         };
     }
 }
