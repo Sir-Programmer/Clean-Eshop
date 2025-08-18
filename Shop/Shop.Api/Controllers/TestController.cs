@@ -1,6 +1,5 @@
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using Shop.Application.Users.Register;
 using Shop.Query.Orders.GetById;
 using Shop.Query.Products.GetById;
 using Shop.Query.Roles.GetById;
