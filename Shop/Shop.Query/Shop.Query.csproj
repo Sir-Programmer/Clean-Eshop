@@ -10,7 +10,6 @@
       <Folder Include="Products\GetForShop\" />
       <Folder Include="Sellers\" />
       <Folder Include="SiteEntities\Banners\" />
-      <Folder Include="SiteEntities\DTOs\" />
       <Folder Include="SiteEntities\ShippingMethods\" />
       <Folder Include="SiteEntities\Sliders\" />
       <Folder Include="Users\" />
