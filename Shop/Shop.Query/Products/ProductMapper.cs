@@ -14,9 +14,7 @@ public static class ProductMapper
         
         var mainCategory = categories.FirstOrDefault(c => c.Id == product.MainCategoryId);
 
-        var subCategories = categories
-            .Where(c => product.SubCategories.Any(sc => sc.Id == c.Id))
-            .ToList();
+        var subCategories = categories.Where(c => c.Id != product.MainCategoryId).ToList();
 
         return new ProductDto()
         {
@@ -39,13 +37,7 @@ public static class ProductMapper
                 Slug = mainCategory.Slug
             },
             SeoData = product.SeoData,
-            SubCategories = subCategories.Select(c => new ProductCategoryItemDto()
-            {
-                Id = c.Id,
-                SeoData = c.SeoData,
-                Title = c.Title,
-                Slug = c.Slug
-            }).ToList(),
+            SubCategories = subCategories,
             Specifications = product.Specifications.Select(p => new ProductSpecificationDto()
             {
                 Key = p.Key,
