@@ -11,7 +11,7 @@ public class GetCurrentUserOrderQueryHandler(ShopContext context, IOrderQuerySer
 {
     public async Task<OrderDto?> Handle(GetCurrentUserOrderQuery request, CancellationToken cancellationToken)
     {
-        var order = await context.Orders.SingleOrDefaultAsync(o => o.UserId == request.UserId, cancellationToken: cancellationToken);
+        var order = await context.Orders.SingleOrDefaultAsync(o => o.UserId == request.UserId, cancellationToken);
         
         if (order == null) return null;
         

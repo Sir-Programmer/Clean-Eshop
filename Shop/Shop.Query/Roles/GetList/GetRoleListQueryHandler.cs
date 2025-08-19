@@ -9,6 +9,6 @@ public class GetRoleListQueryHandler(ShopContext context) : IQueryHandler<GetRol
 {
     public async Task<List<RoleDto?>> Handle(GetRoleListQuery request, CancellationToken cancellationToken)
     {
-        return await context.Roles.Select(r => r.Map()).ToListAsync(cancellationToken: cancellationToken);
+        return await context.Roles.Select(r => r.Map()).ToListAsync(cancellationToken);
     }
 }

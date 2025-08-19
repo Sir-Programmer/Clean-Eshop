@@ -9,7 +9,7 @@ public class GetCategoryByParentIdQueryHandler(ShopContext context) : IQueryHand
 {
     public async Task<CategoryDto?> Handle(GetCategoryByParentIdQuery request, CancellationToken cancellationToken)
     {
-        var category = await context.Categories.FirstOrDefaultAsync(c => c.ParentId == request.ParentId, cancellationToken: cancellationToken);
+        var category = await context.Categories.FirstOrDefaultAsync(c => c.ParentId == request.ParentId, cancellationToken);
         return category.Map();
     }
 }

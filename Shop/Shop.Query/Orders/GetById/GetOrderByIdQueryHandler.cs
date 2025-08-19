@@ -11,7 +11,7 @@ public class GetOrderByIdQueryHandler(ShopContext context, IOrderQueryService or
 {
     public async Task<OrderDto?> Handle(GetOrderByIdQuery request, CancellationToken cancellationToken)
     {
-        var order = await context.Orders.SingleOrDefaultAsync(o => o.Id == request.OrderId, cancellationToken: cancellationToken);
+        var order = await context.Orders.SingleOrDefaultAsync(o => o.Id == request.OrderId, cancellationToken);
         
         if (order == null) return null;
         

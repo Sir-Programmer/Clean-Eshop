@@ -9,7 +9,7 @@ public class GetRoleByIdQueryHandler(ShopContext context) : IQueryHandler<GetRol
 {
     public async Task<RoleDto?> Handle(GetRoleByIdQuery request, CancellationToken cancellationToken)
     {
-        var role = await context.Roles.FirstOrDefaultAsync(role => role.Id == request.RoleId, cancellationToken: cancellationToken);
+        var role = await context.Roles.FirstOrDefaultAsync(role => role.Id == request.RoleId, cancellationToken);
         return role?.Map();
     }
 }

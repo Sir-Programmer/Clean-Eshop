@@ -14,7 +14,7 @@ public class GetCategoryListQueryHandler(ShopContext context) : IQueryHandler<Ge
             .Include(c => c.Childs)
             .ThenInclude(c => c.Childs)
             .OrderByDescending(c => c.CreationTime)
-            .ToListAsync(cancellationToken: cancellationToken);
+            .ToListAsync(cancellationToken);
         return categories.Map();
     }
 }

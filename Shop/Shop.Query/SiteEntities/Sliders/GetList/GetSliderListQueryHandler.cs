@@ -9,6 +9,6 @@ public class GetSliderListQueryHandler(ShopContext context) : IQueryHandler<GetS
 {
     public async Task<List<SliderDto?>> Handle(GetSliderListQuery request, CancellationToken cancellationToken)
     {
-        return  await context.Sliders.Select(s => s.MapSlider()).ToListAsync(cancellationToken: cancellationToken);
+        return  await context.Sliders.Select(s => s.MapSlider()).ToListAsync(cancellationToken);
     }
 }
