@@ -1,4 +1,5 @@
 ﻿using Shop.Domain.SiteEntities.Banner;
+using Shop.Domain.SiteEntities.ShippingMethod;
 using Shop.Domain.SiteEntities.Slider;
 using Shop.Query.SiteEntities.DTOs;
 
@@ -30,6 +31,18 @@ public static class SiteEntitiesMapper
             Url = banner.Url,
             ImageName = banner.ImageName,
             BannerPosition = banner.BannerPosition
+        };
+    }
+
+    public static ShippingMethodDto? MapShippingMethod(this ShippingMethod? shippingMethod)
+    {
+        if (shippingMethod == null) return null;
+        return new ShippingMethodDto()
+        {
+            Id = shippingMethod.Id,
+            CreationTime = shippingMethod.CreationTime,
+            Title = shippingMethod.Title,
+            Cost = shippingMethod.Cost
         };
     }
 }
