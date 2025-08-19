@@ -1,6 +1,11 @@
-﻿namespace Shop.Query.SiteEntities.DTOs;
+﻿using Common.Query;
 
-public class SliderDto
+namespace Shop.Query.SiteEntities.DTOs;
+
+public class SliderDto : BaseDto
 {
-    
+    public string Title { get; set; }
+    public string Url { get; set; }
+    public string ImageName { get; set; }
+    public bool IsActive { get; set; }
 }

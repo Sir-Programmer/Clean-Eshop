@@ -11,6 +11,8 @@ public static class RoleMapper
         if  (role == null) return null;
         return new RoleDto()
         {
+            Id = role.Id,
+            CreationTime = role.CreationTime,
             Title = role.Title,
             Permissions = role.Permissions.Select(r => r.Permission).ToList()
         };
