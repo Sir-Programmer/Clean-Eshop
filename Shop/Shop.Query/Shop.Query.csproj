@@ -9,7 +9,7 @@
     <ItemGroup>
       <Folder Include="Products\GetForShop\" />
       <Folder Include="Sellers\" />
-      <Folder Include="SiteEntities\Banners\" />
+      <Folder Include="SiteEntities\Banners\GetList\" />
       <Folder Include="SiteEntities\ShippingMethods\" />
       <Folder Include="Users\" />
     </ItemGroup>
