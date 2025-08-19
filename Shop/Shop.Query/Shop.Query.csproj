@@ -11,7 +11,7 @@
       <Folder Include="Sellers\" />
       <Folder Include="SiteEntities\Banners\" />
       <Folder Include="SiteEntities\ShippingMethods\" />
-      <Folder Include="SiteEntities\Sliders\" />
+      <Folder Include="SiteEntities\Sliders\GetList\" />
       <Folder Include="Users\" />
     </ItemGroup>
 
