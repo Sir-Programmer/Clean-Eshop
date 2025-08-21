@@ -8,7 +8,6 @@
 
     <ItemGroup>
       <Folder Include="Products\GetForShop\" />
-      <Folder Include="Sellers\GetByFilter\" />
       <Folder Include="Sellers\Inventories\" />
       <Folder Include="Users\" />
     </ItemGroup>
