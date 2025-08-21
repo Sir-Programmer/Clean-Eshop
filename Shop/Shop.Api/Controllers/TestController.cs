@@ -1,6 +1,8 @@
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Shop.Query.Orders.GetById;
+using Shop.Query.Products.DTOs.Filter;
+using Shop.Query.Products.GetByFilter;
 using Shop.Query.Products.GetById;
 using Shop.Query.Roles.GetById;
 
@@ -29,5 +31,12 @@ public class TestController(IMediator mediator) : ControllerBase
     {
         var role = await mediator.Send(new GetRoleByIdQuery(roleId));
         return Ok(role);
+    }
+    
+    [HttpPost("[action]")]
+    public async Task<IActionResult> ProductFilter(ProductFilterParams @params)
+    {
+        var products = await mediator.Send(new GetProductByFilterQuery(@params));
+        return Ok(products);
     }
 }
