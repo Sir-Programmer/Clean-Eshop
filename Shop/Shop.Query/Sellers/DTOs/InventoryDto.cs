@@ -8,6 +8,7 @@ public class InventoryDto
     public int Count { get; set; }
     public int Price { get; set; }
     public Guid SellerId { get; set; }
+    public string ShopName { get; set; }
     public int? DiscountPercentage { get;  set; }
     public bool IsActive { get; set; }
 }
