@@ -6,6 +6,7 @@ using Shop.Query.Products.GetByFilter;
 using Shop.Query.Products.GetById;
 using Shop.Query.Roles.GetById;
 using Shop.Query.Sellers.Inventories.GetById;
+using Shop.Query.Sellers.Inventories.GetByProductId;
 
 namespace Shop.Api.Controllers;
 
@@ -45,6 +46,13 @@ public class TestController(IMediator mediator) : ControllerBase
     public async Task<IActionResult> GetInventory(Guid inventoryId)
     {
         var inventory = await mediator.Send(new GetSellerInventoryByIdQuery(inventoryId));
+        return Ok(inventory);
+    }
+    
+    [HttpGet("[action]")]
+    public async Task<IActionResult> GetInventoryByProductIdd(Guid productId)
+    {
+        var inventory = await mediator.Send(new GetSellerInventoryByProductIdQuery(productId));
         return Ok(inventory);
     }
 }

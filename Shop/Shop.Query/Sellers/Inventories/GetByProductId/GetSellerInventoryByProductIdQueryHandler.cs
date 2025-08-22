@@ -17,6 +17,6 @@ public class GetSellerInventoryByProductIdQueryHandler(DapperContext dapperConte
                                                  INNER JOIN {DapperContext.Products} p ON p.Id = i.ProductId
                                                  WHERE i.ProductId = @ProductId
                             """;
-        return await connection.QueryFirstOrDefaultAsync(sql, new { request.ProductId });
+        return await connection.QueryFirstOrDefaultAsync<InventoryDto>(sql, new { request.ProductId });
     }
 }
