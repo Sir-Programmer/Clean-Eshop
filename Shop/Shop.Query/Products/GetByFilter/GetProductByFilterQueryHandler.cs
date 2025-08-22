@@ -12,9 +12,9 @@ public class GetProductByFilterQueryHandler(ShopContext context) : IQueryHandler
         var @params = request.FilterParams;
         var query = context.Products.OrderByDescending(p => p.CreationTime).AsQueryable();
         
-        if (@params.Title !=  null)
+        if (!string.IsNullOrEmpty(@params.Title))
             query = query.Where(p => p.Title.Contains(@params.Title));
-        if (@params.Slug !=  null)
+        if (!string.IsNullOrEmpty(@params.Slug))
             query = query.Where(p => p.Slug.ToLower().Contains(@params.Slug.ToLower()));
 
         var data = query.Select(p => p.MapFilter()).ToSafePagedList(@params.PageId, @params.Take).ToList();
