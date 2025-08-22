@@ -10,12 +10,13 @@ public class GetSellerInventoryByIdQueryHandler(DapperContext dapperContext) : I
     public async Task<InventoryDto?> Handle(GetSellerInventoryByIdQuery request, CancellationToken cancellationToken)
     {
         using var connection = dapperContext.CreateConnection();
-        var sql =
-            @$"SELECT Top(1) p.Id as ProductId, p.Title as ProductTitle, p.ImageName as ProductImage, i.Count, i.Price, s.Id as SellerId, s.ShopName as ShopName, i.DiscountPercentage, i.IsActive 
-                     FROM {DapperContext.Inventories} i 
-                     inner join {DapperContext.Sellers} s on s.Id = i.SellerId
-                     inner join {DapperContext.Products} p on p.Id = i.ProductId
-                     WHERE i.Id = @inventoryId";
+        const string sql = $"""
+                            SELECT Top(1) p.Id AS ProductId, p.Title AS ProductTitle, p.ImageName AS ProductImage, i.Count, i.Price, s.Id AS SellerId, s.ShopName AS ShopName, i.DiscountPercentage, i.IsActive 
+                                                 FROM {DapperContext.Inventories} i 
+                                                 INNER JOIN {DapperContext.Sellers} s ON s.Id = i.SellerId
+                                                 INNER JOIN {DapperContext.Products} p ON p.Id = i.ProductId
+                                                 WHERE i.Id = @inventoryId
+                            """;
  
         return await connection.QueryFirstOrDefaultAsync<InventoryDto>(sql, new { request.InventoryId });
     }
