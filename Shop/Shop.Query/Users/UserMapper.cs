@@ -10,6 +10,8 @@ public static class UserMapper
         if  (user == null) return null;
         return new UserDto()
         {
+            Id = user.Id,
+            CreationTime = user.CreationTime,
             Name = user.Name,
             Family = user.Family,
             Email = user.Email,
