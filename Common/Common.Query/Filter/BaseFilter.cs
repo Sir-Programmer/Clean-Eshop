@@ -9,24 +9,15 @@ public class BaseFilter
     public int EndPage { get; private set; }
     public int Take { get; private set; }
 
-    public void GeneratePaging(int entityCount, int take, int currentPage)
+    public void GeneratePaging(int entityCount, int take = 10, int currentPage = 1)
     {
-        if (take <= 0) take = 10;
-        if (currentPage <= 0) currentPage = 1;
+        Take = Math.Max(1, take);
+        CurrentPage = Math.Max(1, currentPage);
+        EntityCount = Math.Max(0, entityCount);
 
-        EntityCount = entityCount;
-        Take = take;
-        CurrentPage = currentPage;
-
-        PageCount = (int)Math.Ceiling(entityCount / (double)take);
-        StartPage = Math.Max(1, currentPage - 4);
-        EndPage = Math.Min(PageCount, currentPage + 5);
-    }
-
-    public void GeneratePaging(IQueryable<object> data, int take, int currentPage)
-    {
-        var count = data?.Count() ?? 0;
-        GeneratePaging(count, take, currentPage);
+        PageCount = (int)Math.Ceiling(EntityCount / (double)Take);
+        StartPage = Math.Max(1, CurrentPage - 4);
+        EndPage = Math.Min(PageCount, CurrentPage + 5);
     }
 }
 
@@ -36,9 +27,8 @@ public abstract class BaseFilterParam
     public int Take { get; set; } = 10;
 }
 
-public class BaseFilter<TData, TParam> : BaseFilter
-    where TParam : BaseFilterParam
+public class BaseFilter<TData, TParam> : BaseFilter where TParam : BaseFilterParam
 {
-    public List<TData?> Data { get; set; }
-    public TParam FilterParams { get; set; }
+    public IReadOnlyList<TData> Data { get; set; } = [];
+    public TParam FilterParams { get; set; } = null!;
 }
