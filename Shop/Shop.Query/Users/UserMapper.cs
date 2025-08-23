@@ -1,5 +1,6 @@
 ﻿using Shop.Domain.UserAgg;
 using Shop.Query.Users.DTOs;
+using Shop.Query.Users.DTOs.Filter;
 
 namespace Shop.Query.Users;
 
@@ -18,6 +19,21 @@ public static class UserMapper
             PhoneNumber = user.PhoneNumber,
             Gender = user.Gender,
             Roles = userRoles
+        };
+    }
+    
+    public static UserFilterDto? MapFilter(this User? user)
+    {
+        if  (user == null) return null;
+        return new UserFilterDto()
+        {
+            Id = user.Id,
+            CreationTime = user.CreationTime,
+            Name = user.Name,
+            Family = user.Family,
+            Email = user.Email,
+            PhoneNumber = user.PhoneNumber,
+            Gender = user.Gender,
         };
     }
 }
