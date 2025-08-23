@@ -11,7 +11,7 @@ public class GetSellerInventoryByFilterQueryHandler(DapperContext dapperContext)
 {
     public async Task<SellerInventoryFilterResult> Handle(GetSellerInventoryByFilterQuery request, CancellationToken cancellationToken)
     {
-        var @params = request.FilterParamses;
+        var @params = request.FilterParams;
         using var connection = dapperContext.CreateConnection();
         const string sql = $"""
                             SELECT 

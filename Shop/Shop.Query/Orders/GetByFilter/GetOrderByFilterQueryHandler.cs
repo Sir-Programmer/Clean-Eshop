@@ -10,7 +10,7 @@ public class GetOrderByFilterQueryHandler(ShopContext context, IOrderQueryServic
 {
     public async Task<OrderFilterResult> Handle(GetOrderByFilterQuery request, CancellationToken cancellationToken)
     {
-        var @params = request.FilterParamses;
+        var @params = request.FilterParams;
 
         var query = context.Orders
             .OrderByDescending(o => o.CreationTime)

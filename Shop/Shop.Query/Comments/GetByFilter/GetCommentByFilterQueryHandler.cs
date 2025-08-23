@@ -11,7 +11,7 @@ public class GetCommentByFilterQueryHandler(ShopContext context)
 {
     public Task<CommentFilterResult> Handle(GetCommentByFilterQuery request, CancellationToken cancellationToken)
     {
-        var @params = request.FilterParamses;
+        var @params = request.FilterParams;
         var query = context.Comments.OrderByDescending(c => c.CreationTime).AsQueryable();
 
         if (@params.ProductId != null)

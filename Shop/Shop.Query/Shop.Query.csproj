@@ -10,7 +10,6 @@
       <Folder Include="Products\GetForShop\" />
       <Folder Include="Users\Addresses\GetById\" />
       <Folder Include="Users\Addresses\GetList\" />
-      <Folder Include="Users\GetByFliter\" />
     </ItemGroup>
 
     <ItemGroup>

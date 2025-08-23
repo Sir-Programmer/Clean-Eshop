@@ -9,7 +9,7 @@ public class GetSellerByFilterQueryHandler(ShopContext context) : IQueryHandler<
 {
     public Task<SellerFilterResult> Handle(GetSellerByFilterQuery request, CancellationToken cancellationToken)
     {
-        var @params = request.FilterParamses;
+        var @params = request.FilterParams;
         var query = context.Sellers.OrderByDescending(s => s.CreationTime).AsQueryable();
 
         if (@params.NationalId != null)
