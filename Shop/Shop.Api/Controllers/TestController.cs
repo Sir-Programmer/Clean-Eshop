@@ -9,6 +9,7 @@ using Shop.Query.Sellers.DTOs.Filter;
 using Shop.Query.Sellers.Inventories.GetByFilter;
 using Shop.Query.Sellers.Inventories.GetById;
 using Shop.Query.Sellers.Inventories.GetByProductId;
+using Shop.Query.Users.GetById;
 
 namespace Shop.Api.Controllers;
 
@@ -63,5 +64,12 @@ public class TestController(IMediator mediator) : ControllerBase
     {
         var inventories = await mediator.Send(new GetSellerInventoryByFilterQuery(@params));
         return Ok(inventories);
+    }
+    
+    [HttpGet("[action]")]
+    public async Task<IActionResult> GetUserById(Guid userId)
+    {
+        var user = await mediator.Send(new GetUserByIdQuery(userId));
+        return Ok(user);
     }
 }

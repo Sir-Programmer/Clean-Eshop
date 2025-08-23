@@ -18,6 +18,7 @@ using Shop.Infrastructure._Utilities;
 using Shop.Query.Categories.GetById;
 using Shop.Query.Orders.Services;
 using Shop.Query.Products.Services;
+using Shop.Query.Users.Services;
 
 namespace Shop.Config;
 
@@ -51,6 +52,7 @@ public static class ShopBootstrapper
         // Query
         services.AddScoped<IOrderQueryService, OrderQueryService>();
         services.AddScoped<IProductQueryService, ProductQueryService>();
+        services.AddScoped<IUserQueryService, UserQueryService>();
         
     }
 }

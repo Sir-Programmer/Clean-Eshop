@@ -11,7 +11,6 @@
       <Folder Include="Users\Addresses\GetById\" />
       <Folder Include="Users\Addresses\GetList\" />
       <Folder Include="Users\GetByFliter\" />
-      <Folder Include="Users\GetById\" />
       <Folder Include="Users\GetByPhoneNumber\" />
     </ItemGroup>
 
