@@ -5,12 +5,17 @@ namespace Shop.Query.Users;
 
 public static class UserMapper
 {
-    public static UserDto? Map(this User? user)
+    public static UserDto? Map(this User? user, List<UserRoleDto> userRoles)
     {
         if  (user == null) return null;
         return new UserDto()
         {
-
+            Name = user.Name,
+            Family = user.Family,
+            Email = user.Email,
+            PhoneNumber = user.PhoneNumber,
+            Gender = user.Gender,
+            Roles = userRoles
         };
     }
 }
