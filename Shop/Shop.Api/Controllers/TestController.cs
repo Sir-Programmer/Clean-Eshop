@@ -10,6 +10,7 @@ using Shop.Query.Sellers.Inventories.GetByFilter;
 using Shop.Query.Sellers.Inventories.GetById;
 using Shop.Query.Sellers.Inventories.GetByProductId;
 using Shop.Query.Users.Addresses.GetById;
+using Shop.Query.Users.Addresses.GetList;
 using Shop.Query.Users.DTOs.Filter;
 using Shop.Query.Users.GetByFilter;
 using Shop.Query.Users.GetById;
@@ -88,6 +89,13 @@ public class TestController(IMediator mediator) : ControllerBase
     {
         var address = await mediator.Send(new GetUserAddressByIdQuery(addressId));
         return Ok(address);
+    }
+    
+    [HttpGet("[action]")]
+    public async Task<IActionResult> GetUserAddresses(Guid userId)
+    {
+        var addresses = await mediator.Send(new GetUserAddressListQuery(userId));
+        return Ok(addresses);
     }
 
 }
