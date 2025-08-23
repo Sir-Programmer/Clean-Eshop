@@ -9,7 +9,7 @@ public static class UserMapper
     public static UserDto? Map(this User? user, List<UserRoleDto> userRoles)
     {
         if  (user == null) return null;
-        return new UserDto()
+        return new UserDto
         {
             Id = user.Id,
             CreationTime = user.CreationTime,
@@ -25,7 +25,7 @@ public static class UserMapper
     public static UserFilterDto? MapFilter(this User? user)
     {
         if  (user == null) return null;
-        return new UserFilterDto()
+        return new UserFilterDto
         {
             Id = user.Id,
             CreationTime = user.CreationTime,
