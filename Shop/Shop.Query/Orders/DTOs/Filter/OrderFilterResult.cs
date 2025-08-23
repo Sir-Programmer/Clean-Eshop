@@ -2,4 +2,4 @@
 
 namespace Shop.Query.Orders.DTOs.Filter;
 
-public class OrderFilterResult : BaseFilter<OrderFilterDto, OrderFilterParam>;
+public class OrderFilterResult : BaseFilter<OrderFilterDto, OrderFilterParams>;

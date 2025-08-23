@@ -3,7 +3,7 @@ using Shop.Domain.OrderAgg.Enums;
 
 namespace Shop.Query.Orders.DTOs.Filter;
 
-public class OrderFilterParam : BaseFilterParam
+public class OrderFilterParams : BaseFilterParam
 {
     public Guid? UserId { get; set; }
     public DateTime? StartDate { get; set; }

@@ -4,4 +4,4 @@ using Shop.Query.Orders.DTOs.Filter;
 
 namespace Shop.Query.Orders.GetByFilter;
 
-public class GetOrderByFilterQuery(OrderFilterParam filterParams) : QueryFilter<OrderFilterResult, OrderFilterParam>(filterParams);
+public class GetOrderByFilterQuery(OrderFilterParams filterParamses) : QueryFilter<OrderFilterResult, OrderFilterParams>(filterParamses);
