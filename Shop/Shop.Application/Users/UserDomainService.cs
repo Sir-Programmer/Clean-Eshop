@@ -1,16 +1,17 @@
-﻿using Shop.Domain.UserAgg.Services;
+﻿using Shop.Domain.UserAgg.Repository;
+using Shop.Domain.UserAgg.Services;
 
 namespace Shop.Application.Users;
 
-public class UserDomainService : IUserDomainService
+public class UserDomainService(IUserRepository userRepository) : IUserDomainService
 {
     public bool IsPhoneNumberExist(string phoneNumber)
     {
-        throw new NotImplementedException();
+        return userRepository.Exists(u => u.PhoneNumber == phoneNumber);
     }
 
     public bool IsEmailExist(string email)
     {
-        throw new NotImplementedException();
+        return userRepository.Exists(u => u.Email == email);
     }
 }
