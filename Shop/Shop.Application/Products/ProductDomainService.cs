@@ -1,11 +1,12 @@
-﻿using Shop.Domain.ProductAgg.Services;
+﻿using Shop.Domain.ProductAgg.Repository;
+using Shop.Domain.ProductAgg.Services;
 
 namespace Shop.Application.Products;
 
-public class ProductDomainService : IProductDomainService
+public class ProductDomainService(IProductRepository productRepository) : IProductDomainService
 {
     public bool IsSlugExist(string slug)
     {
-        throw new NotImplementedException();
+        return productRepository.Exists(p => p.Slug == slug);
     }
 }
