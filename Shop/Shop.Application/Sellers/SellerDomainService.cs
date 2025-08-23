@@ -1,16 +1,17 @@
-﻿using Shop.Domain.SellerAgg.Services;
+﻿using Shop.Domain.SellerAgg.Repository;
+using Shop.Domain.SellerAgg.Services;
 
 namespace Shop.Application.Sellers;
 
-public class SellerDomainService : ISellerDomainService
+public class SellerDomainService(ISellerRepository sellerRepository) : ISellerDomainService
 {
     public bool IsNationalIdExist(string nationalId)
     {
-        throw new NotImplementedException();
+        return sellerRepository.Exists(s => s.NationalId == nationalId);
     }
 
     public bool IsUserIdExist(Guid userId)
     {
-        throw new NotImplementedException();
+        return sellerRepository.Exists(s => s.UserId == userId);
     }
 }
