@@ -15,7 +15,7 @@ public interface ICategoryFacade
     Task<OperationResult> Edit(EditCategoryCommand command);
     Task<OperationResult> Remove(RemoveCategoryCommand command);
     //Queries
-    Task<CategoryDto> GetById(Guid id);
+    Task<CategoryDto?> GetById(Guid id);
     Task<List<CategoryDto>> GetByParentId(Guid parentId);
     Task<List<CategoryDto>> GetList();
 }
