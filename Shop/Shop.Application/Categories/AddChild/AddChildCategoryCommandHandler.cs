@@ -6,14 +6,14 @@ using Shop.Domain.CategoryAgg.Services;
 
 namespace Shop.Application.Categories.AddChild;
 
-internal class AddChildCategoryCommandHandler(ICategoryRepository categoryRepository, ICategoryDomainService categoryDomainService, IUnitOfWork unitOfWork) : IBaseCommandHandler<AddChildCategoryCommand>
+internal class AddChildCategoryCommandHandler(ICategoryRepository categoryRepository, ICategoryDomainService categoryDomainService, IUnitOfWork unitOfWork) : IBaseCommandHandler<AddChildCategoryCommand, Guid>
 {
-    public async Task<OperationResult> Handle(AddChildCategoryCommand request, CancellationToken cancellationToken)
+    public async Task<OperationResult<Guid>> Handle(AddChildCategoryCommand request, CancellationToken cancellationToken)
     {
         var parentCategory = await categoryRepository.GetByIdTrackingAsync(request.ParentId);
-        if (parentCategory == null) return OperationResult.NotFound("والد دسته بندی یافت نشد");
-        parentCategory.AddChild(request.Title, request.Slug, request.SeoData, categoryDomainService);
+        if (parentCategory == null) return OperationResult<Guid>.NotFound();
+        var childCategoryId = parentCategory.AddChild(request.Title, request.Slug, request.SeoData, categoryDomainService);
         await unitOfWork.SaveChangesAsync();
-        return OperationResult.Success();
+        return OperationResult<Guid>.Success(childCategoryId);
     }
 }

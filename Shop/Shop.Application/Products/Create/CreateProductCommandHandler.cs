@@ -13,9 +13,9 @@ internal class CreateProductCommandHandler(
     IProductRepository productRepository,
     IUnitOfWork unitOfWork,
     IFileService fileService,
-    IProductDomainService productDomainService) : IBaseCommandHandler<CreateProductCommand>
+    IProductDomainService productDomainService) : IBaseCommandHandler<CreateProductCommand, Guid>
 {
-    public async Task<OperationResult> Handle(CreateProductCommand request, CancellationToken cancellationToken)
+    public async Task<OperationResult<Guid>> Handle(CreateProductCommand request, CancellationToken cancellationToken)
     {
         var imageName = await fileService.SaveFileAndGenerateName(request.ImageFile, Directories.ProductImages);
 
@@ -30,6 +30,6 @@ internal class CreateProductCommandHandler(
         product.SetSpecifications(productSpecifications);
         product.SetSubCategories(request.SubCategoriesIds);
         await unitOfWork.SaveChangesAsync();
-        return OperationResult.Success();
+        return OperationResult<Guid>.Success(product.Id);
     }
 }

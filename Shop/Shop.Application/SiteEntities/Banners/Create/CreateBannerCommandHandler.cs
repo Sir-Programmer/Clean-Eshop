@@ -8,14 +8,14 @@ using Shop.Domain.SiteEntities.Banner.Repository;
 
 namespace Shop.Application.SiteEntities.Banners.Create;
 
-public class CreateBannerCommandHandler(IBannerRepository bannerRepository, IUnitOfWork unitOfWork, IFileService fileService) : IBaseCommandHandler<CreateBannerCommand>
+public class CreateBannerCommandHandler(IBannerRepository bannerRepository, IUnitOfWork unitOfWork, IFileService fileService) : IBaseCommandHandler<CreateBannerCommand, Guid>
 {
-    public async Task<OperationResult> Handle(CreateBannerCommand request, CancellationToken cancellationToken)
+    public async Task<OperationResult<Guid>> Handle(CreateBannerCommand request, CancellationToken cancellationToken)
     {
         var imageName = await fileService.SaveFileAndGenerateName(request.ImageFile, Directories.BannerImages);
         var banner = new Banner(request.Url, imageName, request.Position);
         await bannerRepository.AddAsync(banner);
         await unitOfWork.SaveChangesAsync();
-        return OperationResult.Success();
+        return OperationResult<Guid>.Success(banner.Id);
     }
 }

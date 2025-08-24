@@ -34,12 +34,14 @@ public class Category : AggregateRoot
         SeoData = seoData;
     }
     
-    public void AddChild(string title, string slug, SeoData seoData, ICategoryDomainService categoryDomainService)
+    public Guid AddChild(string title, string slug, SeoData seoData, ICategoryDomainService categoryDomainService)
     {
-        Childs.Add(new Category(title, slug, seoData, categoryDomainService)
+        var childCategory = new Category(title, slug, seoData, categoryDomainService)
         {
             ParentId = Id
-        });
+        };
+        Childs.Add(childCategory);
+        return childCategory.Id;
     }
     private void Guard(string title, string slug, ICategoryDomainService categoryDomainService)
     {

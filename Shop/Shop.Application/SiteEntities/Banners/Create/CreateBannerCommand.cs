@@ -4,4 +4,4 @@ using Shop.Domain.SiteEntities.Banner.Enums;
 
 namespace Shop.Application.SiteEntities.Banners.Create;
 
-public record CreateBannerCommand(string Url, IFormFile ImageFile, BannerPosition Position) : IBaseCommand;
+public record CreateBannerCommand(string Url, IFormFile ImageFile, BannerPosition Position) : IBaseCommand<Guid>;

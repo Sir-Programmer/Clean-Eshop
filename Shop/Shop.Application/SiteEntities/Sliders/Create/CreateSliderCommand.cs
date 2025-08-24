@@ -3,4 +3,4 @@ using Microsoft.AspNetCore.Http;
 
 namespace Shop.Application.SiteEntities.Sliders.Create;
 
-public record CreateSliderCommand(string Title, string Url, IFormFile ImageFile) : IBaseCommand;
+public record CreateSliderCommand(string Title, string Url, IFormFile ImageFile) : IBaseCommand<Guid>;

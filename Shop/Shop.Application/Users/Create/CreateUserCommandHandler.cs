@@ -8,13 +8,13 @@ using Shop.Domain.UserAgg.Services;
 
 namespace Shop.Application.Users.Create;
 
-public class CreateUserCommandHandler(IUserRepository userRepository, IUnitOfWork unitOfWork, IUserDomainService userDomainService) : IBaseCommandHandler<CreateUserCommand>
+public class CreateUserCommandHandler(IUserRepository userRepository, IUnitOfWork unitOfWork, IUserDomainService userDomainService) : IBaseCommandHandler<CreateUserCommand, Guid>
 {
-    public async Task<OperationResult> Handle(CreateUserCommand request, CancellationToken cancellationToken)
+    public async Task<OperationResult<Guid>> Handle(CreateUserCommand request, CancellationToken cancellationToken)
     {
         var user = new User(request.Name, request.Family, request.PhoneNumber, request.Email, request.Password.ToMd5(), request.Gender, userDomainService);
         await userRepository.AddAsync(user);
         await unitOfWork.SaveChangesAsync();
-        return OperationResult.Success();
+        return OperationResult<Guid>.Success(user.Id);
     }
 }

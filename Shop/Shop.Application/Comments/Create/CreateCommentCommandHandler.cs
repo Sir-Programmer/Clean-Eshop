@@ -8,18 +8,16 @@ using Shop.Domain.UserAgg.Repository;
 
 namespace Shop.Application.Comments.Create;
 
-internal class CreateCommentCommandHandler(ICommentRepository commentRepository, IProductRepository productRepository, IUserRepository userRepository, IUnitOfWork unitOfWork) : IBaseCommandHandler<CreateCommentCommand>
+internal class CreateCommentCommandHandler(ICommentRepository commentRepository, IProductRepository productRepository, IUserRepository userRepository, IUnitOfWork unitOfWork) : IBaseCommandHandler<CreateCommentCommand, Guid>
 {
-    public async Task<OperationResult> Handle(CreateCommentCommand request, CancellationToken cancellationToken)
+    public async Task<OperationResult<Guid>> Handle(CreateCommentCommand request, CancellationToken cancellationToken)
     {
-        if (await userRepository.ExistsAsync(u => u.Id == request.UserId))
-            return OperationResult.NotFound("کاربر مورد نظر یافت نشد");
-        if (await productRepository.ExistsAsync(p => p.Id == request.ProductId))
-            return OperationResult.NotFound("محصول مورد نظر یافت نشد");
+        if (await userRepository.ExistsAsync(u => u.Id == request.UserId) || await productRepository.ExistsAsync(p => p.Id == request.ProductId))
+            return OperationResult<Guid>.NotFound();
 
         var comment = new Comment(request.UserId, request.Text, request.ProductId);
         await commentRepository.AddAsync(comment);
         await unitOfWork.SaveChangesAsync();
-        return OperationResult.Success();
+        return OperationResult<Guid>.Success(comment.Id);
     }
 }

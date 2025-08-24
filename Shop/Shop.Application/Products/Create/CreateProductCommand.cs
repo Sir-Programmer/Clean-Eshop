@@ -13,4 +13,4 @@ public record CreateProductCommand(
     Guid CategoryId,
     List<Guid> SubCategoriesIds,
     Dictionary<string, string> Specifications)
-    : IBaseCommand;
+    : IBaseCommand<Guid>;
