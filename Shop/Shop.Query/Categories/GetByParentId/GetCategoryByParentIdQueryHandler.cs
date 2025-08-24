@@ -5,11 +5,16 @@ using Shop.Query.Categories.DTOs;
 
 namespace Shop.Query.Categories.GetByParentId;
 
-public class GetCategoryByParentIdQueryHandler(ShopContext context) : IQueryHandler<GetCategoryByParentIdQuery, CategoryDto?>
+public class GetCategoryByParentIdQueryHandler(ShopContext context) : IQueryHandler<GetCategoryByParentIdQuery, List<CategoryDto?>>
 {
-    public async Task<CategoryDto?> Handle(GetCategoryByParentIdQuery request, CancellationToken cancellationToken)
+    public async Task<List<CategoryDto?>> Handle(GetCategoryByParentIdQuery request, CancellationToken cancellationToken)
     {
-        var category = await context.Categories.FirstOrDefaultAsync(c => c.ParentId == request.ParentId, cancellationToken);
-        return category.Map();
+        var categories = await context.Categories
+            .Where(c => c.ParentId == request.ParentId)
+            .Include(c => c.Childs)
+            .ThenInclude(c => c.Childs)
+            .OrderByDescending(c => c.CreationTime)
+            .ToListAsync(cancellationToken);
+        return categories.Map();
     }
 }
