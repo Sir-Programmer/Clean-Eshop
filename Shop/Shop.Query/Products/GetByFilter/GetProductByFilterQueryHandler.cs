@@ -9,22 +9,22 @@ public class GetProductByFilterQueryHandler(ShopContext context) : IQueryHandler
 {
     public Task<ProductFilterResult> Handle(GetProductByFilterQuery request, CancellationToken cancellationToken)
     {
-        var @params = request.FilterParams;
+        var filters = request.FilterParams;
         var query = context.Products.OrderByDescending(p => p.CreationTime).AsQueryable();
         
-        if (!string.IsNullOrEmpty(@params.Title))
-            query = query.Where(p => p.Title.Contains(@params.Title));
-        if (!string.IsNullOrEmpty(@params.Slug))
-            query = query.Where(p => p.Slug.ToLower().Contains(@params.Slug.ToLower()));
+        if (!string.IsNullOrEmpty(filters.Title))
+            query = query.Where(p => p.Title.Contains(filters.Title));
+        if (!string.IsNullOrEmpty(filters.Slug))
+            query = query.Where(p => p.Slug.ToLower().Contains(filters.Slug.ToLower()));
 
-        var data = query.Select(p => p.MapFilter()).ToSafePagedList(@params.PageId, @params.Take).ToList();
+        var data = query.Select(p => p.MapFilter()).ToSafePagedList(filters.PageId, filters.Take).ToList();
         var result = new ProductFilterResult()
         {
             Data = data,
-            FilterParams = @params
+            FilterParams = filters
         };
         
-        result.GeneratePaging(query.Count(), @params.Take, @params.PageId);
+        result.GeneratePaging(query.Count(), filters.Take, filters.PageId);
 
         return Task.FromResult(result);
     }

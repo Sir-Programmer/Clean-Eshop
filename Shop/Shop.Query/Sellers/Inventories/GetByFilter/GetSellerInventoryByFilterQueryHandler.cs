@@ -11,7 +11,7 @@ public class GetSellerInventoryByFilterQueryHandler(DapperContext dapperContext)
 {
     public async Task<SellerInventoryFilterResult> Handle(GetSellerInventoryByFilterQuery request, CancellationToken cancellationToken)
     {
-        var @params = request.FilterParams;
+        var filters = request.FilterParams;
         using var connection = dapperContext.CreateConnection();
         const string sql = $"""
                             SELECT 
@@ -36,9 +36,9 @@ public class GetSellerInventoryByFilterQueryHandler(DapperContext dapperContext)
 
         await using var multi = await connection.QueryMultipleAsync(sql, new
         {
-            @params.SellerId,
-            Skip = (@params.PageId - 1) * @params.Take,
-            Take = @params.Take
+            filters.SellerId,
+            Skip = (filters.PageId - 1) * filters.Take,
+            Take = filters.Take
         });
 
         var inventories = await multi.ReadAsync<InventoryDto>();
@@ -47,10 +47,10 @@ public class GetSellerInventoryByFilterQueryHandler(DapperContext dapperContext)
         var result = new SellerInventoryFilterResult
         {
             Data = inventories.ToList(),
-            FilterParams = @params
+            FilterParams = filters
         };
         
-        result.GeneratePaging(totalCount, @params.Take, @params.PageId);
+        result.GeneratePaging(totalCount, filters.Take, filters.PageId);
         return result;
 
     }

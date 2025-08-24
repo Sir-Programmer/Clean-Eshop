@@ -11,30 +11,30 @@ public class GetCommentByFilterQueryHandler(ShopContext context)
 {
     public Task<CommentFilterResult> Handle(GetCommentByFilterQuery request, CancellationToken cancellationToken)
     {
-        var @params = request.FilterParams;
+        var filters = request.FilterParams;
         var query = context.Comments.OrderByDescending(c => c.CreationTime).AsQueryable();
 
-        if (@params.ProductId != null)
-            query = query.Where(c => c.ProductId == @params.ProductId);
-        if (@params.UserId != null)
-            query = query.Where(c => c.UserId == @params.UserId);
-        if (@params.CommentStatus != null)
-            query = query.Where(c => c.Status == @params.CommentStatus);
-        if (@params.StartDate != null)
-            query = query.Where(c => c.CreationTime.Date >= @params.StartDate.Value.Date);
-        if (@params.EndDate != null)
-            query = query.Where(c => c.CreationTime.Date <= @params.EndDate.Value.Date);
+        if (filters.ProductId != null)
+            query = query.Where(c => c.ProductId == filters.ProductId);
+        if (filters.UserId != null)
+            query = query.Where(c => c.UserId == filters.UserId);
+        if (filters.CommentStatus != null)
+            query = query.Where(c => c.Status == filters.CommentStatus);
+        if (filters.StartDate != null)
+            query = query.Where(c => c.CreationTime.Date >= filters.StartDate.Value.Date);
+        if (filters.EndDate != null)
+            query = query.Where(c => c.CreationTime.Date <= filters.EndDate.Value.Date);
         
         var pagedList = query
-            .Select(c => c.Map()).ToSafePagedList(@params.PageId, @params.Take).ToList();
+            .Select(c => c.Map()).ToSafePagedList(filters.PageId, filters.Take).ToList();
 
         var result = new CommentFilterResult
         {
             Data = pagedList,
-            FilterParams = @params
+            FilterParams = filters
         };
 
-        result.GeneratePaging(query.Count(), @params.Take, @params.PageId);
+        result.GeneratePaging(query.Count(), filters.Take, filters.PageId);
 
         return Task.FromResult(result);
     }

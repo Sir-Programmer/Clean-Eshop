@@ -10,24 +10,24 @@ public class GetOrderByFilterQueryHandler(ShopContext context, IOrderQueryServic
 {
     public async Task<OrderFilterResult> Handle(GetOrderByFilterQuery request, CancellationToken cancellationToken)
     {
-        var @params = request.FilterParams;
+        var filters = request.FilterParams;
 
         var query = context.Orders
             .OrderByDescending(o => o.CreationTime)
             .AsQueryable();
 
-        if (@params.UserId != null)
-            query = query.Where(o => o.UserId == @params.UserId);
-        if (@params.StartDate != null)
-            query = query.Where(o => o.CreationTime >= @params.StartDate.Value);
-        if (@params.EndDate != null)
-            query = query.Where(o => o.CreationTime <= @params.EndDate.Value);
-        if (@params.Status != null)
-            query = query.Where(o => o.Status == @params.Status);
+        if (filters.UserId != null)
+            query = query.Where(o => o.UserId == filters.UserId);
+        if (filters.StartDate != null)
+            query = query.Where(o => o.CreationTime >= filters.StartDate.Value);
+        if (filters.EndDate != null)
+            query = query.Where(o => o.CreationTime <= filters.EndDate.Value);
+        if (filters.Status != null)
+            query = query.Where(o => o.Status == filters.Status);
 
         var orders =  query
-            .Skip((@params.PageId - 1) * @params.Take)
-            .Take(@params.Take)
+            .Skip((filters.PageId - 1) * filters.Take)
+            .Take(filters.Take)
             .ToList();
 
         var data = new List<OrderFilterDto>();
@@ -40,9 +40,9 @@ public class GetOrderByFilterQueryHandler(ShopContext context, IOrderQueryServic
         var result = new OrderFilterResult
         {
             Data = data,
-            FilterParams = @params
+            FilterParams = filters
         };
-        result.GeneratePaging(query.Count(), @params.Take, @params.PageId);
+        result.GeneratePaging(query.Count(), filters.Take, filters.PageId);
 
         return result;
     }

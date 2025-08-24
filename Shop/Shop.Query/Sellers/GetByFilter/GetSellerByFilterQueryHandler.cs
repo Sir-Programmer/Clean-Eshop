@@ -9,24 +9,24 @@ public class GetSellerByFilterQueryHandler(ShopContext context) : IQueryHandler<
 {
     public Task<SellerFilterResult> Handle(GetSellerByFilterQuery request, CancellationToken cancellationToken)
     {
-        var @params = request.FilterParams;
+        var filters = request.FilterParams;
         var query = context.Sellers.OrderByDescending(s => s.CreationTime).AsQueryable();
 
-        if (@params.NationalId != null)
-            query = query.Where(s => s.NationalId == @params.NationalId);
+        if (filters.NationalId != null)
+            query = query.Where(s => s.NationalId == filters.NationalId);
         
-        if (@params.ShopName != null)
-            query = query.Where(s => s.ShopName == @params.ShopName);
+        if (filters.ShopName != null)
+            query = query.Where(s => s.ShopName == filters.ShopName);
 
-        var data = query.Select(s => s.Map()).ToSafePagedList(@params.PageId, @params.Take).ToList();
+        var data = query.Select(s => s.Map()).ToSafePagedList(filters.PageId, filters.Take).ToList();
         
         var result = new SellerFilterResult
         {
             Data = data,
-            FilterParams = @params
+            FilterParams = filters
         };
         
-        result.GeneratePaging(query.Count(),  @params.Take, @params.PageId);
+        result.GeneratePaging(query.Count(),  filters.Take, filters.PageId);
         
         return Task.FromResult(result);
     }

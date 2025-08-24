@@ -43,9 +43,9 @@ public class TestController(IMediator mediator) : ControllerBase
     }
     
     [HttpPost("[action]")]
-    public async Task<IActionResult> ProductFilter(ProductFilterParams @params)
+    public async Task<IActionResult> ProductFilter(ProductFilterParams filters)
     {
-        var products = await mediator.Send(new GetProductByFilterQuery(@params));
+        var products = await mediator.Send(new GetProductByFilterQuery(filters));
         return Ok(products);
     }
     
@@ -64,9 +64,9 @@ public class TestController(IMediator mediator) : ControllerBase
     }
     
     [HttpPost("[action]")]
-    public async Task<IActionResult> GetInventoriesByFilter(SellerInventoryFilterParams @params)
+    public async Task<IActionResult> GetInventoriesByFilter(SellerInventoryFilterParams filters)
     {
-        var inventories = await mediator.Send(new GetSellerInventoryByFilterQuery(@params));
+        var inventories = await mediator.Send(new GetSellerInventoryByFilterQuery(filters));
         return Ok(inventories);
     }
     
@@ -78,9 +78,9 @@ public class TestController(IMediator mediator) : ControllerBase
     }
     
     [HttpPost("[action]")]
-    public async Task<IActionResult> GetUserByFilter(UserFilterParams @params)
+    public async Task<IActionResult> GetUserByFilter(UserFilterParams filters)
     {
-        var users = await mediator.Send(new GetUserByFilterQuery(@params));
+        var users = await mediator.Send(new GetUserByFilterQuery(filters));
         return Ok(users);
     }
     
