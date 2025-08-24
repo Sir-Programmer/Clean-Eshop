@@ -13,6 +13,6 @@ public class GetUserByPhoneNumberQueryHandler(ShopContext context, IUserQuerySer
         var user = await context.Users.Include(u => u.Roles).SingleOrDefaultAsync(u => u.PhoneNumber == request.PhoneNumber, cancellationToken);
         if (user == null) return null;
         var userRoles = await userQueryService.GetRolesDataAsync(user.Roles.Select(r => r.RoleId).ToList());
-        return user.Map(userRoles);
+        return user.MapOrNull(userRoles);
     }
 }

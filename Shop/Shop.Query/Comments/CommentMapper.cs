@@ -5,9 +5,13 @@ namespace Shop.Query.Comments;
 
 public static class CommentMapper
 {
-    public static CommentDto? Map(this Comment? comment)
+    public static CommentDto? MapOrNull(this Comment? comment)
     {
-        if (comment == null) return null;
+        return comment?.Map();
+    }
+    
+    public static CommentDto Map(this Comment comment)
+    {
         return new CommentDto()
         {
             Id = comment.Id,

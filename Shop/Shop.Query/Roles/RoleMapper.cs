@@ -6,10 +6,14 @@ namespace Shop.Query.Roles;
 
 public static class RoleMapper
 {
-    public static RoleDto? Map(this Role? role)
+    public static RoleDto? MapOrNull(this Role? role)
     {
-        if  (role == null) return null;
-        return new RoleDto()
+        return role?.Map();
+    }
+    
+    public static RoleDto Map(this Role role)
+    {
+        return new RoleDto
         {
             Id = role.Id,
             CreationTime = role.CreationTime,

@@ -17,7 +17,7 @@ public class GetCurrentUserOrderQueryHandler(ShopContext context, IOrderQuerySer
         
         var userFullName = await orderQueryService.GetUserFullNameAsync(order.UserId);
         
-        var orderDto = order.Map(userFullName);
+        var orderDto = order.MapOrNull(userFullName);
         
         if (orderDto == null) return null;
         orderDto.Items = await orderQueryService.GetOrderItemsAsync(orderDto.Id);

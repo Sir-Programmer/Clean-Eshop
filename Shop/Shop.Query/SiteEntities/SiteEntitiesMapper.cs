@@ -7,9 +7,13 @@ namespace Shop.Query.SiteEntities;
 
 public static class SiteEntitiesMapper
 {
-    public static SliderDto? MapSlider(this Slider? slider)
+    public static SliderDto? MapSliderOrNull(this Slider? slider)
     {
-        if (slider == null) return null;
+        return slider?.MapSlider();
+    }
+    
+    public static SliderDto MapSlider(this Slider slider)
+    {
         return new SliderDto()
         {
             Id = slider.Id,
@@ -21,9 +25,13 @@ public static class SiteEntitiesMapper
         };
     }
 
-    public static BannerDto? MapBanner(this Banner? banner)
+    public static BannerDto? MapBannerOrNull(this Banner? banner)
     {
-        if (banner == null) return null;
+        return banner?.MapBanner();
+    }
+    
+    public static BannerDto MapBanner(this Banner banner)
+    {
         return new BannerDto()
         {
             Id = banner.Id,
@@ -34,9 +42,13 @@ public static class SiteEntitiesMapper
         };
     }
 
-    public static ShippingMethodDto? MapShippingMethod(this ShippingMethod? shippingMethod)
+    public static ShippingMethodDto? MapShippingMethodOrNull(this ShippingMethod? shippingMethod)
     {
-        if (shippingMethod == null) return null;
+        return shippingMethod?.MapShippingMethod();
+    }
+    
+    public static ShippingMethodDto MapShippingMethod(this ShippingMethod shippingMethod)
+    {
         return new ShippingMethodDto()
         {
             Id = shippingMethod.Id,

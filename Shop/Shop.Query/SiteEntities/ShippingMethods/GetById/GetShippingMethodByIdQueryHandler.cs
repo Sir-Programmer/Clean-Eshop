@@ -11,6 +11,6 @@ public class GetShippingMethodByIdQueryHandler(ShopContext context) : IQueryHand
     {
         var shippingMethod =
             await context.ShippingMethods.FirstOrDefaultAsync(s => s.Id == request.ShippingMethodId, cancellationToken);
-        return shippingMethod.MapShippingMethod();
+        return shippingMethod.MapShippingMethodOrNull();
     }
 }

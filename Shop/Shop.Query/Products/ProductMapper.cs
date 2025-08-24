@@ -8,10 +8,13 @@ namespace Shop.Query.Products;
 
 public static class ProductMapper
 {
-    public static ProductDto? Map(this Product? product, List<ProductCategoryItemDto> categories)
+    public static ProductDto? MapOrNull(this Product? product, List<ProductCategoryItemDto> categories)
     {
-        if (product == null) return null;
-        
+        return product?.Map(categories);
+    }
+    
+    public static ProductDto Map(this Product product, List<ProductCategoryItemDto> categories)
+    {
         var mainCategory = categories.FirstOrDefault(c => c.Id == product.MainCategoryId);
 
         var subCategories = categories.Where(c => c.Id != product.MainCategoryId).ToList();
@@ -46,9 +49,8 @@ public static class ProductMapper
         };
     }
 
-    public static ProductFilterDto? MapFilter(this Product? product)
+    public static ProductFilterDto MapFilter(this Product product)
     {
-        if (product == null) return null;
         return new ProductFilterDto()
         {
             Id = product.Id,

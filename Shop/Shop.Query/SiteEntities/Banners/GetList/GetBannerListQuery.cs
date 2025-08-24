@@ -3,4 +3,4 @@ using Shop.Query.SiteEntities.DTOs;
 
 namespace Shop.Query.SiteEntities.Banners.GetList;
 
-public record GetBannerListQuery : IQuery<List<BannerDto?>>;
+public record GetBannerListQuery : IQuery<List<BannerDto>>;

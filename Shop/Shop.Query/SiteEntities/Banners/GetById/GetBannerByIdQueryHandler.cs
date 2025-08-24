@@ -10,6 +10,6 @@ public class GetBannerByIdQueryHandler(ShopContext context) : IQueryHandler<GetB
     public async Task<BannerDto?> Handle(GetBannerByIdQuery request, CancellationToken cancellationToken)
     {
         var banner = await context.Banners.FirstOrDefaultAsync(b => b.Id == request.BannerId, cancellationToken);
-        return banner.MapBanner();
+        return banner.MapBannerOrNull();
     }
 }

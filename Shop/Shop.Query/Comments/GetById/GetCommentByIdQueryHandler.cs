@@ -10,6 +10,6 @@ public class GetCommentByIdQueryHandler(ShopContext context) : IQueryHandler<Get
     public async Task<CommentDto?> Handle(GetCommentByIdQuery request, CancellationToken cancellationToken)
     {
         var comment = await context.Comments.FirstOrDefaultAsync(c => c.Id == request.CommentId, cancellationToken);
-        return comment.Map();
+        return comment.MapOrNull();
     }
 }

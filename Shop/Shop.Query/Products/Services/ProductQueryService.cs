@@ -30,6 +30,6 @@ public class ProductQueryService(ShopContext context) : IProductQueryService
             .Select(c => c.MapCategory())
             .ToListAsync(cancellationToken);
 
-        return product.Map(productCategoryItems!);
+        return product.MapOrNull(productCategoryItems!);
     }
 }

@@ -9,10 +9,13 @@ namespace Shop.Query.Orders;
 
 public static class OrderMapper
 {
-    public static OrderDto? Map(this Order? order, string? userFullName)
+    public static OrderDto? MapOrNull(this Order? order, string? userFullName)
     {
-        if (order == null) return null;
-
+        return order?.Map(userFullName);
+    }
+    
+    public static OrderDto Map(this Order order, string? userFullName)
+    {
         return new OrderDto
         {
             Id = order.Id,
@@ -28,10 +31,8 @@ public static class OrderMapper
         };
     }
 
-    public static OrderFilterDto? MapFilter(this Order? order, string? userFullName)
+    public static OrderFilterDto MapFilter(this Order order, string? userFullName)
     {
-        if (order == null) return null;
-
         return new OrderFilterDto
         {
             Id = order.Id,

@@ -10,6 +10,6 @@ public class GetSliderByIdQueryHandler(ShopContext context) : IQueryHandler<GetS
     public async Task<SliderDto?> Handle(GetSliderByIdQuery request, CancellationToken cancellationToken)
     {
         var slider =  await context.Sliders.FirstOrDefaultAsync(s => s.Id == request.SliderId, cancellationToken);
-        return slider.MapSlider();
+        return slider.MapSliderOrNull();
     }
 }

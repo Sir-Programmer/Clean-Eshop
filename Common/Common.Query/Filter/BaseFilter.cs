@@ -29,6 +29,6 @@ public abstract class BaseFilterParam
 
 public class BaseFilter<TData, TParam> : BaseFilter where TParam : BaseFilterParam
 {
-    public IReadOnlyList<TData?> Data { get; set; } = [];
+    public IReadOnlyList<TData> Data { get; set; } = [];
     public TParam FilterParams { get; set; } = null!;
 }

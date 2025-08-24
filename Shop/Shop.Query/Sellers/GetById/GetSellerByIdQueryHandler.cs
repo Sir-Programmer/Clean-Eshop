@@ -10,6 +10,6 @@ public class GetSellerByIdQueryHandler(ShopContext context) : IQueryHandler<GetS
     public async Task<SellerDto?> Handle(GetSellerByIdQuery request, CancellationToken cancellationToken)
     {
         var seller = await context.Sellers.FirstOrDefaultAsync(s => s.Id == request.SellerId, cancellationToken);
-        return seller.Map();
+        return seller.MapOrNull();
     }
 }

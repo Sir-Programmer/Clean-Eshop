@@ -3,4 +3,4 @@ using Shop.Query.Roles.DTOs;
 
 namespace Shop.Query.Roles.GetList;
 
-public record GetRoleListQuery : IQuery<List<RoleDto?>>;
+public record GetRoleListQuery : IQuery<List<RoleDto>>;

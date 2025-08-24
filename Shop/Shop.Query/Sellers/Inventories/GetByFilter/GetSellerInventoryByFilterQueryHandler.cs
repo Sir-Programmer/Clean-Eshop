@@ -41,7 +41,7 @@ public class GetSellerInventoryByFilterQueryHandler(DapperContext dapperContext)
             Take = @params.Take
         });
 
-        var inventories = await multi.ReadAsync<InventoryDto?>();
+        var inventories = await multi.ReadAsync<InventoryDto>();
         var totalCount = await multi.ReadFirstAsync<int>();
         
         var result = new SellerInventoryFilterResult

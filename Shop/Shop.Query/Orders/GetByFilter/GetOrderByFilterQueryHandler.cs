@@ -30,7 +30,7 @@ public class GetOrderByFilterQueryHandler(ShopContext context, IOrderQueryServic
             .Take(@params.Take)
             .ToList();
 
-        var data = new List<OrderFilterDto?>();
+        var data = new List<OrderFilterDto>();
         foreach (var order in orders)
         {
             var fullName = await orderQueryService.GetUserFullNameAsync(order.UserId);

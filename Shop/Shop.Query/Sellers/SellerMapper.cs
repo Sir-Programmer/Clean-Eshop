@@ -5,10 +5,14 @@ namespace Shop.Query.Sellers;
 
 public static class SellerMapper
 {
-    public static SellerDto? Map(this Seller? seller)
+    public static SellerDto? MapOrNull(this Seller? seller)
     {
-        if  (seller == null) return null;
-        return new SellerDto()
+        return seller?.Map();
+    }
+    
+    public static SellerDto Map(this Seller seller)
+    {
+        return new SellerDto
         {
             Id = seller.Id,
             CreationTime = seller.CreationTime,

@@ -6,9 +6,13 @@ namespace Shop.Query.Users;
 
 public static class UserMapper
 {
-    public static UserDto? Map(this User? user, List<UserRoleDto> userRoles)
+    public static UserDto? MapOrNull(this User? user, List<UserRoleDto> userRoles)
     {
-        if  (user == null) return null;
+        return user?.Map(userRoles);
+    }
+    
+    public static UserDto Map(this User user, List<UserRoleDto> userRoles)
+    {
         return new UserDto
         {
             Id = user.Id,
@@ -22,9 +26,8 @@ public static class UserMapper
         };
     }
     
-    public static UserFilterDto? MapFilter(this User? user)
+    public static UserFilterDto MapFilter(this User user)
     {
-        if  (user == null) return null;
         return new UserFilterDto
         {
             Id = user.Id,

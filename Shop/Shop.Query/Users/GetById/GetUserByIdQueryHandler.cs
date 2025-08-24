@@ -13,6 +13,6 @@ public class GetUserByIdQueryHandler(ShopContext context, IUserQueryService user
         var user = await context.Users.Include(u => u.Roles).SingleOrDefaultAsync(u => u.Id == request.UserId, cancellationToken);
         if (user == null) return null;
         var userRoles = await userQueryService.GetRolesDataAsync(user.Roles.Select(r => r.RoleId).ToList());
-        return user.Map(userRoles);
+        return user.MapOrNull(userRoles);
     }
 }
