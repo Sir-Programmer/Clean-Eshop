@@ -1,5 +1,4 @@
 ﻿using Shop.Domain.RoleAgg;
-using Shop.Domain.RoleAgg.Enums;
 using Shop.Query.Roles.DTOs;
 
 namespace Shop.Query.Roles;

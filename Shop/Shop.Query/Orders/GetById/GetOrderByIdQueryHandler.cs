@@ -1,6 +1,5 @@
 ﻿using Common.Query;
 using Microsoft.EntityFrameworkCore;
-using Shop.Infrastructure.Persistent.Dapper;
 using Shop.Infrastructure.Persistent.Ef;
 using Shop.Query.Orders.DTOs;
 using Shop.Query.Orders.Services;

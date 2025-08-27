@@ -1,7 +1,6 @@
 ﻿using Common.Query;
 using Common.Query.Filter;
 using Shop.Infrastructure.Persistent.Ef;
-using Shop.Query.Comments.DTOs;
 using Shop.Query.Comments.DTOs.Filter;
 
 namespace Shop.Query.Comments.GetByFilter;

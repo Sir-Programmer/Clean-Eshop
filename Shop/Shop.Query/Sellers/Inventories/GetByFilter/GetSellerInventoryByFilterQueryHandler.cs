@@ -1,5 +1,4 @@
 ﻿using Common.Query;
-using Common.Query.Filter;
 using Dapper;
 using Shop.Infrastructure.Persistent.Dapper;
 using Shop.Query.Sellers.DTOs;

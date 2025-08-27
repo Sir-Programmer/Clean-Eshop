@@ -1,5 +1,4 @@
 ﻿using Common.Query;
-using Common.Query.Filter;
 using Shop.Infrastructure.Persistent.Ef;
 using Shop.Query.Orders.DTOs.Filter;
 using Shop.Query.Orders.Services;

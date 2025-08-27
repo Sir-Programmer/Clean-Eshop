@@ -1,5 +1,4 @@
 ﻿using Common.Application.OperationResults;
-using Shop.Application.Orders.Finally;
 using Shop.Application.Products.AddImage;
 using Shop.Application.Products.Create;
 using Shop.Application.Products.Edit;

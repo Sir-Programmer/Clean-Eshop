@@ -1,7 +1,4 @@
-﻿using Dapper;
-using Shop.Domain.OrderAgg;
-using Shop.Infrastructure.Persistent.Dapper;
-using Shop.Infrastructure.Persistent.Ef;
+﻿using Shop.Domain.OrderAgg;
 using Shop.Query.Orders.DTOs;
 using Shop.Query.Orders.DTOs.Filter;
 

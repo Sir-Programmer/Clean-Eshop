@@ -1,6 +1,24 @@
-﻿namespace Shop.Presentation.Facade.Users;
+﻿using Common.Application.OperationResults;
+using Shop.Application.Users.ChangePassword;
+using Shop.Application.Users.ChargeWallet;
+using Shop.Application.Users.Create;
+using Shop.Application.Users.Edit;
+using Shop.Application.Users.Register;
+using Shop.Query.Users.DTOs;
+using Shop.Query.Users.DTOs.Filter;
+
+namespace Shop.Presentation.Facade.Users;
 
 public interface IUserFacade
 {
+    Task<OperationResult<Guid>> Create(CreateUserCommand command);
+    Task<OperationResult> Edit(EditUserCommand command);
+    Task<OperationResult> ChargeWallet(ChargeUserWalletCommand command);
+    Task<OperationResult> Register(RegisterUserCommand command);
+    Task<OperationResult> ChangePassword(ChangeUserPasswordCommand command);
     
+    
+    Task<UserDto?> GetById(Guid id);
+    Task<UserDto?> GetByPhoneNumber(string phoneNumber);
+    Task<UserFilterResult> GetByFilter(UserFilterParams filters);
 }

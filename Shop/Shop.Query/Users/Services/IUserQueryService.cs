@@ -1,5 +1,4 @@
-﻿using Shop.Domain.UserAgg;
-using Shop.Query.Users.DTOs;
+﻿using Shop.Query.Users.DTOs;
 
 namespace Shop.Query.Users.Services;
 

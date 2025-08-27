@@ -1,6 +1,5 @@
 ﻿using Shop.Domain.CategoryAgg;
 using Shop.Domain.ProductAgg;
-using Shop.Infrastructure.Persistent.Ef;
 using Shop.Query.Products.DTOs;
 using Shop.Query.Products.DTOs.Filter;
 

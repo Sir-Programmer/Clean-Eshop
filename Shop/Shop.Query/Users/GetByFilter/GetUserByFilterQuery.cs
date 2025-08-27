@@ -1,5 +1,4 @@
 ﻿using Common.Query;
-using Shop.Query.Users.DTOs;
 using Shop.Query.Users.DTOs.Filter;
 
 namespace Shop.Query.Users.GetByFilter;
