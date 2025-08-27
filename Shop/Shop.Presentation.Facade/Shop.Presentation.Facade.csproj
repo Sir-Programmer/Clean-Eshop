@@ -12,7 +12,9 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="SiteEntities\" />
+      <Folder Include="SiteEntities\Banners\" />
+      <Folder Include="SiteEntities\ShippingMethods\" />
+      <Folder Include="SiteEntities\Sliders\" />
       <Folder Include="Users\" />
     </ItemGroup>
 
