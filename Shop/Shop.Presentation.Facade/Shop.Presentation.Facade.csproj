@@ -11,8 +11,4 @@
       <ProjectReference Include="..\Shop.Query\Shop.Query.csproj" />
     </ItemGroup>
 
-    <ItemGroup>
-      <Folder Include="Users\" />
-    </ItemGroup>
-
 </Project>
