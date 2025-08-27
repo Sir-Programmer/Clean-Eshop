@@ -12,7 +12,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="SiteEntities\Banners\" />
       <Folder Include="SiteEntities\ShippingMethods\" />
       <Folder Include="SiteEntities\Sliders\" />
       <Folder Include="Users\" />
