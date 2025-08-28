@@ -26,6 +26,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shop.Api", "Shop\Shop.Api\S
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shop.Config", "Shop\Shop.Config\Shop.Config.csproj", "{4C24321A-CA13-4CA0-9D1C-DD53EF0383A5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common.AspNetCore", "Common\Common.AspNetCore\Common.AspNetCore.csproj", "{60A6B031-C500-4251-815A-68417EDE7620}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -43,6 +45,7 @@ Global
 		{6CF4599F-CF22-4673-A47D-5A28D13272E3} = {1A29B038-AED8-4E48-83E3-F698D565A4F0}
 		{B0F2E359-3672-4BC3-A52E-BD59C4734B06} = {6CF4599F-CF22-4673-A47D-5A28D13272E3}
 		{4C24321A-CA13-4CA0-9D1C-DD53EF0383A5} = {1A29B038-AED8-4E48-83E3-F698D565A4F0}
+		{60A6B031-C500-4251-815A-68417EDE7620} = {FC20EE0E-0C55-41D8-90A7-16CAE8838003}
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{AAED39BF-DD39-494B-BE7F-00066D49FF7C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -85,5 +88,9 @@ Global
 		{4C24321A-CA13-4CA0-9D1C-DD53EF0383A5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4C24321A-CA13-4CA0-9D1C-DD53EF0383A5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4C24321A-CA13-4CA0-9D1C-DD53EF0383A5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{60A6B031-C500-4251-815A-68417EDE7620}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{60A6B031-C500-4251-815A-68417EDE7620}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{60A6B031-C500-4251-815A-68417EDE7620}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{60A6B031-C500-4251-815A-68417EDE7620}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
