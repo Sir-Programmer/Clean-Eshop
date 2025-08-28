@@ -15,6 +15,7 @@ using Shop.Domain.SellerAgg.Services;
 using Shop.Domain.UserAgg.Services;
 using Shop.Infrastructure;
 using Shop.Infrastructure._Utilities;
+using Shop.Presentation.Facade;
 using Shop.Query.Categories.GetById;
 using Shop.Query.Orders.Services;
 using Shop.Query.Products.Services;
@@ -49,10 +50,13 @@ public static class ShopBootstrapper
         services.AddScoped<ISellerDomainService, SellerDomainService>();
         services.AddScoped<IUserDomainService, UserDomainService>();
         
-        // Query
+        // Query Services
         services.AddScoped<IOrderQueryService, OrderQueryService>();
         services.AddScoped<IProductQueryService, ProductQueryService>();
         services.AddScoped<IUserQueryService, UserQueryService>();
+        
+        // Facade
+        FacadeBootstrapper.Initialize(services);
         
     }
 }
