@@ -15,8 +15,8 @@ public class Category : AggregateRoot
     public Category(string title, string slug, SeoData seoData, ICategoryDomainService categoryDomainService)
     {
         Guard(title, slug, categoryDomainService);
-        Title = title;
         Slug = slug.ToSlug();
+        Title = title;
         SeoData = seoData;
         Childs = [];
     }
@@ -24,31 +24,31 @@ public class Category : AggregateRoot
     public string Slug { get; private set; }
     public SeoData SeoData { get; private set; }
     public Guid? ParentId { get; private set; }
-    public List<Category> Childs { get; private set; }
+    public List<Category> Childs { get; private set; } = [];
 
     public void Edit(string title, string slug, SeoData seoData, ICategoryDomainService categoryDomainService)
     {
         Guard(title, slug, categoryDomainService);
-        Title = title;
         Slug = slug.ToSlug();
+        Title = title;
         SeoData = seoData;
     }
     
-    public Guid AddChild(string title, string slug, SeoData seoData, ICategoryDomainService categoryDomainService)
+    public Category AddChild(string title, string slug, SeoData seoData, ICategoryDomainService categoryDomainService)
     {
         var childCategory = new Category(title, slug, seoData, categoryDomainService)
         {
-            ParentId = Id
+            ParentId = Id,
         };
         Childs.Add(childCategory);
-        return childCategory.Id;
+        return childCategory;
     }
     private void Guard(string title, string slug, ICategoryDomainService categoryDomainService)
     {
         NullOrEmptyDomainException.CheckString(title, nameof(title));
         NullOrEmptyDomainException.CheckString(slug, nameof(slug));
-        if (Slug != slug.ToSlug())
-            if (categoryDomainService.IsSlugExist(slug.ToSlug()))
-                throw new SlugDuplicatedException();
+        if (Slug == slug.ToSlug()) return;
+        if (categoryDomainService.IsSlugExist(slug.ToSlug()))
+            throw new SlugDuplicatedException();
     }
 }

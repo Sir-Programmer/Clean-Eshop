@@ -12,8 +12,8 @@ internal class AddChildCategoryCommandHandler(ICategoryRepository categoryReposi
     {
         var parentCategory = await categoryRepository.GetByIdTrackingAsync(request.ParentId);
         if (parentCategory == null) return OperationResult<Guid>.NotFound();
-        var childCategoryId = parentCategory.AddChild(request.Title, request.Slug, request.SeoData, categoryDomainService);
+        var childCategory = parentCategory.AddChild(request.Title, request.Slug, request.SeoData, categoryDomainService);
         await unitOfWork.SaveChangesAsync();
-        return OperationResult<Guid>.Success(childCategoryId);
+        return OperationResult<Guid>.Success(childCategory.Id);
     }
 }
