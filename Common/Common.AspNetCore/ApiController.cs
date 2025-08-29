@@ -52,17 +52,3 @@ public class ApiController : ControllerBase
         };
     }
 }
-
-public static class EnumHelper
-{
-    public static OperationStatusCode MapOperationStatus(this OperationResultStatus status)
-    {
-        return status switch
-        {
-            OperationResultStatus.Success => OperationStatusCode.Success,
-            OperationResultStatus.NotFound => OperationStatusCode.NotFound,
-            OperationResultStatus.Error => OperationStatusCode.LogicError,
-            _ => OperationStatusCode.LogicError
-        };
-    }
-}
