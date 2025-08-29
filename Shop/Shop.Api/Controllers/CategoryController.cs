@@ -23,7 +23,7 @@ public class CategoryController(ICategoryFacade categoryFacade) : ApiController
         return QueryResult(await categoryFacade.GetById(categoryId));
     }
     
-    [HttpGet("GetChildrens/{parentId:guid}")]
+    [HttpGet("GetChilds/{parentId:guid}")]
     public async Task<ApiResult<List<CategoryDto>>> GetCategoriesByParentId(Guid parentId)
     {
         return QueryResult(await categoryFacade.GetByParentId(parentId));
