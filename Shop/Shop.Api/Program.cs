@@ -1,3 +1,4 @@
+using System.Text.Json.Serialization;
 using Shop.Config;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -12,6 +13,13 @@ services.AddSwaggerGen();
 
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? "";
 services.InitializeShopDependencies(connectionString);
+
+// Json Config
+builder.Services.AddControllers()
+    .AddJsonOptions(options =>
+    {
+        options.JsonSerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull;
+    });
 
 var app = builder.Build();
 

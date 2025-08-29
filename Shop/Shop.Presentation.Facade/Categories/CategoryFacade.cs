@@ -28,9 +28,9 @@ public class CategoryFacade(IMediator mediator) : ICategoryFacade
         return await mediator.Send(command);
     }
 
-    public async Task<OperationResult> Remove(RemoveCategoryCommand command)
+    public async Task<OperationResult> Delete(Guid categoryId)
     {
-        return await mediator.Send(command);
+        return await mediator.Send(new RemoveCategoryCommand(categoryId));
     }
 
     public async Task<CategoryDto?> GetById(Guid id)

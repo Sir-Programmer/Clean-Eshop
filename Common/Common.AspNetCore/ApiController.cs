@@ -25,7 +25,7 @@ public class ApiController : ControllerBase
     {
         var isSuccess = result.Status == OperationResultStatus.Success;
         if (!isSuccess)
-            return new ApiResult<TData?>()
+            return new ApiResult<TData?>
             {
                 IsSuccess = isSuccess,
                 Data = isSuccess ? result.Data : default,
@@ -35,12 +35,12 @@ public class ApiController : ControllerBase
                     OperationStatusCode = result.Status.MapOperationStatus()
                 }
             };
-        HttpContext.Response.StatusCode = Convert.ToInt32(statusCode);
+        HttpContext.Response.StatusCode = (int)statusCode;
         if (!string.IsNullOrWhiteSpace(locationUrl))
         {
             HttpContext.Response.Headers.Add("location", locationUrl);
         }
-        return new ApiResult<TData?>()
+        return new ApiResult<TData?>
         {
             IsSuccess = isSuccess,
             Data = isSuccess ? result.Data : default,
@@ -52,12 +52,39 @@ public class ApiController : ControllerBase
         };
     }
     
-    protected ApiResult<TData> QueryResult<TData>(TData result)
+    protected ApiResult<TData?> QueryResult<TData>(TData? result) where TData : class
     {
-        return new ApiResult<TData>()
+        if (result != null)
+            return new ApiResult<TData?>
+            {
+                IsSuccess = true,
+                Data = result,
+                MetaData = new MetaData
+                {
+                    Message = "عملیات با موفقیت انجام شد",
+                    OperationStatusCode = OperationStatusCode.Success
+                }
+            };
+        
+        HttpContext.Response.StatusCode = (int)HttpStatusCode.NotFound;
+        return new ApiResult<TData?>
+        {
+            IsSuccess = false,
+            Data = null,
+            MetaData = new MetaData
+            {
+                Message = "موردی یافت نشد",
+                OperationStatusCode = OperationStatusCode.NotFound
+            }
+        };
+    }
+    
+    protected ApiResult<List<T>> QueryResult<T>(List<T>? result)
+    {
+        return new ApiResult<List<T>>
         {
             IsSuccess = true,
-            Data = result,
+            Data = result ?? [], 
             MetaData = new MetaData
             {
                 Message = "عملیات با موفقیت انجام شد",
