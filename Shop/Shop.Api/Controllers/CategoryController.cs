@@ -33,14 +33,14 @@ public class CategoryController(ICategoryFacade categoryFacade) : ApiController
     public async Task<ApiResult<Guid>> CreateCategory(CreateCategoryCommand command)
     {
         var result = await categoryFacade.Create(command);
-        var url = Url.Action("GetCategoryById", "Category", new { id = result.Data }, Request.Scheme);
+        var url = Url.Action("GetCategoryById", "Category", new { categoryId = result.Data }, Request.Scheme);
         return CommandResult(result, statusCode: HttpStatusCode.Created, locationUrl: url);
     }
     [HttpPost("AddChild")]
     public async Task<ApiResult<Guid>> CreateCategory(AddChildCategoryCommand command)
     {
         var result = await categoryFacade.AddChild(command);
-        var url = Url.Action("GetCategoryById", "Category", new { id = result.Data }, Request.Scheme);
+        var url = Url.Action("GetCategoryById", "Category", new { categoryId = result.Data }, Request.Scheme);
         return CommandResult(result, statusCode: HttpStatusCode.Created, locationUrl: url);
     }
 
