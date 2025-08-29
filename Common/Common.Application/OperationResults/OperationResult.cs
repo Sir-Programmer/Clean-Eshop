@@ -4,8 +4,7 @@ namespace Common.Application.OperationResults;
 
 public class OperationResult : OperationResultBase
 {
-    private OperationResult(OperationResultStatus status, string message, string title = "") 
-        : base(status, message, title) { }
+    private OperationResult(OperationResultStatus status, string message, string title = "") : base(status, message, title) { }
 
     public static OperationResult Success(string message = "عملیات با موفقیت انجام شد") =>
         new OperationResult(OperationResultStatus.Success, message);
@@ -21,8 +20,7 @@ public class OperationResult<TData> : OperationResultBase
 {
     public TData Data { get; set; }
 
-    private OperationResult(OperationResultStatus status, string message, TData data, string title = "")
-        : base(status, message, title)
+    private OperationResult(OperationResultStatus status, string message, TData data, string title = "") : base(status, message, title)
     {
         Data = data;
     }
