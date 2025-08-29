@@ -51,4 +51,18 @@ public class ApiController : ControllerBase
             }
         };
     }
+    
+    protected ApiResult<TData> QueryResult<TData>(TData result)
+    {
+        return new ApiResult<TData>()
+        {
+            IsSuccess = true,
+            Data = result,
+            MetaData = new MetaData
+            {
+                Message = "عملیات با موفقیت انجام شد",
+                OperationStatusCode = OperationStatusCode.Success
+            }
+        };
+    }
 }
