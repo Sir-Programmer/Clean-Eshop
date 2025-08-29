@@ -1,4 +1,5 @@
 using System.Text.Json.Serialization;
+using Common.AspNetCore.Middlewares;
 using Shop.Config;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -34,7 +35,7 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
-
+app.UseApiCustomExceptionHandler();
 app.MapControllers();
 
 app.Run();
