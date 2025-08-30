@@ -14,7 +14,7 @@ services.AddControllers().ConfigureApiBehaviorOptions(option =>
         var result = new ApiResult()
         {
             IsSuccess = false,
-            MetaData = new()
+            MetaData = new MetaData
             {
                 OperationStatusCode = OperationStatusCode.BadRequest,
                 Message = ModelStateUtil.GetModelStateErrors(context.ModelState)
