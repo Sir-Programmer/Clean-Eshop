@@ -14,7 +14,7 @@ services.AddSwaggerGen();
 
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? "";
 services.InitializeShopDependencies(connectionString);
-services.RegisterApiDependencies();
+services.RegisterApiDependencies(builder.Configuration);
 
 var app = builder.Build();
 

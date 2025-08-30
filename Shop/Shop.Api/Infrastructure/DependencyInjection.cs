@@ -1,10 +1,11 @@
 ﻿using System.Text.Json.Serialization;
+using Shop.Api.Infrastructure.JwtUtils;
 
 namespace Shop.Api.Infrastructure;
 
 public static class DependencyInjection
 {
-    public static void RegisterApiDependencies(this IServiceCollection services)
+    public static void RegisterApiDependencies(this IServiceCollection services,  IConfiguration configuration)
     {
         // Json Config
         services.AddControllers()
@@ -12,5 +13,7 @@ public static class DependencyInjection
             {
                 options.JsonSerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull;
             });
+        // Jwt Config
+        services.AddJwtAuthentication(configuration);
     }
 }
