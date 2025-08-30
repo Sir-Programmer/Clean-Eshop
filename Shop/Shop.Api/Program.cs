@@ -1,14 +1,29 @@
+using Common.AspNetCore;
 using Common.AspNetCore.Middlewares;
+using Microsoft.AspNetCore.Mvc;
 using Shop.Api.Infrastructure;
 using Shop.Config;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-
 var services = builder.Services;
-services.AddControllers();
-// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
+services.AddControllers().ConfigureApiBehaviorOptions(option =>
+{
+    option.InvalidModelStateResponseFactory = (context =>
+    {
+        var result = new ApiResult()
+        {
+            IsSuccess = false,
+            MetaData = new()
+            {
+                OperationStatusCode = OperationStatusCode.BadRequest,
+                Message = ModelStateUtil.GetModelStateErrors(context.ModelState)
+            }
+        };
+        return new BadRequestObjectResult(result);
+    });
+});
+
 services.AddOpenApi();
 services.AddSwaggerGen();
 
@@ -18,7 +33,6 @@ services.RegisterApiDependencies(builder.Configuration);
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
