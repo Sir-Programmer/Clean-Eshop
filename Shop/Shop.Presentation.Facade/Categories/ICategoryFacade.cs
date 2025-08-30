@@ -12,7 +12,7 @@ public interface ICategoryFacade
     Task<OperationResult<Guid>> Create(CreateCategoryCommand command);
     Task<OperationResult<Guid>> AddChild(AddChildCategoryCommand command);
     Task<OperationResult> Edit(EditCategoryCommand command);
-    Task<OperationResult> Delete(Guid categoryId);
+    Task<OperationResult> Delete(Guid id);
     
     
     Task<CategoryDto?> GetById(Guid id);

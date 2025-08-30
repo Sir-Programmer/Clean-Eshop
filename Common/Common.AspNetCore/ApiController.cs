@@ -52,7 +52,7 @@ public class ApiController : ControllerBase
         };
     }
     
-    protected ApiResult<TData?> QueryResult<TData>(TData? result) where TData : class
+    protected ApiResult<TData?> QueryResult<TData>(TData? result) where TData : class 
     {
         if (result != null)
             return new ApiResult<TData?>

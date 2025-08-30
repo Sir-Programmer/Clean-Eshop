@@ -18,9 +18,9 @@ public class CommentFacade(IMediator mediator) : ICommentFacade
         return await mediator.Send(command);
     }
 
-    public async Task<OperationResult> Delete(DeleteCommentCommand command)
+    public async Task<OperationResult> Delete(Guid id)
     {
-        return await mediator.Send(command);
+        return await mediator.Send(new DeleteCommentCommand(id));
     }
 
     public async Task<OperationResult> Edit(EditCommentCommand command)
