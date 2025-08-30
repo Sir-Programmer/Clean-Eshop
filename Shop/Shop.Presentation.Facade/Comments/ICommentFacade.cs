@@ -11,7 +11,7 @@ namespace Shop.Presentation.Facade.Comments;
 public interface ICommentFacade
 {
     Task<OperationResult<Guid>> Create(CreateCommentCommand command);
-    Task<OperationResult> Delete(DeleteCommentCommand command);
+    Task<OperationResult> Delete(Guid id);
     Task<OperationResult> Edit(EditCommentCommand command);
     Task<OperationResult> ChangeStatus(ChangeCommentStatusCommand command);
 
