@@ -12,8 +12,8 @@ public class VerificationRepository(ShopContext context) : BaseRepository<Verifi
         return await Context.Verifications.OrderByDescending(v => v.CreationTime).FirstOrDefaultAsync(v => v.PhoneNumber == phoneNumber);
     }
 
-    public async Task<int> GetVerificationCountByPhoneNumber(string phoneNumber)
+    public int GetVerificationCountByPhoneNumber(string phoneNumber)
     {
-        return await Context.Verifications.CountAsync(v => v.PhoneNumber == phoneNumber && v.CreationTime >= DateTime.Now.AddMinutes(-30));
+        return Context.Verifications.Count(v => v.PhoneNumber == phoneNumber && v.CreationTime >= DateTime.Now.AddMinutes(-30));
     }
 }
