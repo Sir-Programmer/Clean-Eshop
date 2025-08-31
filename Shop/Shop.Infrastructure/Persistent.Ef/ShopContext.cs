@@ -9,6 +9,7 @@ using Shop.Domain.SiteEntities.Banner;
 using Shop.Domain.SiteEntities.ShippingMethod;
 using Shop.Domain.SiteEntities.Slider;
 using Shop.Domain.UserAgg;
+using Shop.Domain.VerificationAgg;
 
 namespace Shop.Infrastructure.Persistent.Ef;
 
@@ -23,6 +24,7 @@ public class ShopContext(DbContextOptions<ShopContext> options) : DbContext(opti
     public DbSet<Slider> Sliders { get; set; }
     public DbSet<Banner> Banners { get; set; }
     public DbSet<User> Users { get; set; }
+    public DbSet<Verification> Verifications { get; set; }
     public DbSet<ShippingMethod> ShippingMethods { get; set; }
     
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
