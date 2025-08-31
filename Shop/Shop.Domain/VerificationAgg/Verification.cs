@@ -12,7 +12,7 @@ public class Verification : AggregateRoot
         Guard(phoneNumber, verificationDomainService);
         PhoneNumber = phoneNumber;
         Code = code;
-        ExpireTime = DateTime.Now.AddMinutes(5);
+        ExpireTime = DateTime.Now.AddMinutes(15);
         IsUsed = false;
     }
     public string PhoneNumber { get; private set; }
