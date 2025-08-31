@@ -7,7 +7,7 @@ namespace Shop.Infrastructure.Persistent.Ef.VerificationAgg;
 
 public class VerificationRepository(ShopContext context) : BaseRepository<Verification>(context), IVerificationRepository
 {
-    public async Task<Verification?> GetLastVerificationDataByPhoneNumber(string phoneNumber)
+    public async Task<Verification?> GetLastVerificationDataByPhoneNumberAsync(string phoneNumber)
     {
         return await Context.Verifications.OrderByDescending(v => v.CreationTime).FirstOrDefaultAsync(v => v.PhoneNumber == phoneNumber);
     }

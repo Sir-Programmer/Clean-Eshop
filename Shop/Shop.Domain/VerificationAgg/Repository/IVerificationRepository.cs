@@ -4,6 +4,6 @@ namespace Shop.Domain.VerificationAgg.Repository;
 
 public interface IVerificationRepository : IBaseRepository<Verification>
 {
-    Task<Verification?> GetLastVerificationDataByPhoneNumber(string phoneNumber);
+    Task<Verification?> GetLastVerificationDataByPhoneNumberAsync(string phoneNumber);
     int GetVerificationCountByPhoneNumber(string phoneNumber);
 }
