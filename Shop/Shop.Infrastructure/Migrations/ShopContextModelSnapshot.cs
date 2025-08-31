@@ -334,6 +334,38 @@ namespace Shop.Infrastructure.Migrations
                     b.ToTable("Users", "user");
                 });
 
+            modelBuilder.Entity("Shop.Domain.VerificationAgg.Verification", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasMaxLength(6)
+                        .HasColumnType("nvarchar(6)");
+
+                    b.Property<DateTime>("CreationTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("ExpireTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsUsed")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("PhoneNumber")
+                        .IsRequired()
+                        .HasMaxLength(11)
+                        .HasColumnType("nvarchar(11)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PhoneNumber");
+
+                    b.ToTable("Verifications", "dbo");
+                });
+
             modelBuilder.Entity("Shop.Domain.CategoryAgg.Category", b =>
                 {
                     b.HasOne("Shop.Domain.CategoryAgg.Category", null)
