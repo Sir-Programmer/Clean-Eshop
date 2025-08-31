@@ -21,11 +21,12 @@ public class Verification : AggregateRoot
     public bool IsUsed { get; private set; }
     
     
-    public void Verify(string code)
+    public bool Verify(string code)
     {
         if (IsUsed || Code != code || ExpireTime < DateTime.Now)
-            throw new InvalidOperationException("کد اشتباه است یا منقضی شده");
+            throw new InvalidDomainDataException("کد اشتباه است یا منقضی شده");
         IsUsed = true;
+        return true;
     }
 
     private void Guard(string phoneNumber, IVerificationDomainService verificationDomainService)
