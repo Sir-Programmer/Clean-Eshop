@@ -10,6 +10,7 @@ using Shop.Domain.SiteEntities.Banner.Repository;
 using Shop.Domain.SiteEntities.ShippingMethod.Repository;
 using Shop.Domain.SiteEntities.Slider.Repository;
 using Shop.Domain.UserAgg.Repository;
+using Shop.Domain.VerificationAgg.Repository;
 using Shop.Infrastructure.Persistent.Dapper;
 using Shop.Infrastructure.Persistent.Ef;
 using Shop.Infrastructure.Persistent.Ef.CategoryAgg;
@@ -22,6 +23,7 @@ using Shop.Infrastructure.Persistent.Ef.SiteEntities.Banners;
 using Shop.Infrastructure.Persistent.Ef.SiteEntities.ShippingMethods;
 using Shop.Infrastructure.Persistent.Ef.SiteEntities.Sliders;
 using Shop.Infrastructure.Persistent.Ef.UserAgg;
+using Shop.Infrastructure.Persistent.Ef.VerificationAgg;
 
 namespace Shop.Infrastructure;
 
@@ -40,6 +42,7 @@ public class InfrastructureBootstrapper
         services.AddScoped<IShippingMethodRepository, ShippingMethodRepository>();
         services.AddScoped<ISliderRepository, SliderRepository>();
         services.AddScoped<IUserRepository, UserRepository>();
+        services.AddScoped<IVerificationRepository, VerificationRepository>();
         
         // Register EF
         services.AddDbContext<ShopContext>(option => option.UseSqlServer(connectionString));
