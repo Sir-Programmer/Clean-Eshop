@@ -9,10 +9,12 @@ using Shop.Application.Categories.Create;
 using Shop.Application.Products;
 using Shop.Application.Sellers;
 using Shop.Application.Users;
+using Shop.Application.Verifications;
 using Shop.Domain.CategoryAgg.Services;
 using Shop.Domain.ProductAgg.Services;
 using Shop.Domain.SellerAgg.Services;
 using Shop.Domain.UserAgg.Services;
+using Shop.Domain.VerificationAgg.Services;
 using Shop.Infrastructure;
 using Shop.Infrastructure._Utilities;
 using Shop.Presentation.Facade;
@@ -49,6 +51,7 @@ public static class ShopBootstrapper
         services.AddScoped<IProductDomainService, ProductDomainService>();
         services.AddScoped<ISellerDomainService, SellerDomainService>();
         services.AddScoped<IUserDomainService, UserDomainService>();
+        services.AddScoped<IVerificationDomainService, VerificationDomainService>();
         
         // Query Services
         services.AddScoped<IOrderQueryService, OrderQueryService>();
