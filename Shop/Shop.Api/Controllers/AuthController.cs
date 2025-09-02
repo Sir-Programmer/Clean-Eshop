@@ -1,4 +1,6 @@
-﻿using Common.Application.SecurityUtil;
+﻿using System.Net;
+using Common.Application.OperationResults;
+using Common.Application.SecurityUtil;
 using Common.AspNetCore;
 using Microsoft.AspNetCore.Mvc;
 using Shop.Api.Infrastructure.JwtUtils;
@@ -14,26 +16,13 @@ public class AuthController(IUserFacade userFacade, IConfiguration configuration
     {
         var user = await userFacade.GetByPhoneNumber(model.PhoneNumber);
         if (user == null || user.Password != model.Password.ToSha256() || user.PhoneNumber != model.PhoneNumber)
-            return new ApiResult<string?>
-            {
-                IsSuccess = false,
-                Data = null,
-                MetaData = new MetaData
-                {
-                    Message = "کاربری با این مشخصات یافت نشد!",
-                    OperationStatusCode = OperationStatusCode.NotFound
-                },
-            };
-        var token = JwtTokenBuilder.BuildToken(user, configuration);
-        return new ApiResult<string?>
         {
-            IsSuccess = true,
-            Data = token,
-            MetaData = new MetaData
-            {
-                Message = "شما با موفقیت وارد حساب کاربری خود شدید",
-                OperationStatusCode = OperationStatusCode.BadRequest
-            },
-        };
+            var result = OperationResult<string>.Error("کاربری با این مشخصات یافت نشد!");
+            return CommandResult(result, HttpStatusCode.NotFound);
+        }
+
+        var token = JwtTokenBuilder.BuildToken(user, configuration);
+        var loginResult = OperationResult<string>.Success(token, "شما با موفقیت وارد حساب کاربری خود شدید");
+        return CommandResult(loginResult);
     }
 }

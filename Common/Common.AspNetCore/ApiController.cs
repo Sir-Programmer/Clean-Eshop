@@ -24,6 +24,7 @@ public class ApiController : ControllerBase
     protected ApiResult<TData?> CommandResult<TData>(OperationResult<TData> result, HttpStatusCode statusCode = HttpStatusCode.OK, string? locationUrl = null)
     {
         var isSuccess = result.Status == OperationResultStatus.Success;
+        HttpContext.Response.StatusCode = (int)statusCode;
         if (!isSuccess)
             return new ApiResult<TData?>
             {
@@ -35,7 +36,7 @@ public class ApiController : ControllerBase
                     OperationStatusCode = result.Status.MapOperationStatus()
                 }
             };
-        HttpContext.Response.StatusCode = (int)statusCode;
+        
         if (!string.IsNullOrWhiteSpace(locationUrl))
         {
             HttpContext.Response.Headers.Add("location", locationUrl);
@@ -52,44 +53,17 @@ public class ApiController : ControllerBase
         };
     }
     
-    protected ApiResult<TData?> QueryResult<TData>(TData? result) where TData : class 
+    protected ApiResult<TData?> QueryResult<TData>(TData? result) where TData : class
     {
         if (result != null)
-            return new ApiResult<TData?>
-            {
-                IsSuccess = true,
-                Data = result,
-                MetaData = new MetaData
-                {
-                    Message = "عملیات با موفقیت انجام شد",
-                    OperationStatusCode = OperationStatusCode.Success
-                }
-            };
-        
+            return ApiResult<TData?>.Success(result);
+
         HttpContext.Response.StatusCode = (int)HttpStatusCode.NotFound;
-        return new ApiResult<TData?>
-        {
-            IsSuccess = false,
-            Data = null,
-            MetaData = new MetaData
-            {
-                Message = "موردی یافت نشد",
-                OperationStatusCode = OperationStatusCode.NotFound
-            }
-        };
+        return ApiResult<TData?>.NotFound(null);
     }
-    
+
     protected ApiResult<List<T>> QueryResult<T>(List<T>? result)
     {
-        return new ApiResult<List<T>>
-        {
-            IsSuccess = true,
-            Data = result ?? [], 
-            MetaData = new MetaData
-            {
-                Message = "عملیات با موفقیت انجام شد",
-                OperationStatusCode = OperationStatusCode.Success
-            }
-        };
+        return ApiResult<List<T>>.Success(result ?? []);
     }
 }
