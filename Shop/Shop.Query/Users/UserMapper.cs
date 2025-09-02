@@ -20,6 +20,7 @@ public static class UserMapper
             Name = user.Name,
             Family = user.Family,
             Email = user.Email,
+            Password = user.Password,
             PhoneNumber = user.PhoneNumber,
             Gender = user.Gender,
             Roles = userRoles
