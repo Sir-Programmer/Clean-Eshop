@@ -5,6 +5,7 @@ using Common.AspNetCore;
 using Microsoft.AspNetCore.Mvc;
 using Shop.Api.Infrastructure.JwtUtils;
 using Shop.Api.ViewModels.Auth;
+using Shop.Application.Users.Register;
 using Shop.Presentation.Facade.Users;
 
 namespace Shop.Api.Controllers;
@@ -24,5 +25,12 @@ public class AuthController(IUserFacade userFacade, IConfiguration configuration
         var token = JwtTokenBuilder.BuildToken(user, configuration);
         var loginResult = OperationResult<string>.Success(token, "شما با موفقیت وارد حساب کاربری خود شدید");
         return CommandResult(loginResult);
+    }
+
+    [HttpPost("Register")]
+    public async Task<ApiResult> Register(RegisterViewModel model)
+    {
+        var result = await userFacade.Register(new RegisterUserCommand(model.PhoneNumber, model.Password));
+        return CommandResult(result);
     }
 }
