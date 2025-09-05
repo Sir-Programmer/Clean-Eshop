@@ -112,6 +112,14 @@ public class User : AggregateRoot
         Tokens.Add(token);
     }
 
+    public void RemoveToken(Guid tokenId)
+    {
+        var token = Tokens.FirstOrDefault(t => t.Id == tokenId);
+        if (token == null)
+            throw new InvalidDomainDataException("شناسه توکن وارد شده معتبر نمیباشد");
+        Tokens.Remove(token);
+    }
+
     private void Guard(string phoneNumber, string email, IUserDomainService userDomainService)
     {
         NullOrEmptyDomainException.CheckString(phoneNumber, nameof(phoneNumber));
