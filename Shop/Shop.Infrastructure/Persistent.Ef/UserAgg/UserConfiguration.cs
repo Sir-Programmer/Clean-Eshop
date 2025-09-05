@@ -68,6 +68,24 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
                 .HasMaxLength(500);
         });
 
+        builder.OwnsMany(u => u.Tokens, option =>
+        {
+            option.ToTable("Tokens", "user");
+            option.HasKey(k => k.Id);
+            
+            option.Property(b => b.TokenHash)
+                .IsRequired()
+                .HasMaxLength(250);
+
+            option.Property(b => b.RefreshTokenHash)
+                .IsRequired()
+                .HasMaxLength(250);
+
+            option.Property(b => b.Device)
+                .IsRequired()
+                .HasMaxLength(200);
+        });
+
         builder.OwnsMany(u => u.Roles, option =>
         {
             option.ToTable("Roles", "user");
