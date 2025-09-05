@@ -35,6 +35,7 @@ public class User : AggregateRoot
     public List<UserRole> Roles { get; private set; }
     public List<UserAddress> Addresses { get; private set; }
     public List<UserWallet> Wallets { get; private set; }
+    public List<UserToken> Tokens { get; private set; }
 
     public static User Register(string phoneNumber, string password, IUserDomainService userDomainService)
     {
@@ -96,6 +97,19 @@ public class User : AggregateRoot
         roles.ForEach(r => r.UserId = Id);
         Roles.Clear();
         Roles.AddRange(roles);
+    }
+
+    public void AddToken(string tokenHash, string refreshTokenHash, DateTime tokenExpireDate, DateTime refreshTokenExpireDate, string device)
+    {
+        var activeTokenCount = Tokens.Count(c => c.RefreshTokenExpireDate > DateTime.Now);
+        if (activeTokenCount >= 5)
+            throw new InvalidDomainDataException("امکان استفاده از 6 دستگاه بصورت همزمان وجود ندارد!");
+        
+        var token = new UserToken(tokenHash, refreshTokenHash, tokenExpireDate, refreshTokenExpireDate, device)
+        {
+            UserId = Id
+        };
+        Tokens.Add(token);
     }
 
     private void Guard(string phoneNumber, string email, IUserDomainService userDomainService)
