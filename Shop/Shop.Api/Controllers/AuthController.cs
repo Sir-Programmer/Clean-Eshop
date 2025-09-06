@@ -20,12 +20,10 @@ public class AuthController(IUserFacade userFacade, IConfiguration configuration
     public async Task<ApiResult<LoginResultDto?>> Login(LoginViewModel model)
     {
         var user = await userFacade.GetByPhoneNumber(model.PhoneNumber);
-        if (user == null || user.Password != model.Password.ToSha256() || user.PhoneNumber != model.PhoneNumber)
-        {
-            var result = OperationResult<LoginResultDto>.Error("کاربری با این مشخصات یافت نشد!");
-            return CommandResult(result, HttpStatusCode.NotFound);
-        }
-        return CommandResult(await GenerateLoginResult(user));
+        if (user != null && user.Password == model.Password.ToSha256() && user.PhoneNumber == model.PhoneNumber)
+            return CommandResult(await GenerateLoginResult(user));
+        var result = OperationResult<LoginResultDto>.Error("کاربری با این مشخصات یافت نشد!");
+        return CommandResult(result, HttpStatusCode.NotFound);
     }
 
     [HttpPost("Register")]
