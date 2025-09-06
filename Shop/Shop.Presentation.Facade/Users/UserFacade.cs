@@ -1,8 +1,10 @@
 ﻿using Common.Application.OperationResults;
 using MediatR;
+using Shop.Application.Users.AddToken;
 using Shop.Application.Users.ChangePassword;
 using Shop.Application.Users.ChargeWallet;
 using Shop.Application.Users.Create;
+using Shop.Application.Users.DeleteToken;
 using Shop.Application.Users.Edit;
 using Shop.Application.Users.Register;
 using Shop.Query.Users.DTOs;
@@ -26,6 +28,16 @@ public class UserFacade(IMediator mediator) : IUserFacade
     }
 
     public async Task<OperationResult> ChargeWallet(ChargeUserWalletCommand command)
+    {
+        return await mediator.Send(command);
+    }
+
+    public async Task<OperationResult> AddToken(AddUserTokenCommand command)
+    {
+        return await mediator.Send(command);
+    }
+
+    public async Task<OperationResult> DeleteToken(DeleteUserTokenCommand command)
     {
         return await mediator.Send(command);
     }
