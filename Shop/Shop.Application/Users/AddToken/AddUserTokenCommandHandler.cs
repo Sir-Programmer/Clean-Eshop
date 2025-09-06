@@ -9,7 +9,7 @@ public class AddUserTokenCommandHandler(IUserRepository userRepository, IUnitOfW
 {
     public async Task<OperationResult> Handle(AddUserTokenCommand request, CancellationToken cancellationToken)
     {
-        var user = await userRepository.GetByIdAsync(request.UserId);
+        var user = await userRepository.GetByIdTrackingAsync(request.UserId);
         if  (user == null)
             return OperationResult.NotFound();
         user.AddToken(request.TokenHash, request.RefreshTokenHash, request.TokenExpireDate, request.RefreshTokenExpireDate, request.Device);
