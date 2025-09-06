@@ -25,9 +25,7 @@ public class AuthController(IUserFacade userFacade, IConfiguration configuration
             var result = OperationResult<LoginResultDto>.Error("کاربری با این مشخصات یافت نشد!");
             return CommandResult(result, HttpStatusCode.NotFound);
         }
-
-        var loginResult = await GenerateLoginResult(user);
-        return CommandResult(loginResult);
+        return CommandResult(await GenerateLoginResult(user));
     }
 
     [HttpPost("Register")]
