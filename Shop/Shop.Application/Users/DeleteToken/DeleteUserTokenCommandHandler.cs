@@ -5,9 +5,9 @@ using Shop.Domain.UserAgg.Repository;
 
 namespace Shop.Application.Users.DeleteToken;
 
-public class DeleteCommandHandler(IUserRepository userRepository, IUnitOfWork unitOfWork) : IBaseCommandHandler<DeleteTokenCommand>
+public class DeleteUserTokenCommandHandler(IUserRepository userRepository, IUnitOfWork unitOfWork) : IBaseCommandHandler<DeleteUserTokenCommand>
 {
-    public async Task<OperationResult> Handle(DeleteTokenCommand request, CancellationToken cancellationToken)
+    public async Task<OperationResult> Handle(DeleteUserTokenCommand request, CancellationToken cancellationToken)
     {
         var user = await userRepository.GetByIdAsync(request.UserId);
         if (user == null)
