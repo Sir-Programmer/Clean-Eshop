@@ -13,6 +13,7 @@ using Shop.Query.Users.DTOs.Filter;
 using Shop.Query.Users.GetByFilter;
 using Shop.Query.Users.GetById;
 using Shop.Query.Users.GetByPhoneNumber;
+using Shop.Query.Users.UserTokens.GetByJwtToken;
 using Shop.Query.Users.UserTokens.GetByRefreshToken;
 
 namespace Shop.Presentation.Facade.Users;
@@ -67,6 +68,11 @@ public class UserFacade(IMediator mediator) : IUserFacade
     public async Task<UserTokenDto?> GetByRefreshToken(string refreshToken)
     {
         return await mediator.Send(new GetUserTokenByRefreshTokenQuery(refreshToken.ToSha256()));
+    }
+
+    public async Task<UserTokenDto?> GetByJwtToken(string jwtToken)
+    {
+        return await mediator.Send(new GetUserTokenByJwtTokenQuery(jwtToken.ToSha256()));
     }
 
     public async Task<UserFilterResult> GetByFilter(UserFilterParams filters)

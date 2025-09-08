@@ -2,6 +2,7 @@
 using Common.Application.OperationResults;
 using Common.Application.SecurityUtil;
 using Common.AspNetCore;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages;
 using Shop.Api.Infrastructure.JwtUtils;
@@ -50,6 +51,19 @@ public class AuthController(IUserFacade userFacade, IConfiguration configuration
         await userFacade.DeleteToken(new DeleteUserTokenCommand(token.UserId, token.Id));
         var loginResult = await GenerateLoginResult(user);
         return CommandResult(loginResult);
+    }
+
+    [HttpDelete("Logout")]
+    public async Task<ApiResult> Logout()
+    {
+        var jwtToken = await HttpContext.GetTokenAsync("access_token");
+        if (jwtToken == null)
+            return CommandResult(OperationResult.NotFound());
+        var token = await userFacade.GetByJwtToken(jwtToken);
+        if (token == null)
+            return CommandResult(OperationResult.NotFound());
+        var result = await userFacade.DeleteToken(new DeleteUserTokenCommand(token.UserId, token.Id));
+        return CommandResult(result);
     }
 
     private async Task<OperationResult<LoginResultDto?>> GenerateLoginResult(UserDto user)
