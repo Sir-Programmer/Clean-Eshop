@@ -1,14 +1,17 @@
 ﻿using System.Net;
 using Common.AspNetCore;
 using Microsoft.AspNetCore.Mvc;
+using Shop.Api.Infrastructure.Security;
 using Shop.Application.Categories.AddChild;
 using Shop.Application.Categories.Create;
 using Shop.Application.Categories.Edit;
+using Shop.Domain.RoleAgg.Enums;
 using Shop.Presentation.Facade.Categories;
 using Shop.Query.Categories.DTOs;
 
 namespace Shop.Api.Controllers;
 
+[PermissionChecker(Permission.PanelAdmin)]
 public class CategoryController(ICategoryFacade categoryFacade) : ApiController
 {
     [HttpGet]

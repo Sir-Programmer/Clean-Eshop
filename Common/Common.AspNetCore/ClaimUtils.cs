@@ -4,13 +4,21 @@ namespace Common.AspNetCore;
 
 public static class ClaimUtils
 {
-    public static Guid? GetUserId(this ClaimsPrincipal principal)
+    public static Guid GetUserId(this ClaimsPrincipal principal)
     {
-        return Guid.TryParse(principal?.FindFirst(ClaimTypes.NameIdentifier)?.Value, out var id) ? id : null;
+        ArgumentNullException.ThrowIfNull(principal);
+
+        var value = principal.FindFirst(ClaimTypes.NameIdentifier)?.Value 
+                    ?? throw new ArgumentNullException(nameof(ClaimTypes.NameIdentifier));
+
+        return Guid.Parse(value);
     }
 
-    public static string? GetPhoneNumber(this ClaimsPrincipal principal)
+    public static string GetPhoneNumber(this ClaimsPrincipal principal)
     {
-        return principal?.FindFirst(ClaimTypes.MobilePhone)?.Value;
+        ArgumentNullException.ThrowIfNull(principal);
+
+        return principal.FindFirst(ClaimTypes.MobilePhone)?.Value
+               ?? throw new ArgumentNullException(nameof(ClaimTypes.MobilePhone));
     }
 }
