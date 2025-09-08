@@ -14,6 +14,7 @@ public static class DependencyInjection
                 options.JsonSerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull;
             });
         // Jwt Config
+        services.AddTransient<CustomJwtValidation>();
         services.AddJwtAuthentication(configuration);
     }
 }
