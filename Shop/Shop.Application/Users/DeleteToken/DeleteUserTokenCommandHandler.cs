@@ -9,7 +9,7 @@ public class DeleteUserTokenCommandHandler(IUserRepository userRepository, IUnit
 {
     public async Task<OperationResult> Handle(DeleteUserTokenCommand request, CancellationToken cancellationToken)
     {
-        var user = await userRepository.GetByIdAsync(request.UserId);
+        var user = await userRepository.GetByIdTrackingAsync(request.UserId);
         if (user == null)
             return OperationResult.NotFound();
         user.RemoveToken(request.TokenId);
