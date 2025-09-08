@@ -24,5 +24,6 @@ public interface IUserFacade
     
     Task<UserDto?> GetById(Guid id);
     Task<UserDto?> GetByPhoneNumber(string phoneNumber);
+    Task<UserTokenDto?> GetByRefreshToken(string refreshToken);
     Task<UserFilterResult> GetByFilter(UserFilterParams filters);
 }

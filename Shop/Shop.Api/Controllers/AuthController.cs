@@ -7,6 +7,7 @@ using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pag
 using Shop.Api.Infrastructure.JwtUtils;
 using Shop.Api.ViewModels.Auth;
 using Shop.Application.Users.AddToken;
+using Shop.Application.Users.DeleteToken;
 using Shop.Application.Users.Register;
 using Shop.Presentation.Facade.Users;
 using Shop.Query.Users.DTOs;
@@ -32,6 +33,24 @@ public class AuthController(IUserFacade userFacade, IConfiguration configuration
         var result = await userFacade.Register(new RegisterUserCommand(model.PhoneNumber, model.Password));
         return CommandResult(result);
     }
+    
+    [HttpPost("RefreshToken")]
+    public async Task<ApiResult<LoginResultDto?>> RefreshToken(string refreshToken)
+    {
+        var token = await userFacade.GetByRefreshToken(refreshToken);
+        if (token == null)
+            return CommandResult(OperationResult<LoginResultDto?>.NotFound());
+        if (token.RefreshTokenExpireDate < DateTime.Now)
+            return CommandResult(OperationResult<LoginResultDto?>.Error("زمان استفاده از رفرش توکن منقضی شده است"));
+        
+        var user = await userFacade.GetById(token.UserId);
+        if (user == null)
+            return CommandResult(OperationResult<LoginResultDto?>.Error("مشکل در دریافت اطلاعات"));
+        
+        await userFacade.DeleteToken(new DeleteUserTokenCommand(token.UserId, token.Id));
+        var loginResult = await GenerateLoginResult(user);
+        return CommandResult(loginResult);
+    }
 
     private async Task<OperationResult<LoginResultDto?>> GenerateLoginResult(UserDto user)
     {
@@ -40,15 +59,16 @@ public class AuthController(IUserFacade userFacade, IConfiguration configuration
         var device = $"{ua.Device.Family} | {ua.OS.Family} {ua.OS.Major}.{ua.OS.Minor} | {ua.UA.Family}";
 
         var token = JwtTokenBuilder.BuildToken(user, configuration);
-
+        var refreshToken = Guid.NewGuid().ToString();
         var tokenHash = token.ToSha256();
-        var refreshTokenHash = Guid.NewGuid().ToString().ToSha256();
+        
+        var refreshTokenHash = refreshToken.ToSha256();
 
         await userFacade.AddToken(new AddUserTokenCommand(user.Id, tokenHash, refreshTokenHash, DateTime.Now.AddDays(30), DateTime.Now.AddDays(35), device));
         var loginResult =  new LoginResultDto()
         {
             Token = token,
-            RefreshToken = refreshTokenHash,
+            RefreshToken = refreshToken,
         };
         return OperationResult<LoginResultDto?>.Success(loginResult);
     }

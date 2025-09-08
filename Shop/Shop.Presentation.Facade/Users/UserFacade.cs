@@ -1,4 +1,5 @@
 ﻿using Common.Application.OperationResults;
+using Common.Application.SecurityUtil;
 using MediatR;
 using Shop.Application.Users.AddToken;
 using Shop.Application.Users.ChangePassword;
@@ -12,6 +13,7 @@ using Shop.Query.Users.DTOs.Filter;
 using Shop.Query.Users.GetByFilter;
 using Shop.Query.Users.GetById;
 using Shop.Query.Users.GetByPhoneNumber;
+using Shop.Query.Users.UserTokens.GetByRefreshToken;
 
 namespace Shop.Presentation.Facade.Users;
 
@@ -60,6 +62,11 @@ public class UserFacade(IMediator mediator) : IUserFacade
     public async Task<UserDto?> GetByPhoneNumber(string phoneNumber)
     {
         return await mediator.Send(new GetUserByPhoneNumberQuery(phoneNumber));
+    }
+
+    public async Task<UserTokenDto?> GetByRefreshToken(string refreshToken)
+    {
+        return await mediator.Send(new GetUserTokenByRefreshTokenQuery(refreshToken.ToSha256()));
     }
 
     public async Task<UserFilterResult> GetByFilter(UserFilterParams filters)
