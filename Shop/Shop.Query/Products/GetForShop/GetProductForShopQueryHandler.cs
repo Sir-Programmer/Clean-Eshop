@@ -10,8 +10,7 @@ using Shop.Query.Products.DTOs.Filter;
 
 namespace Shop.Query.Products.GetForShop;
 
-public class GetProductForShopQueryHandler(DapperContext dapperContext, ShopContext context) 
-    : IQueryHandler<GetProductForShopQuery, ProductShopResult>
+public class GetProductForShopQueryHandler(DapperContext dapperContext, ShopContext context) : IQueryHandler<GetProductForShopQuery, ProductShopResult>
 {
     public async Task<ProductShopResult> Handle(GetProductForShopQuery request, CancellationToken cancellationToken)
     {
