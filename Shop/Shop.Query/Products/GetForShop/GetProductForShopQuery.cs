@@ -1,6 +1,6 @@
-﻿namespace Shop.Query.Products.GetForShop;
+﻿using Common.Query;
+using Shop.Query.Products.DTOs.Filter;
 
-public class GetProductForShopQuery
-{
-    
-}
+namespace Shop.Query.Products.GetForShop;
+
+public class GetProductForShopQuery(ProductShopFilterParams filterParams) : QueryFilter<ProductShopResult, ProductShopFilterParams>(filterParams);
