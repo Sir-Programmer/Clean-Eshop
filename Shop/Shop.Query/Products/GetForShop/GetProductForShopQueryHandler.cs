@@ -14,15 +14,15 @@ public class GetProductForShopQueryHandler(DapperContext dapperContext, ShopCont
 {
     public async Task<ProductShopResult> Handle(GetProductForShopQuery request, CancellationToken cancellationToken)
     {
-        var @params = request.FilterParams;
+        var filters = request.FilterParams;
         var conditions = new List<string>();
         var inventoryOrderBy = "i.Price Asc";
         CategoryDto? selectedCategory = null;
 
-        if (!string.IsNullOrWhiteSpace(@params.CategorySlug))
+        if (!string.IsNullOrWhiteSpace(filters.CategorySlug))
         {
             var category = await context.Categories
-                .FirstOrDefaultAsync(f => f.Slug == @params.CategorySlug, cancellationToken);
+                .FirstOrDefaultAsync(f => f.Slug == filters.CategorySlug, cancellationToken);
 
             if (category != null)
             {
@@ -35,13 +35,13 @@ public class GetProductForShopQueryHandler(DapperContext dapperContext, ShopCont
         }
 
 
-        if (!string.IsNullOrWhiteSpace(@params.Search))
+        if (!string.IsNullOrWhiteSpace(filters.Search))
             conditions.Add("A.Title LIKE @search");
 
-        if (@params.OnlyAvailableProducts)
+        if (filters.OnlyAvailableProducts)
             conditions.Add("A.Count >= 1");
 
-        if (@params.JustHasDiscount)
+        if (filters.JustHasDiscount)
         {
             conditions.Add("A.DiscountPercentage > 0");
             inventoryOrderBy = "i.DiscountPercentage Desc";
@@ -53,10 +53,10 @@ public class GetProductForShopQueryHandler(DapperContext dapperContext, ShopCont
             [ProductSearchOrderBy.Expensive] = "A.Price Desc",
             [ProductSearchOrderBy.Latest] = "A.Id Desc"
         };
-        var orderBy = orderMapping.GetValueOrDefault(@params.SearchOrderBy, "p.Id");
+        var orderBy = orderMapping.GetValueOrDefault(filters.SearchOrderBy, "p.Id");
 
         var whereClause = conditions.Count > 0 ? " and " + string.Join(" and ", conditions) : string.Empty;
-        var skip = (@params.PageId - 1) * @params.Take;
+        var skip = (filters.PageId - 1) * filters.Take;
 
         using var sqlConnection = dapperContext.CreateConnection();
 
@@ -92,25 +92,25 @@ public class GetProductForShopQueryHandler(DapperContext dapperContext, ShopCont
         {
             status = SellerStatus.Accepted,
             catId = selectedCategory?.Id,
-            search = $"%{@params.Search}%"
+            search = $"%{filters.Search}%"
         });
 
         var result = await sqlConnection.QueryAsync<ProductShopDto>(resultSql, new
         {
             skip,
-            take = @params.Take,
+            take = filters.Take,
             status = SellerStatus.Accepted,
             catId = selectedCategory?.Id,
-            search = $"%{@params.Search}%"
+            search = $"%{filters.Search}%"
         });
 
         var model = new ProductShopResult
         {
-            FilterParams = @params,
+            FilterParams = filters,
             Data = result.ToList(),
             CategoryDto = selectedCategory
         };
-        model.GeneratePaging(count, @params.Take, @params.PageId);
+        model.GeneratePaging(count, filters.Take, filters.PageId);
 
         return model;
     }
