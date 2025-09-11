@@ -18,6 +18,7 @@ public interface IProductFacade
     Task<OperationResult> RemoveImage(RemoveProductImageCommand command);
 
     Task<ProductFilterResult> GetByFilter(ProductFilterParams filters);
+    Task<ProductShopResult> GetForShop(ProductShopFilterParams filters);
     Task<ProductDto?> GetById(Guid id);
     Task<ProductDto?> GetBySlug(string slug);
 }
