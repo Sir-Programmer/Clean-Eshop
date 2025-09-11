@@ -14,104 +14,101 @@ public class GetProductForShopQueryHandler(DapperContext dapperContext, ShopCont
 {
     public async Task<ProductShopResult> Handle(GetProductForShopQuery request, CancellationToken cancellationToken)
     {
-        var filters = request.FilterParams;
+        var filter = request.FilterParams;
         var conditions = new List<string>();
-        var inventoryOrderBy = "i.Price Asc";
+        var parameters = new DynamicParameters();
+        parameters.Add("status", SellerStatus.Accepted);
+
         CategoryDto? selectedCategory = null;
 
-        if (!string.IsNullOrWhiteSpace(filters.CategorySlug))
+        if (!string.IsNullOrWhiteSpace(filter.CategorySlug))
         {
             var category = await context.Categories
-                .FirstOrDefaultAsync(f => f.Slug == filters.CategorySlug, cancellationToken);
+                .FirstOrDefaultAsync(f => f.Slug == filter.CategorySlug, cancellationToken);
 
             if (category != null)
             {
-                const string mainCondition = "A.MainCategoryId = @catId";
-                const string subCondition = $"EXISTS (SELECT 1 FROM {DapperContext.ProductSubCategories} ps WHERE ps.ProductId = A.Id AND ps.CategoryId = @catId)";
+                conditions.Add($@"
+                                (A.MainCategoryId = @categoryId 
+                                 OR EXISTS (
+                                     SELECT 1 
+                                     FROM {DapperContext.ProductSubCategories} psc 
+                                     WHERE psc.ProductId = A.Id 
+                                       AND psc.CategoryId = @categoryId
+                                 ))");
 
-                conditions.Add($"({mainCondition} OR {subCondition})");
+                parameters.Add("categoryId", category.Id);
                 selectedCategory = category.Map();
             }
         }
 
 
-        if (!string.IsNullOrWhiteSpace(filters.Search))
-            conditions.Add("A.Title LIKE @search");
-
-        if (filters.OnlyAvailableProducts)
-            conditions.Add("A.Count >= 1");
-
-        if (filters.JustHasDiscount)
+        if (!string.IsNullOrWhiteSpace(filter.Search))
         {
-            conditions.Add("A.DiscountPercentage > 0");
-            inventoryOrderBy = "i.DiscountPercentage Desc";
+            conditions.Add("A.Title LIKE @search");
+            parameters.Add("search", $"%{filter.Search}%");
         }
 
-        var orderMapping = new Dictionary<ProductSearchOrderBy, string>
-        {
-            [ProductSearchOrderBy.Cheapest] = "A.Price Asc",
-            [ProductSearchOrderBy.Expensive] = "A.Price Desc",
-            [ProductSearchOrderBy.Latest] = "A.Id Desc"
-        };
-        var orderBy = orderMapping.GetValueOrDefault(filters.SearchOrderBy, "p.Id");
+        if (filter.OnlyAvailableProducts)
+            conditions.Add("A.Count >= 1");
 
-        var whereClause = conditions.Count > 0 ? " and " + string.Join(" and ", conditions) : string.Empty;
-        var skip = (filters.PageId - 1) * filters.Take;
+        var inventoryOrderBy = "i.Price ASC";
+        if (filter.JustHasDiscount)
+        {
+            conditions.Add("A.DiscountPercentage > 0");
+            inventoryOrderBy = "i.DiscountPercentage DESC";
+        }
+
+        var orderBy = filter.SearchOrderBy switch
+        {
+            ProductSearchOrderBy.Cheapest => "A.Price ASC",
+            ProductSearchOrderBy.Expensive => "A.Price DESC",
+            ProductSearchOrderBy.Latest => "A.Id DESC",
+            _ => "p.Id"
+        };
+
+        var whereClause = conditions.Count > 0 ? " AND " + string.Join(" AND ", conditions) : "";
 
         using var sqlConnection = dapperContext.CreateConnection();
+        var skip = (filter.PageId - 1) * filter.Take;
+        parameters.Add("skip", skip);
+        parameters.Add("take", filter.Take);
 
-        var countSql = $"""
-                        SELECT Count(A.Title)
-                        FROM (
-                            Select p.Title, i.Price, i.Id as InventoryId, i.DiscountPercentage, i.Count,
-                                   p.CategoryId, p.SubCategoryId, p.SecondarySubCategoryId, p.Id as Id, s.Status,
-                                   ROW_NUMBER() OVER(PARTITION BY p.Id ORDER BY {inventoryOrderBy}) AS RN
-                            From {DapperContext.Products} p
-                            left join {DapperContext.Inventories} i on p.Id=i.ProductId
-                            left join {DapperContext.Sellers} s on i.SellerId=s.Id
-                        )A
-                        WHERE A.RN = 1 and A.Status=@status {whereClause}
-                        """;
+        var baseQuery = $@"
+            Select p.Title, i.Price, i.Id as InventoryId, i.DiscountPercentage, 
+                   i.Count, p.MainCategoryId, p.Id as Id, p.Slug, p.ImageName, s.Status,
+                   ROW_NUMBER() OVER(PARTITION BY p.Id ORDER BY {inventoryOrderBy}) AS RN
+            From {DapperContext.Products} p
+                 Left Join {DapperContext.Inventories} i On p.Id = i.ProductId
+                 Left Join {DapperContext.Sellers} s On i.SellerId = s.Id
+        ";
 
-        var resultSql = $"""
-                         SELECT A.Slug, A.Id, A.Title, A.Price, A.InventoryId, A.DiscountPercentage, A.ImageName
-                         FROM (
-                             Select p.Title, i.Price, i.Id as InventoryId, i.DiscountPercentage, p.ImageName, i.Count,
-                                    p.CategoryId, p.SubCategoryId, p.SecondarySubCategoryId, p.Slug, p.Id as Id, s.Status,
-                                    ROW_NUMBER() OVER(PARTITION BY p.Id ORDER BY {inventoryOrderBy}) AS RN
-                             From {DapperContext.Products} p
-                             left join {DapperContext.Inventories} i on p.Id=i.ProductId
-                             left join {DapperContext.Sellers} s on i.SellerId=s.Id
-                         )A
-                         WHERE A.RN = 1 and A.Status=@status {whereClause}
-                         order by {orderBy}
-                         offset @skip rows fetch next @take rows only
-                         """;
+        var countSql = $@"
+            SELECT Count(A.Title)
+            FROM ({baseQuery}) A
+            WHERE A.RN = 1 AND A.Status = @status {whereClause};
+        ";
 
-        var count = await sqlConnection.QuerySingleAsync<int>(countSql, new
-        {
-            status = SellerStatus.Accepted,
-            catId = selectedCategory?.Id,
-            search = $"%{filters.Search}%"
-        });
+        var dataSql = $@"
+            SELECT A.Slug, A.Id, A.Title, A.Price, A.InventoryId, 
+                   A.DiscountPercentage, A.ImageName
+            FROM ({baseQuery}) A
+            WHERE A.RN = 1 AND A.Status = @status {whereClause}
+            ORDER BY {orderBy}
+            OFFSET @skip ROWS FETCH NEXT @take ROWS ONLY;
+        ";
 
-        var result = await sqlConnection.QueryAsync<ProductShopDto>(resultSql, new
-        {
-            skip,
-            take = filters.Take,
-            status = SellerStatus.Accepted,
-            catId = selectedCategory?.Id,
-            search = $"%{filters.Search}%"
-        });
+        var count = await sqlConnection.QueryFirstAsync<int>(countSql, parameters);
+        var result = await sqlConnection.QueryAsync<ProductShopDto>(dataSql, parameters);
 
         var model = new ProductShopResult
         {
-            FilterParams = filters,
+            FilterParams = filter,
             Data = result.ToList(),
             CategoryDto = selectedCategory
         };
-        model.GeneratePaging(count, filters.Take, filters.PageId);
 
+        model.GeneratePaging(count, filter.Take, filter.PageId);
         return model;
     }
 }
