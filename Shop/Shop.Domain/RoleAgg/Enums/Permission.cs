@@ -4,5 +4,18 @@ public enum Permission
 {
     PanelAdmin,
     EditProfile,
-    ChangePassword
+    ChangePassword,
+    CrudBanner,
+    CrudSlider,
+    CrudUser,
+    CrudProduct,
+    SellerManagement,
+    OrderManagement,
+    RoleManagement,
+    CommentManagement,
+    CategoryManagement,
+    AddInventory,
+    EditInventory,
+    UserManagement,
+    SellerPanel
 }
