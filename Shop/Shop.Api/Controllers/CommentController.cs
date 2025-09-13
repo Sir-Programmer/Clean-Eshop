@@ -35,7 +35,7 @@ public class CommentController(ICommentFacade commentFacade) : ApiController
         return CommandResult(await commentFacade.Edit(command));
     }
     
-    [HttpPut("ChangeStatus")]
+    [HttpPut("change-status")]
     public async Task<ApiResult> ChangeCommentStatus(ChangeCommentStatusCommand command)
     {
         return CommandResult(await commentFacade.ChangeStatus(command));

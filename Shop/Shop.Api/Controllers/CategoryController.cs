@@ -2,6 +2,7 @@
 using Common.AspNetCore;
 using Microsoft.AspNetCore.Mvc;
 using Shop.Api.Infrastructure.Security;
+using Shop.Api.ViewModels.Category;
 using Shop.Application.Categories.AddChild;
 using Shop.Application.Categories.Create;
 using Shop.Application.Categories.Edit;
@@ -26,7 +27,7 @@ public class CategoryController(ICategoryFacade categoryFacade) : ApiController
         return QueryResult(await categoryFacade.GetById(id));
     }
     
-    [HttpGet("GetChilds/{parentId:guid}")]
+    [HttpGet("{parentId:guid}/children")]
     public async Task<ApiResult<List<CategoryDto>>> GetCategoriesByParentId(Guid parentId)
     {
         return QueryResult(await categoryFacade.GetByParentId(parentId));
@@ -36,21 +37,21 @@ public class CategoryController(ICategoryFacade categoryFacade) : ApiController
     public async Task<ApiResult<Guid>> CreateCategory(CreateCategoryCommand command)
     {
         var result = await categoryFacade.Create(command);
-        var url = Url.Action("GetCategoryById", "Category", new { categoryId = result.Data }, Request.Scheme);
+        var url = Url.Action("GetCategoryById", "Category", new { id = result.Data }, Request.Scheme);
         return CommandResult(result, statusCode: HttpStatusCode.Created, locationUrl: url);
     }
-    [HttpPost("AddChild")]
-    public async Task<ApiResult<Guid>> CreateCategory(AddChildCategoryCommand command)
+    [HttpPost("{parentId:guid}/children")]
+    public async Task<ApiResult<Guid>> CreateChild(Guid parentId, AddChildCategoryViewModel vm)
     {
-        var result = await categoryFacade.AddChild(command);
-        var url = Url.Action("GetCategoryById", "Category", new { categoryId = result.Data }, Request.Scheme);
+        var result = await categoryFacade.AddChild(new AddChildCategoryCommand(parentId, vm.Title, vm.Slug, vm.SeoData.Map()));
+        var url = Url.Action("GetCategoryById", "Category", new { id = result.Data }, Request.Scheme);
         return CommandResult(result, statusCode: HttpStatusCode.Created, locationUrl: url);
     }
 
-    [HttpPut]
-    public async Task<ApiResult> EditCategory(EditCategoryCommand command)
+    [HttpPut("{id:guid}")]
+    public async Task<ApiResult> EditCategory(Guid id, EditCategoryViewModel vm)
     {
-        return CommandResult(await categoryFacade.Edit(command));
+        return CommandResult(await categoryFacade.Edit(new EditCategoryCommand(id, vm.Title, vm.Slug, vm.SeoData.Map())));
     }
     
     [HttpDelete("{id:guid}")]
