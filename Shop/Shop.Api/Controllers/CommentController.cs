@@ -1,5 +1,7 @@
 using Common.AspNetCore;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Shop.Api.ViewModels.Comment;
 using Shop.Application.Comments.ChangeStatus;
 using Shop.Application.Comments.Create;
 using Shop.Application.Comments.Edit;
@@ -9,6 +11,7 @@ using Shop.Query.Comments.DTOs.Filter;
 
 namespace Shop.Api.Controllers;
 
+[Authorize]
 public class CommentController(ICommentFacade commentFacade) : ApiController
 {
     [HttpGet]
@@ -29,16 +32,17 @@ public class CommentController(ICommentFacade commentFacade) : ApiController
         return CommandResult(await commentFacade.Create(command));
     }
     
-    [HttpPut]
-    public async Task<ApiResult> EditComment(EditCommentCommand command)
+    [HttpPut("{id:guid}")]
+    public async Task<ApiResult> EditComment(Guid id, EditCommentViewModel vm)
     {
-        return CommandResult(await commentFacade.Edit(command));
+        var userId = User.GetUserId();
+        return CommandResult(await commentFacade.Edit(new EditCommentCommand(id, vm.Text, userId)));
     }
     
-    [HttpPut("change-status")]
-    public async Task<ApiResult> ChangeCommentStatus(ChangeCommentStatusCommand command)
+    [HttpPut("{id:guid}/status")]
+    public async Task<ApiResult> ChangeCommentStatus(Guid id, ChangeCommentStatusViewModel vm)
     {
-        return CommandResult(await commentFacade.ChangeStatus(command));
+        return CommandResult(await commentFacade.ChangeStatus(new ChangeCommentStatusCommand(id, vm.Status)));
     }
     
     [HttpDelete("{id:guid}")]
