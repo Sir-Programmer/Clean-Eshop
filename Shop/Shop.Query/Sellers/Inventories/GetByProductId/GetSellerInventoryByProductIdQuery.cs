@@ -3,4 +3,4 @@ using Shop.Query.Sellers.DTOs;
 
 namespace Shop.Query.Sellers.Inventories.GetByProductId;
 
-public record GetSellerInventoryByProductIdQuery(Guid ProductId) : IQuery<InventoryDto?>;
+public record GetSellerInventoryByProductIdQuery(Guid ProductId) : IQuery<List<InventoryDto>>;

@@ -12,6 +12,6 @@ public interface ISellerInventoryFacade
     Task<OperationResult> EditInventory(EditSellerInventoryCommand command);
     
     Task<InventoryDto?> GetById(Guid id);
-    Task<InventoryDto?> GetByProductId(Guid productId);
+    Task<List<InventoryDto>> GetByProductId(Guid productId);
     Task<SellerInventoryFilterResult> GetByFilter(SellerInventoryFilterParams filters);
 }

@@ -27,7 +27,7 @@ public class SellerInventoryFacade(IMediator mediator) : ISellerInventoryFacade
         return await mediator.Send(new GetSellerInventoryByIdQuery(id));
     }
 
-    public async Task<InventoryDto?> GetByProductId(Guid productId)
+    public async Task<List<InventoryDto>> GetByProductId(Guid productId)
     {
         return await mediator.Send(new GetSellerInventoryByProductIdQuery(productId));
     }

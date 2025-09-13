@@ -17,7 +17,7 @@ public class ProductController(IProductFacade productFacade) : ApiController
 
     [HttpGet]
     [AllowAnonymous]
-    public async Task<ApiResult<ProductFilterResult?>> Get([FromQuery] ProductFilterParams filterParams)
+    public async Task<ApiResult<ProductFilterResult?>> GetByFilter([FromQuery] ProductFilterParams filterParams)
     {
         var result = await productFacade.GetByFilter(filterParams);
         return QueryResult(result);
@@ -44,6 +44,14 @@ public class ProductController(IProductFacade productFacade) : ApiController
     public async Task<ApiResult<ProductDto?>> GetBySlug(string slug)
     {
         var result = await productFacade.GetBySlug(slug);
+        return QueryResult(result);
+    }
+    
+    [HttpGet("details/{slug}")]
+    [AllowAnonymous]
+    public async Task<ApiResult<ProductDetailsDto?>> GetDetails(string slug)
+    {
+        var result = await productFacade.GetDetails(slug);
         return QueryResult(result);
     }
 

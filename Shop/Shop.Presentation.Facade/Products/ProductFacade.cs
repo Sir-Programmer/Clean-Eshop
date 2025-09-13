@@ -5,6 +5,8 @@ using Shop.Application.Products.Create;
 using Shop.Application.Products.Edit;
 using Shop.Application.Products.EditImageSequence;
 using Shop.Application.Products.RemoveImage;
+using Shop.Presentation.Facade.Sellers;
+using Shop.Presentation.Facade.Sellers.Inventories;
 using Shop.Query.Products.DTOs;
 using Shop.Query.Products.DTOs.Filter;
 using Shop.Query.Products.GetByFilter;
@@ -14,7 +16,7 @@ using Shop.Query.Products.GetForShop;
 
 namespace Shop.Presentation.Facade.Products;
 
-public class ProductFacade(IMediator mediator) : IProductFacade
+public class ProductFacade(IMediator mediator, ISellerInventoryFacade inventoryFacade) : IProductFacade
 {
     public async Task<OperationResult<Guid>> Create(CreateProductCommand command)
     {
@@ -59,5 +61,17 @@ public class ProductFacade(IMediator mediator) : IProductFacade
     public async Task<ProductDto?> GetBySlug(string slug)
     {
         return await mediator.Send(new GetProductBySlugQuery(slug));
+    }
+
+    public async Task<ProductDetailsDto?> GetDetails(string slug)
+    {
+        var product = await GetBySlug(slug);
+        if (product == null) return null;
+        var inventories = await inventoryFacade.GetByProductId(product.Id);
+        return new ProductDetailsDto
+        {
+            Inventories = inventories,
+            Details = product
+        };
     }
 }
