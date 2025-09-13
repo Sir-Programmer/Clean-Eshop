@@ -20,10 +20,10 @@ public class CategoryController(ICategoryFacade categoryFacade) : ApiController
         return QueryResult(await categoryFacade.GetList());
     }
     
-    [HttpGet("{categoryId:guid}")]
-    public async Task<ApiResult<CategoryDto?>> GetCategoryById(Guid categoryId)
+    [HttpGet("{id:guid}")]
+    public async Task<ApiResult<CategoryDto?>> GetCategoryById(Guid id)
     {
-        return QueryResult(await categoryFacade.GetById(categoryId));
+        return QueryResult(await categoryFacade.GetById(id));
     }
     
     [HttpGet("GetChilds/{parentId:guid}")]
@@ -53,9 +53,9 @@ public class CategoryController(ICategoryFacade categoryFacade) : ApiController
         return CommandResult(await categoryFacade.Edit(command));
     }
     
-    [HttpDelete("{categoryId:guid}")]
-    public async Task<ApiResult> Delete(Guid categoryId)
+    [HttpDelete("{id:guid}")]
+    public async Task<ApiResult> Delete(Guid id)
     {
-        return CommandResult(await categoryFacade.Delete(categoryId));
+        return CommandResult(await categoryFacade.Delete(id));
     }
 }

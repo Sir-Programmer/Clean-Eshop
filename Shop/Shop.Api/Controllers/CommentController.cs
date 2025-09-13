@@ -17,10 +17,10 @@ public class CommentController(ICommentFacade commentFacade) : ApiController
         return QueryResult(await commentFacade.GetByFilter(filters));
     }
 
-    [HttpGet("{commentId:guid}")]
-    public async Task<ApiResult<CommentDto?>> GetComment(Guid commentId)
+    [HttpGet("{id:guid}")]
+    public async Task<ApiResult<CommentDto?>> GetComment(Guid id)
     {
-        return QueryResult(await commentFacade.GetById(commentId));
+        return QueryResult(await commentFacade.GetById(id));
     }
     
     [HttpPost]
@@ -41,9 +41,9 @@ public class CommentController(ICommentFacade commentFacade) : ApiController
         return CommandResult(await commentFacade.ChangeStatus(command));
     }
     
-    [HttpDelete("{commentId:guid}")]
-    public async Task<ApiResult> DeleteComment(Guid commentId)
+    [HttpDelete("{id:guid}")]
+    public async Task<ApiResult> DeleteComment(Guid id)
     {
-        return CommandResult(await commentFacade.Delete(commentId));
+        return CommandResult(await commentFacade.Delete(id));
     }
 }
