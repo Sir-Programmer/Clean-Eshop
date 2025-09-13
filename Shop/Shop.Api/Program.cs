@@ -1,6 +1,8 @@
 using Common.AspNetCore;
 using Common.AspNetCore.Middlewares;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.OpenApi.Models;
 using Shop.Api.Infrastructure;
 using Shop.Config;
 
@@ -25,7 +27,31 @@ services.AddControllers().ConfigureApiBehaviorOptions(option =>
 });
 
 services.AddOpenApi();
-services.AddSwaggerGen();
+services.AddSwaggerGen(option =>
+{
+    var jwtSecurityScheme = new OpenApiSecurityScheme
+    {
+        Scheme = "bearer",
+        BearerFormat = "JWT",
+        Name = "JWT Authentication",
+        In = ParameterLocation.Header,
+        Type = SecuritySchemeType.Http,
+        Description = "Enter Token",
+
+        Reference = new OpenApiReference
+        {
+            Id = JwtBearerDefaults.AuthenticationScheme,
+            Type = ReferenceType.SecurityScheme
+        }
+    };
+
+    option.AddSecurityDefinition(jwtSecurityScheme.Reference.Id, jwtSecurityScheme);
+
+    option.AddSecurityRequirement(new OpenApiSecurityRequirement
+    {
+        { jwtSecurityScheme, Array.Empty<string>() }
+    });
+});
 
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? "";
 services.InitializeShopDependencies(connectionString);

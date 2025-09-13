@@ -28,7 +28,8 @@ internal class CreateProductCommandHandler(
             .ToList();
 
         product.SetSpecifications(productSpecifications);
-        product.SetSubCategories(request.SubCategoriesIds);
+        if (request.SubCategoriesIds != null)
+            product.SetSubCategories(request.SubCategoriesIds);
         await unitOfWork.SaveChangesAsync();
         return OperationResult<Guid>.Success(product.Id);
     }

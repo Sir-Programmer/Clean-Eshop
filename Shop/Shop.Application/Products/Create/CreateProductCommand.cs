@@ -11,6 +11,6 @@ public record CreateProductCommand(
     IFormFile ImageFile,
     SeoData SeoData,
     Guid CategoryId,
-    List<Guid> SubCategoriesIds,
+    List<Guid>? SubCategoriesIds,
     Dictionary<string, string> Specifications)
     : IBaseCommand<Guid>;
