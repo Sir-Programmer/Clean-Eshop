@@ -16,25 +16,25 @@ namespace Shop.Api.Controllers;
 public class CategoryController(ICategoryFacade categoryFacade) : ApiController
 {
     [HttpGet]
-    public async Task<ApiResult<List<CategoryDto>>> GetCategories()
+    public async Task<ApiResult<List<CategoryDto>>> GetList()
     {
         return QueryResult(await categoryFacade.GetList());
     }
     
     [HttpGet("{id:guid}")]
-    public async Task<ApiResult<CategoryDto?>> GetCategoryById(Guid id)
+    public async Task<ApiResult<CategoryDto?>> GetById(Guid id)
     {
         return QueryResult(await categoryFacade.GetById(id));
     }
     
     [HttpGet("{parentId:guid}/children")]
-    public async Task<ApiResult<List<CategoryDto>>> GetCategoriesByParentId(Guid parentId)
+    public async Task<ApiResult<List<CategoryDto>>> GetByParentId(Guid parentId)
     {
         return QueryResult(await categoryFacade.GetByParentId(parentId));
     }
     
     [HttpPost]
-    public async Task<ApiResult<Guid>> CreateCategory(CreateCategoryCommand command)
+    public async Task<ApiResult<Guid>> Create(CreateCategoryCommand command)
     {
         var result = await categoryFacade.Create(command);
         var url = Url.Action("GetCategoryById", "Category", new { id = result.Data }, Request.Scheme);
@@ -49,7 +49,7 @@ public class CategoryController(ICategoryFacade categoryFacade) : ApiController
     }
 
     [HttpPut("{id:guid}")]
-    public async Task<ApiResult> EditCategory(Guid id, EditCategoryViewModel vm)
+    public async Task<ApiResult> Edit(Guid id, EditCategoryViewModel vm)
     {
         return CommandResult(await categoryFacade.Edit(new EditCategoryCommand(id, vm.Title, vm.Slug, vm.SeoData.Map())));
     }
