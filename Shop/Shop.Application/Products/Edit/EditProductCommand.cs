@@ -9,8 +9,8 @@ public record EditProductCommand(
     string Title,
     string Slug,
     string Description,
-    IFormFile? ImageFile,
-    Guid CategoryId,
+    IFormFile ImageFile,
     SeoData SeoData,
-    List<Guid> SubCategoriesIds,
+    Guid CategoryId,
+    List<Guid>? SubCategoriesIds,
     Dictionary<string, string> Specifications): IBaseCommand;
