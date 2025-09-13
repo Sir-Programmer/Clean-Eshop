@@ -18,7 +18,7 @@ namespace Shop.Api.Controllers;
 
 public class AuthController(IUserFacade userFacade, IConfiguration configuration) : ApiController
 {
-    [HttpPost("Login")]
+    [HttpPost("login")]
     public async Task<ApiResult<LoginResultDto?>> Login(LoginViewModel model)
     {
         var user = await userFacade.GetByPhoneNumber(model.PhoneNumber);
@@ -28,14 +28,14 @@ public class AuthController(IUserFacade userFacade, IConfiguration configuration
         return CommandResult(result, HttpStatusCode.NotFound);
     }
 
-    [HttpPost("Register")]
+    [HttpPost("register")]
     public async Task<ApiResult> Register(RegisterViewModel model)
     {
         var result = await userFacade.Register(new RegisterUserCommand(model.PhoneNumber, model.Password));
         return CommandResult(result);
     }
     
-    [HttpPost("RefreshToken")]
+    [HttpPost("refresh-token")]
     public async Task<ApiResult<LoginResultDto?>> RefreshToken(string refreshToken)
     {
         var token = await userFacade.GetByRefreshToken(refreshToken);
@@ -53,7 +53,7 @@ public class AuthController(IUserFacade userFacade, IConfiguration configuration
         return CommandResult(loginResult);
     }
 
-    [HttpDelete("Logout")]
+    [HttpDelete("logout")]
     public async Task<ApiResult> Logout()
     {
         var jwtToken = await HttpContext.GetTokenAsync("access_token");
