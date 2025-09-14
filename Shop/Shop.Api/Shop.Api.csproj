@@ -30,7 +30,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="ViewModels\SiteEntities\Banner\" />
       <Folder Include="ViewModels\SiteEntities\PaymentMethod\" />
     </ItemGroup>
 
