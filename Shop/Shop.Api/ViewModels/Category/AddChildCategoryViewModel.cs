@@ -1,6 +1,4 @@
-﻿using Common.Domain.ValueObjects;
-
-namespace Shop.Api.ViewModels.Category;
+﻿namespace Shop.Api.ViewModels.Category;
 
 public class AddChildCategoryViewModel
 {

@@ -4,7 +4,6 @@ using Common.Application.SecurityUtil;
 using Common.AspNetCore;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages;
 using Shop.Api.Infrastructure.JwtUtils;
 using Shop.Api.ViewModels.Auth;
 using Shop.Application.Users.AddToken;
