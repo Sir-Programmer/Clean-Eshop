@@ -1,3 +1,4 @@
+using System.Net;
 using Common.AspNetCore;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -29,7 +30,9 @@ public class CommentController(ICommentFacade commentFacade) : ApiController
     [HttpPost]
     public async Task<ApiResult<Guid>> Create(CreateCommentCommand command)
     {
-        return CommandResult(await commentFacade.Create(command));
+        var result = await commentFacade.Create(command);
+        var url = Url.Action("GetById", "Comment", new { id = result.Data }, Request.Scheme);
+        return CommandResult(result, statusCode: HttpStatusCode.Created, locationUrl: url);
     }
     
     [HttpPut("{id:guid}")]

@@ -1,4 +1,5 @@
-﻿using Common.AspNetCore;
+﻿using System.Net;
+using Common.AspNetCore;
 using Microsoft.AspNetCore.Mvc;
 using Shop.Api.ViewModels.SiteEntities.ShippingMethod;
 using Shop.Application.SiteEntities.ShippingMethods.Create;
@@ -29,11 +30,12 @@ public class ShippingMethodController(IShippingMethodFacade shippingMethodFacade
     public async Task<ApiResult<Guid>> Create(CreateShippingMethodCommand command)
     {
         var result = await shippingMethodFacade.Create(command);
-        return CommandResult(result);
+        var url = Url.Action("GetById", "ShippingMethod", new { id = result.Data }, Request.Scheme);
+        return CommandResult(result, statusCode: HttpStatusCode.Created, locationUrl: url);
     }
     
     [HttpPut("{id:guid}")]
-    public async Task<ApiResult> Create(Guid id, [FromForm] EditShippingMethodViewModel vm)
+    public async Task<ApiResult> Edit(Guid id, [FromForm] EditShippingMethodViewModel vm)
     {
         var result = await shippingMethodFacade.Edit(new EditShippingMethodCommand(id, vm.Title, vm.Cost));
         return CommandResult(result);

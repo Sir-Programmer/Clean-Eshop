@@ -1,4 +1,5 @@
-﻿using Common.AspNetCore;
+﻿using System.Net;
+using Common.AspNetCore;
 using Microsoft.AspNetCore.Mvc;
 using Shop.Api.ViewModels.Role;
 using Shop.Application.Roles.Create;
@@ -28,7 +29,8 @@ public class RoleController(IRoleFacade roleFacade) : ApiController
     public async Task<ApiResult<Guid>> Create(CreateRoleCommand command)
     {
         var result = await roleFacade.Create(command);
-        return CommandResult(result);
+        var url = Url.Action("GetById", "Role", new { id = result.Data }, Request.Scheme);
+        return CommandResult(result, statusCode: HttpStatusCode.Created, locationUrl: url);
     }
     
     [HttpPut("{id:guid}")]

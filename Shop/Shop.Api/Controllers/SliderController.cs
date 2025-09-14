@@ -1,4 +1,5 @@
-﻿using Common.AspNetCore;
+﻿using System.Net;
+using Common.AspNetCore;
 using Microsoft.AspNetCore.Mvc;
 using Shop.Api.ViewModels.SiteEntities.Slider;
 using Shop.Application.SiteEntities.Sliders.Create;
@@ -29,11 +30,12 @@ public class SliderController(ISliderFacade sliderFacade) : ApiController
     public async Task<ApiResult<Guid>> Create(CreateSliderCommand command)
     {
         var result = await sliderFacade.Create(command);
-        return CommandResult(result);
+        var url = Url.Action("GetById", "Slider", new { id = result.Data }, Request.Scheme);
+        return CommandResult(result, statusCode: HttpStatusCode.Created, locationUrl: url);
     }
     
     [HttpPut("{id:guid}")]
-    public async Task<ApiResult> Create(Guid id, [FromForm] EditSliderViewModel vm)
+    public async Task<ApiResult> Edit(Guid id, [FromForm] EditSliderViewModel vm)
     {
         var result = await sliderFacade.Edit(new EditSliderCommand(id, vm.Title, vm.Url, vm.IsActive, vm.ImageFile));
         return CommandResult(result);

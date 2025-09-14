@@ -1,4 +1,5 @@
-﻿using Common.AspNetCore;
+﻿using System.Net;
+using Common.AspNetCore;
 using Microsoft.AspNetCore.Mvc;
 using Shop.Api.ViewModels.SiteEntities.Banner;
 using Shop.Application.SiteEntities.Banners.Create;
@@ -29,11 +30,12 @@ public class BannerController(IBannerFacade bannerFacade) : ApiController
     public async Task<ApiResult<Guid>> Create(CreateBannerCommand command)
     {
         var result = await bannerFacade.Create(command);
-        return CommandResult(result);
+        var url = Url.Action("GetById", "Banner", new { id = result.Data }, Request.Scheme);
+        return CommandResult(result, statusCode: HttpStatusCode.Created, locationUrl: url);
     }
     
     [HttpPut("{id:guid}")]
-    public async Task<ApiResult> Create(Guid id, [FromForm] EditBannerViewModel vm)
+    public async Task<ApiResult> Edit(Guid id, [FromForm] EditBannerViewModel vm)
     {
         var result = await bannerFacade.Edit(new EditBannerCommand(id, vm.Url, vm.ImageFile, vm.Position));
         return CommandResult(result);

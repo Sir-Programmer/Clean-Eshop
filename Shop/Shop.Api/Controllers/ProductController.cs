@@ -1,4 +1,5 @@
-﻿using Common.AspNetCore;
+﻿using System.Net;
+using Common.AspNetCore;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Shop.Api.Infrastructure.Security;
@@ -69,7 +70,9 @@ public class ProductController(IProductFacade productFacade) : ApiController
             vm.ImageFile, vm.SeoData.Map(), vm.MainCategoryId, subCategoryIds,
             vm.GetSpecification());
         
-        return CommandResult(await productFacade.Create(command));
+        var result = await productFacade.Create(command);
+        var url = Url.Action("GetById", "Product", new { id = result.Data }, Request.Scheme);
+        return CommandResult(result, statusCode: HttpStatusCode.Created, locationUrl: url);
     }
     
     [HttpPut]

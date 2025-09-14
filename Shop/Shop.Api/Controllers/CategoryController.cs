@@ -37,14 +37,14 @@ public class CategoryController(ICategoryFacade categoryFacade) : ApiController
     public async Task<ApiResult<Guid>> Create(CreateCategoryCommand command)
     {
         var result = await categoryFacade.Create(command);
-        var url = Url.Action("GetCategoryById", "Category", new { id = result.Data }, Request.Scheme);
+        var url = Url.Action("GetById", "Category", new { id = result.Data }, Request.Scheme);
         return CommandResult(result, statusCode: HttpStatusCode.Created, locationUrl: url);
     }
     [HttpPost("{parentId:guid}/children")]
     public async Task<ApiResult<Guid>> CreateChild(Guid parentId, AddChildCategoryViewModel vm)
     {
         var result = await categoryFacade.AddChild(new AddChildCategoryCommand(parentId, vm.Title, vm.Slug, vm.SeoData.Map()));
-        var url = Url.Action("GetCategoryById", "Category", new { id = result.Data }, Request.Scheme);
+        var url = Url.Action("GetById", "Category", new { id = result.Data }, Request.Scheme);
         return CommandResult(result, statusCode: HttpStatusCode.Created, locationUrl: url);
     }
 
