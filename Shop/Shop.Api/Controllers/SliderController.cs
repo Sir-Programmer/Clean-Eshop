@@ -1,5 +1,9 @@
 ﻿using Common.AspNetCore;
 using Microsoft.AspNetCore.Mvc;
+using Shop.Api.ViewModels.SiteEntities.Slider;
+using Shop.Application.SiteEntities.Sliders.Create;
+using Shop.Application.SiteEntities.Sliders.Delete;
+using Shop.Application.SiteEntities.Sliders.Edit;
 using Shop.Presentation.Facade.SiteEntities.Sliders;
 using Shop.Query.SiteEntities.DTOs;
 
@@ -19,5 +23,26 @@ public class SliderController(ISliderFacade sliderFacade) : ApiController
     {
         var result = await sliderFacade.GetById(id);
         return QueryResult(result);
+    }
+
+    [HttpPost]
+    public async Task<ApiResult<Guid>> Create(CreateSliderCommand command)
+    {
+        var result = await sliderFacade.Create(command);
+        return CommandResult(result);
+    }
+    
+    [HttpPut("{id:guid}")]
+    public async Task<ApiResult> Create(Guid id, [FromForm] EditSliderViewModel vm)
+    {
+        var result = await sliderFacade.Edit(new EditSliderCommand(id, vm.Title, vm.Url, vm.IsActive, vm.ImageFile));
+        return CommandResult(result);
+    }
+    
+    [HttpDelete("{id:guid}")]
+    public async Task<ApiResult> Delete(Guid id)
+    {
+        var result = await sliderFacade.Delete(new DeleteSliderCommand(id));
+        return CommandResult(result);
     }
 }
