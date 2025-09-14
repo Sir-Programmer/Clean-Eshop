@@ -29,4 +29,10 @@
       <ProjectReference Include="..\Shop.Config\Shop.Config.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="ViewModels\SiteEntities\Banner\" />
+      <Folder Include="ViewModels\SiteEntities\PaymentMethod\" />
+      <Folder Include="ViewModels\SiteEntities\Slider\" />
+    </ItemGroup>
+
 </Project>
