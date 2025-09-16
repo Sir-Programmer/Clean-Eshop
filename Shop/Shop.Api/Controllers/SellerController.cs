@@ -1,5 +1,6 @@
 ﻿using System.Net;
 using Common.AspNetCore;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Shop.Api.ViewModels.Seller;
 using Shop.Application.Sellers.Create;
@@ -25,10 +26,11 @@ public class SellerController(ISellerFacade sellerFacade) : ApiController
         return QueryResult(result);
     }
     
-    [HttpGet("by-user/{userId:guid}")]
-    public async Task<ApiResult<SellerDto?>> GetByUserId(Guid userId)
+    [HttpGet("current")]
+    [Authorize]
+    public async Task<ApiResult<SellerDto?>> GetCurrent()
     {
-        var result = await sellerFacade.GetByUserId(userId);
+        var result = await sellerFacade.GetByUserId(User.GetUserId());
         return QueryResult(result);
     }
     
