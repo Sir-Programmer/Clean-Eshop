@@ -402,4 +402,4 @@ FodyWeavers.xsd
 # JetBrains Rider
 *.sln.iml
 
-/Shop/Shop.Api/wwwroot/images/products
+/Shop/Shop.Api/wwwroot/images
