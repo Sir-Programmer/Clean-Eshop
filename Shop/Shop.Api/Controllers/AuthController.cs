@@ -56,7 +56,7 @@ public class AuthController(IUserFacade userFacade, IVerificationFacade verifica
         return CommandResult(result);
     }
 
-    [HttpPost("password/confirm-reset")]
+    [HttpPut("password/confirm-reset")]
     public async Task<ApiResult> RestPassword(ResetPasswordViewModel vm)
     {
         var verifyResult = await verificationFacade.VerifyCode(new VerifyCodeCommand(vm.PhoneNumber, vm.VerificationCode));
