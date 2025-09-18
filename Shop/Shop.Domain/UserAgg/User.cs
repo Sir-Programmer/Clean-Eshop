@@ -51,7 +51,14 @@ public class User : AggregateRoot
         Email = email;
         Gender = gender;
     }
-    
+
+    public void EditProfile(string name, string family, Gender gender)
+    {
+        Name = name;
+        Family = family;
+        Gender = gender;
+    }
+
     public void ChangePassword(string newPassword)
     {
         NullOrEmptyDomainException.CheckString(newPassword, nameof(newPassword));
