@@ -1,14 +1,39 @@
 ﻿using Common.AspNetCore;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Shop.Api.ViewModels.User;
 using Shop.Application.Users.Create;
 using Shop.Application.Users.Edit;
 using Shop.Presentation.Facade.Users;
+using Shop.Query.Users.DTOs;
+using Shop.Query.Users.DTOs.Filter;
 
 namespace Shop.Api.Controllers
 {
     public class UserController(IUserFacade userFacade) : ApiController
     {
+        [HttpGet]
+        public async Task<ApiResult<UserFilterResult?>> GetByFilter(UserFilterParams filters)
+        {
+            var result = await userFacade.GetByFilter(filters);
+            return QueryResult(result);
+        }
+
+        [HttpGet("{id:guid}")]
+        public async Task<ApiResult<UserDto?>> GetById(Guid id)
+        {
+            var result = await userFacade.GetById(id);
+            return QueryResult(result);
+        }
+
+        [HttpGet("me")]
+        [Authorize]
+        public async Task<ApiResult<UserDto?>> GetCurrent()
+        {
+            var result = await userFacade.GetById(User.GetUserId());
+            return QueryResult(result);
+        }
+
         [HttpPost]
         public async Task<ApiResult<Guid>> Create(CreateUserCommand command)
         {
