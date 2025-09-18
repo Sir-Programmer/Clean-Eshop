@@ -3,9 +3,9 @@ using FluentValidation;
 
 namespace Shop.Application.Users.ResetPassword;
 
-public class ResetPasswordCommandValidator : AbstractValidator<ResetPasswordCommand>
+public class ResetUserPasswordCommandValidator : AbstractValidator<ResetUserPasswordCommand>
 {
-    public ResetPasswordCommandValidator()
+    public ResetUserPasswordCommandValidator()
     {
         RuleFor(command => command.NewPassword)
             .MinimumLength(8)
