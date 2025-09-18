@@ -7,6 +7,7 @@ using Shop.Application.Users.DeleteToken;
 using Shop.Application.Users.Edit;
 using Shop.Application.Users.EditProfile;
 using Shop.Application.Users.Register;
+using Shop.Application.Users.ResetPassword;
 using Shop.Query.Users.DTOs;
 using Shop.Query.Users.DTOs.Filter;
 
@@ -22,6 +23,7 @@ public interface IUserFacade
     Task<OperationResult> DeleteToken(DeleteUserTokenCommand command);
     Task<OperationResult> Register(RegisterUserCommand command);
     Task<OperationResult> ChangePassword(ChangeUserPasswordCommand command);
+    Task<OperationResult> ResetPassword(ResetUserPasswordCommand command);
     
     
     Task<UserDto?> GetById(Guid id);

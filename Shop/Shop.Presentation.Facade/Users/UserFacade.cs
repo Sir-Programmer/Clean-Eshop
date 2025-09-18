@@ -9,6 +9,7 @@ using Shop.Application.Users.DeleteToken;
 using Shop.Application.Users.Edit;
 using Shop.Application.Users.EditProfile;
 using Shop.Application.Users.Register;
+using Shop.Application.Users.ResetPassword;
 using Shop.Query.Users.DTOs;
 using Shop.Query.Users.DTOs.Filter;
 using Shop.Query.Users.GetByFilter;
@@ -57,6 +58,11 @@ public class UserFacade(IMediator mediator) : IUserFacade
     }
 
     public async Task<OperationResult> ChangePassword(ChangeUserPasswordCommand command)
+    {
+        return await mediator.Send(command);
+    }
+
+    public async Task<OperationResult> ResetPassword(ResetUserPasswordCommand command)
     {
         return await mediator.Send(command);
     }

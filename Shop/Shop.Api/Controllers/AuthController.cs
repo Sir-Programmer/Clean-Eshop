@@ -1,21 +1,27 @@
 ﻿using System.Net;
 using Common.Application.OperationResults;
+using Common.Application.OperationResults.Enums;
 using Common.Application.SecurityUtil;
 using Common.AspNetCore;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
 using Shop.Api.Infrastructure.JwtUtils;
 using Shop.Api.ViewModels.Auth;
+using Shop.Api.ViewModels.Common;
 using Shop.Application.Users.AddToken;
 using Shop.Application.Users.DeleteToken;
 using Shop.Application.Users.Register;
+using Shop.Application.Users.ResetPassword;
+using Shop.Application.Verifications.RequestCode;
+using Shop.Application.Verifications.VerifyCode;
 using Shop.Presentation.Facade.Users;
+using Shop.Presentation.Facade.Verifications;
 using Shop.Query.Users.DTOs;
 using UAParser;
 
 namespace Shop.Api.Controllers;
 
-public class AuthController(IUserFacade userFacade, IConfiguration configuration) : ApiController
+public class AuthController(IUserFacade userFacade, IVerificationFacade verificationFacade, IConfiguration configuration) : ApiController
 {
     [HttpPost("login")]
     public async Task<ApiResult<LoginResultDto?>> Login(LoginViewModel model)
@@ -28,12 +34,39 @@ public class AuthController(IUserFacade userFacade, IConfiguration configuration
     }
 
     [HttpPost("register")]
-    public async Task<ApiResult> Register(RegisterViewModel model)
+    public async Task<ApiResult> RequestRegisterCode(RequestCodeCommand command)
     {
-        var result = await userFacade.Register(new RegisterUserCommand(model.PhoneNumber, model.ConfirmPassword));
+        var result = await verificationFacade.RequestCode(command);
         return CommandResult(result);
     }
-    
+
+    [HttpPost("register/confirm")]
+    public async Task<ApiResult> Register(RegisterViewModel vm)
+    {
+        var verifyResult = await verificationFacade.VerifyCode(new VerifyCodeCommand(vm.PhoneNumber, vm.VerificationCode));
+        if (verifyResult.Status != OperationResultStatus.Success) return CommandResult(verifyResult);
+        var result = await userFacade.Register(new RegisterUserCommand(vm.PhoneNumber, vm.ConfirmPassword));
+        return CommandResult(result);
+    }
+
+    [HttpPost("password/request-reset")]
+    public async Task<ApiResult> RequestRestPassword(RequestCodeCommand command)
+    {
+        var result = await verificationFacade.RequestCode(command);
+        return CommandResult(result);
+    }
+
+    [HttpPost("password/confirm-reset")]
+    public async Task<ApiResult> RestPassword(ResetPasswordViewModel vm)
+    {
+        var verifyResult = await verificationFacade.VerifyCode(new VerifyCodeCommand(vm.PhoneNumber, vm.VerificationCode));
+        if (verifyResult.Status != OperationResultStatus.Success) return CommandResult(verifyResult);
+        var user = await userFacade.GetByPhoneNumber(vm.PhoneNumber);
+        if (user == null) return ApiResult.NotFound();
+        var result = await userFacade.ResetPassword(new ResetUserPasswordCommand(user.Id, vm.ConfirmPassword));
+        return CommandResult(result);
+    }
+
     [HttpPost("refresh-token")]
     public async Task<ApiResult<LoginResultDto?>> RefreshToken(string refreshToken)
     {
