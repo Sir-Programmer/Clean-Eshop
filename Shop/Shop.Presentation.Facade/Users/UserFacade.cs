@@ -7,6 +7,7 @@ using Shop.Application.Users.ChargeWallet;
 using Shop.Application.Users.Create;
 using Shop.Application.Users.DeleteToken;
 using Shop.Application.Users.Edit;
+using Shop.Application.Users.EditProfile;
 using Shop.Application.Users.Register;
 using Shop.Query.Users.DTOs;
 using Shop.Query.Users.DTOs.Filter;
@@ -26,6 +27,11 @@ public class UserFacade(IMediator mediator) : IUserFacade
     }
 
     public async Task<OperationResult> Edit(EditUserCommand command)
+    {
+        return await mediator.Send(command);
+    }
+
+    public async Task<OperationResult> EditProfile(EditUserProfileCommand command)
     {
         return await mediator.Send(command);
     }

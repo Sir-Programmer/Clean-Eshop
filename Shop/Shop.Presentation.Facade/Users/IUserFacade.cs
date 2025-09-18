@@ -5,6 +5,7 @@ using Shop.Application.Users.ChargeWallet;
 using Shop.Application.Users.Create;
 using Shop.Application.Users.DeleteToken;
 using Shop.Application.Users.Edit;
+using Shop.Application.Users.EditProfile;
 using Shop.Application.Users.Register;
 using Shop.Query.Users.DTOs;
 using Shop.Query.Users.DTOs.Filter;
@@ -15,6 +16,7 @@ public interface IUserFacade
 {
     Task<OperationResult<Guid>> Create(CreateUserCommand command);
     Task<OperationResult> Edit(EditUserCommand command);
+    Task<OperationResult> EditProfile(EditUserProfileCommand command);
     Task<OperationResult> ChargeWallet(ChargeUserWalletCommand command);
     Task<OperationResult> AddToken(AddUserTokenCommand command);
     Task<OperationResult> DeleteToken(DeleteUserTokenCommand command);
