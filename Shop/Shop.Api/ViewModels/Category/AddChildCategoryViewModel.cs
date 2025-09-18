@@ -1,4 +1,6 @@
-﻿namespace Shop.Api.ViewModels.Category;
+﻿using Shop.Api.ViewModels.Common;
+
+namespace Shop.Api.ViewModels.Category;
 
 public class AddChildCategoryViewModel
 {

@@ -30,7 +30,7 @@ public class AuthController(IUserFacade userFacade, IConfiguration configuration
     [HttpPost("register")]
     public async Task<ApiResult> Register(RegisterViewModel model)
     {
-        var result = await userFacade.Register(new RegisterUserCommand(model.PhoneNumber, model.Password));
+        var result = await userFacade.Register(new RegisterUserCommand(model.PhoneNumber, model.ConfirmPassword));
         return CommandResult(result);
     }
     

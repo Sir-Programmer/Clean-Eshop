@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using Shop.Api.ViewModels.Common;
 
 namespace Shop.Api.ViewModels.Product;
 
