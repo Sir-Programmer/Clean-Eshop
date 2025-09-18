@@ -1,9 +1,11 @@
-﻿using Common.AspNetCore;
+﻿using System.Net;
+using Common.AspNetCore;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Shop.Api.ViewModels.User;
 using Shop.Application.Users.Create;
 using Shop.Application.Users.Edit;
+using Shop.Application.Users.EditProfile;
 using Shop.Presentation.Facade.Users;
 using Shop.Query.Users.DTOs;
 using Shop.Query.Users.DTOs.Filter;
@@ -34,11 +36,20 @@ namespace Shop.Api.Controllers
             return QueryResult(result);
         }
 
+        [HttpPut("me")]
+        [Authorize]
+        public async Task<ApiResult> EditProfile(EditUserProfileViewModel vm)
+        {
+            var result = await userFacade.EditProfile(new EditUserProfileCommand(User.GetUserId(), vm.Name, vm.Family, vm.Gender));
+            return CommandResult(result);
+        }
+
         [HttpPost]
         public async Task<ApiResult<Guid>> Create(CreateUserCommand command)
         {
             var result = await userFacade.Create(command);
-            return CommandResult(result);
+            var url = Url.Action("GetById", "User", new { id = result.Data }, Request.Scheme);
+            return CommandResult(result, statusCode: HttpStatusCode.Created, locationUrl: url);
         }
 
         [HttpPut("{id:guid}")]
