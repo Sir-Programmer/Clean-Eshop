@@ -3,6 +3,7 @@ using Common.AspNetCore;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Shop.Api.ViewModels.User;
+using Shop.Application.Users.ChangePassword;
 using Shop.Application.Users.Create;
 using Shop.Application.Users.Edit;
 using Shop.Application.Users.EditProfile;
@@ -15,7 +16,7 @@ namespace Shop.Api.Controllers
     public class UserController(IUserFacade userFacade) : ApiController
     {
         [HttpGet]
-        public async Task<ApiResult<UserFilterResult?>> GetByFilter(UserFilterParams filters)
+        public async Task<ApiResult<UserFilterResult?>> GetByFilter([FromQuery] UserFilterParams filters)
         {
             var result = await userFacade.GetByFilter(filters);
             return QueryResult(result);
@@ -41,6 +42,14 @@ namespace Shop.Api.Controllers
         public async Task<ApiResult> EditProfile(EditUserProfileViewModel vm)
         {
             var result = await userFacade.EditProfile(new EditUserProfileCommand(User.GetUserId(), vm.Name, vm.Family, vm.Gender));
+            return CommandResult(result);
+        }
+
+        [HttpPut("me/change-password")]
+        [Authorize]
+        public async Task<ApiResult> ChangePassword(ChangeUserPasswordViewModel vm)
+        {
+            var result = await userFacade.ChangePassword(new ChangeUserPasswordCommand(User.GetUserId(), vm.CurrentPassword, vm.ConfirmPassword));
             return CommandResult(result);
         }
 
