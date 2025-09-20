@@ -12,22 +12,22 @@ namespace Shop.Presentation.Facade.Users.Addresses;
 
 public class UserAddressFacade(IMediator mediator) : IUserAddressFacade
 {
-    public async Task<OperationResult> AddAddress(AddUserAddressCommand command)
+    public async Task<OperationResult> Add(AddUserAddressCommand command)
     {
         return await mediator.Send(command);
     }
 
-    public async Task<OperationResult> DeleteAddress(DeleteUserAddressCommand command)
+    public async Task<OperationResult> Delete(DeleteUserAddressCommand command)
     {
         return await mediator.Send(command);
     }
 
-    public async Task<OperationResult> EditAddress(EditUserAddressCommand command)
+    public async Task<OperationResult> Edit(EditUserAddressCommand command)
     {
         return await mediator.Send(command);
     }
 
-    public async Task<OperationResult> SetActiveAddress(SetUserActiveAddressCommand command)
+    public async Task<OperationResult> SetActive(SetUserActiveAddressCommand command)
     {
         return await mediator.Send(command);
     }

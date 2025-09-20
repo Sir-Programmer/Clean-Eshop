@@ -9,10 +9,10 @@ namespace Shop.Presentation.Facade.Users.Addresses;
 
 public interface IUserAddressFacade
 {
-    Task<OperationResult> AddAddress(AddUserAddressCommand command);
-    Task<OperationResult> DeleteAddress(DeleteUserAddressCommand command);
-    Task<OperationResult> EditAddress(EditUserAddressCommand command);
-    Task<OperationResult> SetActiveAddress(SetUserActiveAddressCommand command);
+    Task<OperationResult> Add(AddUserAddressCommand command);
+    Task<OperationResult> Delete(DeleteUserAddressCommand command);
+    Task<OperationResult> Edit(EditUserAddressCommand command);
+    Task<OperationResult> SetActive(SetUserActiveAddressCommand command);
     
     Task<UserAddressDto?> GetById(Guid userId, Guid id);
     Task<List<UserAddressDto>?> GetList(Guid userId);

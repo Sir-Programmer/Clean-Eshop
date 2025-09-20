@@ -3,10 +3,15 @@ using Common.AspNetCore;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Shop.Api.ViewModels.User;
+using Shop.Api.ViewModels.User.Addresses;
+using Shop.Application.Users.AddAddress;
 using Shop.Application.Users.ChangePassword;
 using Shop.Application.Users.Create;
+using Shop.Application.Users.DeleteAddress;
 using Shop.Application.Users.Edit;
+using Shop.Application.Users.EditAddress;
 using Shop.Application.Users.EditProfile;
+using Shop.Application.Users.SetActiveAddress;
 using Shop.Presentation.Facade.Users;
 using Shop.Presentation.Facade.Users.Addresses;
 using Shop.Query.Users.DTOs;
@@ -78,11 +83,41 @@ namespace Shop.Api.Controllers
             return QueryResult(result);
         }
 
-        [HttpGet("addresses/{addressId:guid}")]
+        [HttpGet("me/addresses/{addressId:guid}")]
         public async Task<ApiResult<UserAddressDto?>> GetAddressById(Guid addressId)
         {
             var result = await addressFacade.GetById(User.GetUserId(), addressId);
             return QueryResult(result);
+        }
+
+        [HttpPost("me/addresses")]
+        public async Task<ApiResult> AddAddress(AddUserAddressViewModel vm)
+        {
+            var result = await addressFacade.Add(new AddUserAddressCommand(User.GetUserId(), vm.Province, vm.City,
+                vm.PostalCode, vm.FullName, vm.PostalAddress, vm.PhoneNumber, vm.NationalId));
+            return CommandResult(result);
+        }
+
+        [HttpPut("me/addresses/{addressId:guid}")]
+        public async Task<ApiResult> EditAddress(Guid addressId, EditUserAddressViewModel vm)
+        {
+            var result = await addressFacade.Edit(new EditUserAddressCommand(User.GetUserId(), addressId, vm.Province, vm.City,
+                vm.PostalCode, vm.FullName, vm.PostalAddress, vm.PhoneNumber, vm.NationalId));
+            return CommandResult(result);
+        }
+
+        [HttpPut("me/addresses/{addressId:guid}/active")]
+        public async Task<ApiResult> ActiveAddress(Guid addressId)
+        {
+            var result = await addressFacade.SetActive(new SetUserActiveAddressCommand(User.GetUserId(), addressId));
+            return CommandResult(result);
+        }
+
+        [HttpDelete("me/addresses/{addressId:guid}")]
+        public async Task<ApiResult> DeleteAddress(Guid addressId)
+        {
+            var result = await addressFacade.Delete(new DeleteUserAddressCommand(User.GetUserId(), addressId));
+            return CommandResult(result);
         }
     }
 }
