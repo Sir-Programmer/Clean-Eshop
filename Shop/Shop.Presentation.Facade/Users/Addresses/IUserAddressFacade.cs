@@ -14,6 +14,6 @@ public interface IUserAddressFacade
     Task<OperationResult> EditAddress(EditUserAddressCommand command);
     Task<OperationResult> SetActiveAddress(SetUserActiveAddressCommand command);
     
-    Task<UserAddressDto?> GetById(Guid id);
+    Task<UserAddressDto?> GetById(Guid userId, Guid id);
     Task<List<UserAddressDto>?> GetList(Guid userId);
 }

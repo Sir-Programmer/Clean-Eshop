@@ -32,9 +32,9 @@ public class UserAddressFacade(IMediator mediator) : IUserAddressFacade
         return await mediator.Send(command);
     }
 
-    public async Task<UserAddressDto?> GetById(Guid id)
+    public async Task<UserAddressDto?> GetById(Guid userId, Guid id)
     {
-        return await mediator.Send(new GetUserAddressByIdQuery(id));
+        return await mediator.Send(new GetUserAddressByIdQuery(userId, id));
     }
 
     public async Task<List<UserAddressDto>?> GetList(Guid userId)

@@ -8,12 +8,13 @@ using Shop.Application.Users.Create;
 using Shop.Application.Users.Edit;
 using Shop.Application.Users.EditProfile;
 using Shop.Presentation.Facade.Users;
+using Shop.Presentation.Facade.Users.Addresses;
 using Shop.Query.Users.DTOs;
 using Shop.Query.Users.DTOs.Filter;
 
 namespace Shop.Api.Controllers
 {
-    public class UserController(IUserFacade userFacade) : ApiController
+    public class UserController(IUserFacade userFacade, IUserAddressFacade addressFacade) : ApiController
     {
         [HttpGet]
         public async Task<ApiResult<UserFilterResult?>> GetByFilter([FromQuery] UserFilterParams filters)
@@ -66,6 +67,22 @@ namespace Shop.Api.Controllers
         {
             var result = await userFacade.Edit(new EditUserCommand(id, vm.Name, vm.Family, vm.PhoneNumber, vm.Email, vm.Gender));
             return CommandResult(result);
+        }
+
+        // Addresses
+
+        [HttpGet("me/addresses")]
+        public async Task<ApiResult<List<UserAddressDto>>> GetAddressList()
+        {
+            var result = await addressFacade.GetList(User.GetUserId());
+            return QueryResult(result);
+        }
+
+        [HttpGet("addresses/{addressId:guid}")]
+        public async Task<ApiResult<UserAddressDto?>> GetAddressById(Guid addressId)
+        {
+            var result = await addressFacade.GetById(User.GetUserId(), addressId);
+            return QueryResult(result);
         }
     }
 }

@@ -10,7 +10,7 @@ public class GetUserAddressByIdQueryHandler(DapperContext dapperContext) :  IQue
     public async Task<UserAddressDto?> Handle(GetUserAddressByIdQuery request, CancellationToken cancellationToken)
     {
         using var connection = dapperContext.CreateConnection();
-        const string sql = $"SELECT Top(1) * FROM {DapperContext.UserAddresses} WHERE Id = @Id";
-        return await connection.QuerySingleOrDefaultAsync<UserAddressDto?>(sql, new { Id = request.AddressId });
+        const string sql = $"SELECT Top(1) * FROM {DapperContext.UserAddresses} WHERE Id = @Id AND UserId = @UserId";
+        return await connection.QuerySingleOrDefaultAsync<UserAddressDto?>(sql, new { Id = request.AddressId, UserId = request.UserId });
     }
 }
