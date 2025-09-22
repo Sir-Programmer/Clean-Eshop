@@ -8,9 +8,9 @@ namespace Shop.Domain.CouponAgg;
 public class Coupon : AggregateRoot
 {
     private Coupon() {}
-    public Coupon(string code, DiscountType discountType, int discountAmount, DateTime expirationDate, int usageLimit)
+    public Coupon(string code, DiscountType discountType, int discountAmount, DateTime expirationDate, int usageLimit, ICouponDomainService couponDomainService)
     {
-        CreateGuard(code, discountType, discountAmount, expirationDate, usageLimit);
+        CreateGuard(code, discountType, discountAmount, expirationDate, usageLimit, couponDomainService);
         Code = code;
         DiscountType = discountType;
         DiscountAmount = discountAmount;
@@ -45,11 +45,14 @@ public class Coupon : AggregateRoot
         UsedCount++;
     }
 
-    private void CreateGuard(string code, DiscountType discountType, int discountAmount, DateTime expirationDate, int usageLimit)
+    private void CreateGuard(string code, DiscountType discountType, int discountAmount, DateTime expirationDate, int usageLimit, ICouponDomainService couponDomainService)
     {
         NullOrEmptyDomainException.CheckString(code, nameof(code));
         if (code.Length < 6)
             throw new InvalidDomainDataException("کد تخفیف نمی‌تواند کمتر از ۶ کاراکتر باشد");
+
+        if (couponDomainService.IsCodeExist(code))
+            throw new InvalidDomainDataException("کد تخفیف وارد شده تکراری میباشد");
 
         ValidateCommonRules(discountType, discountAmount, expirationDate, usageLimit);
     }
