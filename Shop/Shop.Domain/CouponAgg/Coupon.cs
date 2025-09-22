@@ -27,6 +27,7 @@ public class Coupon : AggregateRoot
     public void Edit(string code, DiscountType discountType, int discountAmount, DateTime expirationDate, int usageLimit, ICouponDomainService couponDomainService)
     {
         Guard(code, discountType, discountAmount, expirationDate, usageLimit, couponDomainService);
+        Code = code;
         DiscountType = discountType;
         DiscountAmount = discountAmount;
         ExpirationDate = expirationDate;
