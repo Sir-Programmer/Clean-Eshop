@@ -10,7 +10,7 @@ public class Coupon : AggregateRoot
     private Coupon() {}
     public Coupon(string code, DiscountType discountType, int discountAmount, DateTime expirationDate, int usageLimit, ICouponDomainService couponDomainService)
     {
-        CreateGuard(code, discountType, discountAmount, expirationDate, usageLimit, couponDomainService);
+        Guard(code, discountType, discountAmount, expirationDate, usageLimit, couponDomainService);
         Code = code;
         DiscountType = discountType;
         DiscountAmount = discountAmount;
@@ -25,9 +25,9 @@ public class Coupon : AggregateRoot
     public int UsedCount { get; private set; }
 
 
-    public void Edit(DiscountType discountType, int discountAmount, DateTime expirationDate, int usageLimit)
+    public void Edit(string code, DiscountType discountType, int discountAmount, DateTime expirationDate, int usageLimit, ICouponDomainService couponDomainService)
     {
-        EditGuard(discountType, discountAmount, expirationDate, usageLimit);
+        Guard(code, discountType, discountAmount, expirationDate, usageLimit, couponDomainService);
         DiscountType = discountType;
         DiscountAmount = discountAmount;
         ExpirationDate = expirationDate;
@@ -45,25 +45,19 @@ public class Coupon : AggregateRoot
         UsedCount++;
     }
 
-    private void CreateGuard(string code, DiscountType discountType, int discountAmount, DateTime expirationDate, int usageLimit, ICouponDomainService couponDomainService)
+    private void Guard(string code, DiscountType discountType, int discountAmount, DateTime expirationDate, int usageLimit, ICouponDomainService couponDomainService)
     {
-        NullOrEmptyDomainException.CheckString(code, nameof(code));
-        if (code.Length < 6)
-            throw new InvalidDomainDataException("کد تخفیف نمی‌تواند کمتر از ۶ کاراکتر باشد");
+        if (code != Code)
+        {
+            NullOrEmptyDomainException.CheckString(code, nameof(code));
+            if (code.Length < 6)
+                throw new InvalidDomainDataException("کد تخفیف نمی‌تواند کمتر از ۶ کاراکتر باشد");
 
-        if (couponDomainService.IsCodeExist(code))
-            throw new InvalidDomainDataException("کد تخفیف وارد شده تکراری میباشد");
+            if (couponDomainService.IsCodeExist(code))
+                throw new InvalidDomainDataException("کد تخفیف وارد شده تکراری میباشد");
+        }
 
-        ValidateCommonRules(discountType, discountAmount, expirationDate, usageLimit);
-    }
 
-    private void EditGuard(DiscountType discountType, int discountAmount, DateTime expirationDate, int usageLimit)
-    {
-        ValidateCommonRules(discountType, discountAmount, expirationDate, usageLimit);
-    }
-
-    private static void ValidateCommonRules(DiscountType discountType, int discountAmount, DateTime expirationDate, int usageLimit)
-    {
         if (discountType is DiscountType.Percentage && discountAmount is > 100 or < 1)
             throw new InvalidDomainDataException("درصد تخفیف نامعتبر است");
 
