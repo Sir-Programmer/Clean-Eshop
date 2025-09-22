@@ -1,6 +1,5 @@
 ﻿using Common.Domain;
 using Common.Domain.Exceptions;
-using Common.Domain.Utils;
 using Shop.Domain._SharedKernel.Enums;
 
 namespace Shop.Domain.CouponAgg;
