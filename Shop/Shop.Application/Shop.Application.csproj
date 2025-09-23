@@ -11,7 +11,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Coupons\Edit\" />
       <Folder Include="Coupons\Use\" />
     </ItemGroup>
 
