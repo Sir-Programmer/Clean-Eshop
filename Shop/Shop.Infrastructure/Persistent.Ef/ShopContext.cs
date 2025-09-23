@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Shop.Domain.CategoryAgg;
 using Shop.Domain.CommentAgg;
+using Shop.Domain.CouponAgg;
 using Shop.Domain.OrderAgg;
 using Shop.Domain.ProductAgg;
 using Shop.Domain.RoleAgg;
@@ -26,6 +27,7 @@ public class ShopContext(DbContextOptions<ShopContext> options) : DbContext(opti
     public DbSet<User> Users { get; set; }
     public DbSet<Verification> Verifications { get; set; }
     public DbSet<ShippingMethod> ShippingMethods { get; set; }
+    public DbSet<Coupon> Coupons { get; set; }
     
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
