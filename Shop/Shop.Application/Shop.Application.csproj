@@ -12,7 +12,6 @@
 
     <ItemGroup>
       <Folder Include="Coupons\Edit\" />
-      <Folder Include="Coupons\Delete\" />
       <Folder Include="Coupons\Use\" />
     </ItemGroup>
 
