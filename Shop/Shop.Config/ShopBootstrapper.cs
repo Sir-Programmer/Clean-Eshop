@@ -6,11 +6,13 @@ using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
 using Shop.Application.Categories;
 using Shop.Application.Categories.Create;
+using Shop.Application.Coupons;
 using Shop.Application.Products;
 using Shop.Application.Sellers;
 using Shop.Application.Users;
 using Shop.Application.Verifications;
 using Shop.Domain.CategoryAgg.Services;
+using Shop.Domain.CouponAgg;
 using Shop.Domain.ProductAgg.Services;
 using Shop.Domain.SellerAgg.Services;
 using Shop.Domain.UserAgg.Services;
@@ -52,6 +54,7 @@ public static class ShopBootstrapper
         services.AddScoped<ISellerDomainService, SellerDomainService>();
         services.AddScoped<IUserDomainService, UserDomainService>();
         services.AddScoped<IVerificationDomainService, VerificationDomainService>();
+        services.AddScoped<ICouponDomainService, CouponDomainService>();
         
         // Query Services
         services.AddScoped<IOrderQueryService, OrderQueryService>();

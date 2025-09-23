@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Shop.Domain.CategoryAgg.Repository;
 using Shop.Domain.CommentAgg.Repository;
+using Shop.Domain.CouponAgg.Repository;
 using Shop.Domain.OrderAgg.Repository;
 using Shop.Domain.ProductAgg.Repository;
 using Shop.Domain.RoleAgg.Repository;
@@ -15,6 +16,7 @@ using Shop.Infrastructure.Persistent.Dapper;
 using Shop.Infrastructure.Persistent.Ef;
 using Shop.Infrastructure.Persistent.Ef.CategoryAgg;
 using Shop.Infrastructure.Persistent.Ef.CommentAgg;
+using Shop.Infrastructure.Persistent.Ef.CouponAgg;
 using Shop.Infrastructure.Persistent.Ef.OrderAgg;
 using Shop.Infrastructure.Persistent.Ef.ProductAgg;
 using Shop.Infrastructure.Persistent.Ef.RoleAgg;
@@ -43,6 +45,7 @@ public class InfrastructureBootstrapper
         services.AddScoped<ISliderRepository, SliderRepository>();
         services.AddScoped<IUserRepository, UserRepository>();
         services.AddScoped<IVerificationRepository, VerificationRepository>();
+        services.AddScoped<ICouponRepository, CouponRepository>();
         
         // Register EF
         services.AddDbContext<ShopContext>(option => option.UseSqlServer(connectionString));
