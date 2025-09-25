@@ -10,8 +10,4 @@
       <ProjectReference Include="..\..\Common\Common.Application\Common.Application.csproj" />
     </ItemGroup>
 
-    <ItemGroup>
-      <Folder Include="Coupons\Use\" />
-    </ItemGroup>
-
 </Project>
