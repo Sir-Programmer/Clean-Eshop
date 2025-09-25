@@ -13,7 +13,6 @@
 
     <ItemGroup>
       <Folder Include="Coupons\DTOs\" />
-      <Folder Include="Coupons\GetList\" />
     </ItemGroup>
 
 </Project>
