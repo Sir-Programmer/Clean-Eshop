@@ -9,7 +9,6 @@ using Shop.Query.Coupons.DTOs;
 using Shop.Query.Coupons.GetByCode;
 using Shop.Query.Coupons.GetById;
 using Shop.Query.Coupons.GetList;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace Shop.Presentation.Facade.Coupons;
 
