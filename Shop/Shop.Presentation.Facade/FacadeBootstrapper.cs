@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Shop.Presentation.Facade.Categories;
 using Shop.Presentation.Facade.Comments;
+using Shop.Presentation.Facade.Coupons;
 using Shop.Presentation.Facade.Orders;
 using Shop.Presentation.Facade.Products;
 using Shop.Presentation.Facade.Roles;
@@ -20,6 +21,7 @@ public static class FacadeBootstrapper
     {
         services.AddScoped<ICategoryFacade, CategoryFacade>();
         services.AddScoped<ICommentFacade, CommentFacade>();
+        services.AddScoped<ICouponFacade, CouponFacade>();
         services.AddScoped<IOrderFacade, OrderFacade>();
         services.AddScoped<IProductFacade, ProductFacade>();
         services.AddScoped<IRoleFacade, RoleFacade>();
