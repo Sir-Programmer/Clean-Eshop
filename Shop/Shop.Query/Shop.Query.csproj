@@ -12,7 +12,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Coupons\GetById\" />
+      <Folder Include="Coupons\DTOs\" />
       <Folder Include="Coupons\GetByCode\" />
     </ItemGroup>
 
