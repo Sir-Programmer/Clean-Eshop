@@ -11,4 +11,9 @@
       <ProjectReference Include="..\Shop.Infrastructure\Shop.Infrastructure.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Coupons\GetById\" />
+      <Folder Include="Coupons\GetByCode\" />
+    </ItemGroup>
+
 </Project>
