@@ -25,13 +25,6 @@ public class CouponController(ICouponFacade couponFacade) : ApiController
         return QueryResult(result);
     }
 
-    [HttpGet("code/{code}")]
-    public async Task<ApiResult<CouponDto?>> GetById(string code)
-    {
-        var result = await couponFacade.GetByCode(code);
-        return QueryResult(result);
-    }
-
     [HttpPost]
     public async Task<ApiResult<Guid>> Create(CreateCouponCommand command)
     {
