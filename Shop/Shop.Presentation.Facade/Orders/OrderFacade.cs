@@ -8,6 +8,7 @@ using Shop.Application.Orders.IncreaseItemCount;
 using Shop.Application.Orders.RemoveItem;
 using Shop.Application.Orders.SendOrder;
 using Shop.Application.Orders.SetDiscount;
+using Shop.Presentation.Facade.Coupons;
 using Shop.Query.Orders.DTOs;
 using Shop.Query.Orders.DTOs.Filter;
 using Shop.Query.Orders.GetByFilter;
@@ -16,7 +17,7 @@ using Shop.Query.Orders.GetCurrent;
 
 namespace Shop.Presentation.Facade.Orders;
 
-public class OrderFacade(IMediator mediator) : IOrderFacade
+public class OrderFacade(IMediator mediator, ICouponFacade couponFacade) : IOrderFacade
 {
     public async Task<OperationResult> AddItem(AddOrderItemCommand command)
     {

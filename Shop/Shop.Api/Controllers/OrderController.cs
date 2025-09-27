@@ -53,14 +53,11 @@ public class OrderController(IOrderFacade orderFacade, ICouponFacade couponFacad
     }
 
     [HttpPost("current/discount")]
-    public async Task<ApiResult> Discount(string coupon)
+    public async Task<ApiResult> Discount(string couponCode)
     {
-        var discount = await couponFacade.GetByCode(coupon);
-        if (discount == null) return ApiResult.NotFound();
         var order = await orderFacade.GetCurrentUserOrder(User.GetUserId());
         if (order == null) return ApiResult.NotFound();
-        var result = await orderFacade.SetDiscount(new SetOrderDiscountCommand(order.Id, discount.DiscountType, discount.DiscountAmount));
-        await couponFacade.Use(coupon);
+        var result = await orderFacade.SetDiscount(new SetOrderDiscountCommand(order.Id, couponCode));
         return CommandResult(result);
     }
 

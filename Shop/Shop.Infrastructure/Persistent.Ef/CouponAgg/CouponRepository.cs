@@ -1,4 +1,5 @@
-﻿using Shop.Domain.CouponAgg;
+﻿using Microsoft.EntityFrameworkCore;
+using Shop.Domain.CouponAgg;
 using Shop.Domain.CouponAgg.Repository;
 using Shop.Infrastructure._Utilities;
 
@@ -9,5 +10,10 @@ public class CouponRepository(ShopContext context) : BaseRepository<Coupon>(cont
     public void Delete(Coupon coupon)
     {
         Context.Remove(coupon);
+    }
+
+    public async Task<Coupon?> GetByCodeTrackingAsync(string code)
+    {
+        return await Context.Coupons.AsTracking().FirstOrDefaultAsync(c => c.Code == code);
     }
 }

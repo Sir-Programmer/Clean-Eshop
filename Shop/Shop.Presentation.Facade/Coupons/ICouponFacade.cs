@@ -10,7 +10,6 @@ public interface ICouponFacade
     Task<OperationResult<Guid>> Create(CreateCouponCommand command);
     Task<OperationResult> Edit(EditCouponCommand command);
     Task<OperationResult> Delete(Guid id);
-    Task<OperationResult> Use(string code);
 
     Task<CouponDto?> GetById(Guid id);
     Task<CouponDto?> GetByCode(string code);
