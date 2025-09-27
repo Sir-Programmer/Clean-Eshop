@@ -8,6 +8,7 @@ namespace Shop.Domain.OrderAgg;
 
 public class Order : AggregateRoot
 {
+    private const int MinimumDiscountAmount = 300000;
     private Order()
     {
         
@@ -57,16 +58,25 @@ public class Order : AggregateRoot
             return totalPrice;
         }
     }
+    public int SubTotal => Items.Sum(i => i.TotalPrice);
 
     public void AddItem(Guid inventoryId, int count, int price)
     {
         ChangeOrderGuard();
         
-        var orderItem = Items.FirstOrDefault(x => x.Id == Id);
+        var orderItem = Items.FirstOrDefault(x => x.InventoryId == inventoryId);
         if (orderItem != null) 
-            orderItem.IncrementCount(1);
+            orderItem.IncrementCount(count);
         else 
             Items.Add(new OrderItem(inventoryId, count, price));
+    }
+
+    public void SetDiscount(DiscountType discountType, int discountAmount)
+    {
+        if (Discount != null) throw new InvalidDomainDataException("د حال حاضر تخفیف اعمال شده است");
+        if (SubTotal < MinimumDiscountAmount) throw new InvalidDomainDataException("امکال اعمال تخفیف فقط رو سبد های خرید بالای 300 هزار تومان مقدور میباشد");
+        if (discountType == DiscountType.Fixed && SubTotal <= discountAmount) throw new InvalidDomainDataException("خطا در اعمال تخفیف");
+        Discount = new OrderDiscount(discountType, discountAmount);
     }
 
     public void RemoveItem(Guid itemId)
