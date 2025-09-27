@@ -74,7 +74,7 @@ public class Order : AggregateRoot
     public void SetDiscount(DiscountType discountType, int discountAmount)
     {
         if (Discount != null) throw new InvalidDomainDataException("د حال حاضر تخفیف اعمال شده است");
-        if (SubTotal < MinimumDiscountAmount) throw new InvalidDomainDataException("امکال اعمال تخفیف فقط رو سبد های خرید بالای 300 هزار تومان مقدور میباشد");
+        if (SubTotal < MinimumDiscountAmount) throw new InvalidDomainDataException($"امکال اعمال تخفیف فقط رو سبد های خرید بالای {MinimumDiscountAmount} تومان مقدور میباشد");
         if (discountType == DiscountType.Fixed && SubTotal <= discountAmount) throw new InvalidDomainDataException("خطا در اعمال تخفیف");
         Discount = new OrderDiscount(discountType, discountAmount);
     }
