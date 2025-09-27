@@ -7,13 +7,15 @@ using Shop.Application.Orders.DecreaseItemCount;
 using Shop.Application.Orders.IncreaseItemCount;
 using Shop.Application.Orders.RemoveItem;
 using Shop.Application.Orders.SendOrder;
+using Shop.Application.Orders.SetDiscount;
+using Shop.Presentation.Facade.Coupons;
 using Shop.Presentation.Facade.Orders;
 using Shop.Query.Orders.DTOs;
 using Shop.Query.Orders.DTOs.Filter;
 
 namespace Shop.Api.Controllers;
 
-public class OrderController(IOrderFacade orderFacade) : ApiController
+public class OrderController(IOrderFacade orderFacade, ICouponFacade couponFacade) : ApiController
 {
     [HttpGet]
     public async Task<ApiResult<OrderFilterResult?>> GetByFilter([FromQuery] OrderFilterParams filters)
@@ -47,6 +49,18 @@ public class OrderController(IOrderFacade orderFacade) : ApiController
     public async Task<ApiResult> Checkout(CheckoutOrderViewModel vm)
     {
         var result = await orderFacade.Checkout(new CheckoutOrderCommand(User.GetUserId(), vm.Province, vm.City, vm.PostalCode, vm.FullName, vm.PostalAddress, vm.PhoneNumber, vm.NationalId, vm.ShippingMethodId));
+        return CommandResult(result);
+    }
+
+    [HttpPost("current/discount")]
+    public async Task<ApiResult> Discount(string coupon)
+    {
+        var discount = await couponFacade.GetByCode(coupon);
+        if (discount == null) return ApiResult.NotFound();
+        var order = await orderFacade.GetCurrentUserOrder(User.GetUserId());
+        if (order == null) return ApiResult.NotFound();
+        var result = await orderFacade.SetDiscount(new SetOrderDiscountCommand(order.Id, discount.DiscountType, discount.DiscountAmount));
+        await couponFacade.Use(coupon);
         return CommandResult(result);
     }
 
