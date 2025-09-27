@@ -6,6 +6,8 @@ using Shop.Application.Orders.Finally;
 using Shop.Application.Orders.IncreaseItemCount;
 using Shop.Application.Orders.RemoveItem;
 using Shop.Application.Orders.SendOrder;
+using Shop.Application.Orders.SetDiscount;
+using Shop.Domain._SharedKernel.Enums;
 using Shop.Query.Orders.DTOs;
 using Shop.Query.Orders.DTOs.Filter;
 
@@ -19,6 +21,7 @@ public interface IOrderFacade
     Task<OperationResult> DecreaseItemCount(DecreaseOrderItemCountCommand command);
     Task<OperationResult> IncreaseItemCount(IncreaseOrderItemCountCommand command);
     Task<OperationResult> Finally(FinallyOrderCommand command);
+    Task<OperationResult> SetDiscount(SetOrderDiscountCommand command);
     Task<OperationResult> Send(SendOrderCommand command);
 
     

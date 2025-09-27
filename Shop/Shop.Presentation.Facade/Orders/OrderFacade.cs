@@ -7,6 +7,7 @@ using Shop.Application.Orders.Finally;
 using Shop.Application.Orders.IncreaseItemCount;
 using Shop.Application.Orders.RemoveItem;
 using Shop.Application.Orders.SendOrder;
+using Shop.Application.Orders.SetDiscount;
 using Shop.Query.Orders.DTOs;
 using Shop.Query.Orders.DTOs.Filter;
 using Shop.Query.Orders.GetByFilter;
@@ -43,6 +44,11 @@ public class OrderFacade(IMediator mediator) : IOrderFacade
     }
 
     public async Task<OperationResult> Finally(FinallyOrderCommand command)
+    {
+        return await mediator.Send(command);
+    }
+
+    public async Task<OperationResult> SetDiscount(SetOrderDiscountCommand command)
     {
         return await mediator.Send(command);
     }
