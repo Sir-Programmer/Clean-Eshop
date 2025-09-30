@@ -17,7 +17,7 @@ using Shop.Query.Orders.GetCurrent;
 
 namespace Shop.Presentation.Facade.Orders;
 
-public class OrderFacade(IMediator mediator, ICouponFacade couponFacade) : IOrderFacade
+public class OrderFacade(IMediator mediator) : IOrderFacade
 {
     public async Task<OperationResult> AddItem(AddOrderItemCommand command)
     {
