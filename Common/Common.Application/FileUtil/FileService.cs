@@ -1,7 +1,6 @@
-﻿using Common.Application.FileUtil.Interfaces;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 
-namespace Common.Application.FileUtil.Implementation
+namespace Common.Application.FileUtil
 {
     public class FileService : IFileService
     {

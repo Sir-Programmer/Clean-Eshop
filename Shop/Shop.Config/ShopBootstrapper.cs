@@ -1,6 +1,5 @@
 ﻿using Common.Application;
-using Common.Application.FileUtil.Implementation;
-using Common.Application.FileUtil.Interfaces;
+using Common.Application.FileUtil;
 using Common.Application.UnitOfWork;
 using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
